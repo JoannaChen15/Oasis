@@ -1,0 +1,6 @@
+framework module Pods_Oasis_OasisUITests {
+  umbrella header "Pods-Oasis-OasisUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
