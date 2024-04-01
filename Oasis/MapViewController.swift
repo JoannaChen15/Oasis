@@ -11,7 +11,14 @@ import MapKit
 
 class MapViewController: UIViewController {
     
-    private var mapView = MKMapView()
+    private let mapView = MKMapView()
+    
+    private let locationContainerView = UIView()
+    private var containerOriginalCenter = CGPoint.zero
+    private var containerBottomOffset = CGFloat()
+    private var containerTop = CGPoint.zero
+    private var containerBottom = CGPoint.zero
+
     private let taipeiRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654), latitudinalMeters: 50000, longitudinalMeters: 50000)
     
 //    private var locations = [Location]()
@@ -23,7 +30,15 @@ class MapViewController: UIViewController {
         getNaturalLandmark(in: taipeiRegion) { locations in
             self.createAnnotation(locations: locations)
         }
+        configureLocationContainerView()
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        containerBottomOffset = 140
+        containerTop = locationContainerView.center
+        containerBottom = CGPoint(x: locationContainerView.center.x ,y: locationContainerView.center.y + containerBottomOffset)
     }
     
     func setupMapView() {
@@ -71,6 +86,59 @@ class MapViewController: UIViewController {
             annotations.append(annotation)
         }
     }
+    
+    func configureLocationContainerView() {
+        view.addSubview(locationContainerView)
+        locationContainerView.layer.cornerRadius = 20
+        locationContainerView.backgroundColor = .systemBackground
+        locationContainerView.snp.makeConstraints { make in
+            make.height.equalTo(220)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+        
+        let handleView = UIView()
+        let handleTriggerView = UIView()
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        
+        locationContainerView.addSubview(handleTriggerView)
+        handleTriggerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(60)
+        }
+        handleTriggerView.addGestureRecognizer(panGesture)
+        
+        handleTriggerView.addSubview(handleView)
+        handleView.snp.makeConstraints { make in
+            make.top.centerX.equalToSuperview()
+            make.height.equalTo(5)
+            make.width.equalTo(48)
+        }
+        handleView.backgroundColor = .systemGray5
+        handleView.layer.cornerRadius = 2.5
+    }
+
+    @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        
+        switch sender.state {
+        case .began:
+            containerOriginalCenter = locationContainerView.center
+        case .changed:
+            let cappedTranslationY = max(-3, min(100, translation.y))
+            locationContainerView.center.y = containerOriginalCenter.y + cappedTranslationY
+        case .ended:
+            let velocity = sender.velocity(in: view).y
+            let targetCenter = velocity > 0 ? containerBottom : containerTop
+            UIView.animate(withDuration: 0.25) {
+                self.locationContainerView.center = targetCenter
+            }
+        default:
+            break
+        }
+    }
+    
 
 }
 
