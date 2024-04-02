@@ -29,6 +29,8 @@ class MapViewController: UIViewController {
     
     private var annotations = [MKPointAnnotation]()
     
+    private var networkManager = NetworkManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
@@ -195,11 +197,22 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_: MKMapView, didSelect view: MKAnnotationView) {
         // 選取地標點切換顯示的LocationCell
-        guard let annotationTitle = view.annotation?.title else { return }
-        guard let index = locations.firstIndex(where: { $0.name == annotationTitle }) else { return }
+        guard let annotation = view.annotation else { return }
+        guard let index = locations.firstIndex(where: { $0.name == annotation.title }) else { return }
         let indexPath = IndexPath(item: index, section: 0)
         locationCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-      }
+        
+        // 抓取天氣資料
+        networkManager.getCurrentWeatherData(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude) { result in
+            switch result {
+            case .success(let weatherResponse):
+                print(weatherResponse)
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+    }
 }
 
 extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {

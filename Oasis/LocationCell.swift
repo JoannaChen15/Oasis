@@ -16,10 +16,10 @@ class LocationCell: UICollectionViewCell {
         
     private let temperatureImage = UIImage(systemName: "thermometer.medium")
     private let temperatureLabel = UILabel()
-    private let uvIndexImage = UIImage(systemName: "sun.max.trianglebadge.exclamationmark")
-    private let uvIndexLabel = UILabel()
-    private let probabilityOfPrecipitationImage = UIImage(systemName: "cloud.drizzle")
-    private let probabilityOfPrecipitationLabel = UILabel()
+    private let humidityImage = UIImage(systemName: "humidity.fill")
+    private let humidityLabel = UILabel()
+    private let cloudsImage = UIImage(systemName: "smoke")
+    private let cloudsLabel = UILabel()
     private let windSpeedImage = UIImage(systemName: "wind")
     private let windSpeedLabel = UILabel()
 
@@ -77,14 +77,14 @@ class LocationCell: UICollectionViewCell {
         
         // 創建 iconLabelStackView
         createIconLabelStackView(image: temperatureImage!, label: temperatureLabel)
-        createIconLabelStackView(image: uvIndexImage!, label: uvIndexLabel)
-        createIconLabelStackView(image: probabilityOfPrecipitationImage!, label: probabilityOfPrecipitationLabel)
+        createIconLabelStackView(image: humidityImage!, label: humidityLabel)
+        createIconLabelStackView(image: cloudsImage!, label: cloudsLabel)
         createIconLabelStackView(image: windSpeedImage!, label: windSpeedLabel)
         
         // test
         temperatureLabel.text = "23.5°C"
-        uvIndexLabel.text = "23.5C"
-        probabilityOfPrecipitationLabel.text = "25%"
+        humidityLabel.text = "25%"
+        cloudsLabel.text = "25%"
         windSpeedLabel.text = "1.10 m/s"
     }
     
