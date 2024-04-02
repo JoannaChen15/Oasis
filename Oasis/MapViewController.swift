@@ -61,6 +61,10 @@ class MapViewController: UIViewController {
         request.naturalLanguageQuery = type.rawValue // 搜尋的地標類型
         request.region = region // 搜尋的區域
         
+        // 設置感興趣的地點類別
+        let naturalPointOfInterests: [MKPointOfInterestCategory] = [.beach, .campground, .marina, .nationalPark, .park]
+        request.pointOfInterestFilter = MKPointOfInterestFilter(including: naturalPointOfInterests)
+        
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
             guard let response = response else {
