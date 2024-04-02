@@ -44,13 +44,24 @@ class MapViewController: UIViewController {
         containerBottom = CGPoint(x: locationContainerView.center.x ,y: locationContainerView.center.y + containerBottomOffset)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // 取得第一個地標點
+        guard let annotation = annotations.first else { return }
+        // 選取地標
+        mapView.selectAnnotation(annotation, animated: true)
+        // 以地標點為中心，重新設置地圖範圍
+        mapView.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 100000, longitudinalMeters: 100000), animated: true)
+    }
+    
     func setupMapView() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        mapView.setRegion(MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 100000, longitudinalMeters: 100000), animated: true)
+        
+        mapView.delegate = self
 //        mapView.showsUserLocation = true
     }
     
@@ -179,18 +190,44 @@ class MapViewController: UIViewController {
         }
     }
     
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_: MKMapView, didSelect view: MKAnnotationView) {
+        // 選取地標點切換顯示的LocationCell
+        guard let annotationTitle = view.annotation?.title else { return }
+        guard let index = locations.firstIndex(where: { $0.name == annotationTitle }) else { return }
+        let indexPath = IndexPath(item: index, section: 0)
+        locationCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+      }
+}
+
 extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return locations.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath) as! LocationCell
-        
         cell.setupWith(location: locations[indexPath.row])
-        
         return cell
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // 結束滾動後取得當前 cell 的 indexPath
+        guard let visibleIndexPath = locationCollectionView.indexPathsForVisibleItems.first else { return }
+        // 取得相對應的地標
+        let annotation = annotations[visibleIndexPath.item]
+        // 檢查地標是否存在地圖上
+        if mapView.view(for: annotation) != nil {
+            // 選取地標
+            mapView.selectAnnotation(annotation, animated: true)
+            // 以地標點為中心，重新設置地圖範圍
+            mapView.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 50000, longitudinalMeters: 50000), animated: true)
+        }
+    }
+    
 }
 
 extension MapViewController: UICollectionViewDelegateFlowLayout {
@@ -203,8 +240,8 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 
 
 private enum LandmarkType: String, CaseIterable {
-    case beach
     case campground
+    case beach
     case hiking
-    case mountains
+//    case mountains
 }
