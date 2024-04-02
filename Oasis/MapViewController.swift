@@ -18,20 +18,23 @@ class MapViewController: UIViewController {
     private var containerBottomOffset = CGFloat()
     private var containerTop = CGPoint.zero
     private var containerBottom = CGPoint.zero
-
-    private let taipeiRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654), latitudinalMeters: 50000, longitudinalMeters: 50000)
     
-//    private var locations = [Location]()
+    private let locationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    
+    private let taipeiCenter = CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654)
+    
+    private var locations = [Location]() {
+        didSet { locationCollectionView.reloadData() }
+    }
+    
     private var annotations = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        getNaturalLandmark(in: taipeiRegion) { locations in
-            self.createAnnotation(locations: locations)
-        }
+        fetchLandmarksForTypes()
         configureLocationContainerView()
-        
+        configureLocationCollectionView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,33 +50,32 @@ class MapViewController: UIViewController {
             make.top.equalToSuperview()
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        mapView.setRegion(taipeiRegion, animated: true)
+        mapView.setRegion(MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 100000, longitudinalMeters: 100000), animated: true)
 //        mapView.showsUserLocation = true
     }
     
-    func getNaturalLandmark(in region: MKCoordinateRegion, completion: @escaping (_ locations: [Location]) -> Void) {
+    private func fetchLandmarks(for type: LandmarkType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [Location]) -> Void) {
+        
         var locations = [Location]()
-        for landmarkType in LandmarkType.allCases {
-            let request = MKLocalSearch.Request()
-            request.naturalLanguageQuery = landmarkType.rawValue // 搜尋的地標類型
-            request.region = region // 搜尋的區域
-            
-            let search = MKLocalSearch(request: request)
-            search.start { (response, error) in
-                guard let response = response else {
-                    if let error = error {
-                        print("搜尋失敗: \(error)")
-                    }
-                    return
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = type.rawValue // 搜尋的地標類型
+        request.region = region // 搜尋的區域
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            guard let response = response else {
+                if let error = error {
+                    print("搜尋失敗: \(error)")
                 }
-                
-                // 處理搜尋結果
-                for item in response.mapItems {
-                    let location = Location(name: item.name ?? "未知", latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
-                    locations.append(location)
-                }
-                completion(locations)
+                return
             }
+            
+            // 處理搜尋結果
+            for item in response.mapItems {
+                let location = Location(name: item.name ?? "未知", latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
+                locations.append(location)
+            }
+            completion(locations)
         }
     }
     
@@ -84,6 +86,17 @@ class MapViewController: UIViewController {
             annotation.title = location.name
             mapView.addAnnotation(annotation)
             annotations.append(annotation)
+        }
+    }
+    
+    func fetchLandmarksForTypes() {
+        locations = []
+        let taipeiRegion = MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        for type in LandmarkType.allCases {
+            fetchLandmarks(for: type, in: taipeiRegion) { locations in
+                self.createAnnotation(locations: locations)
+                self.locations += locations
+            }
         }
     }
     
@@ -118,6 +131,29 @@ class MapViewController: UIViewController {
         handleView.backgroundColor = .systemGray5
         handleView.layer.cornerRadius = 2.5
     }
+    
+    func configureLocationCollectionView() {
+        locationCollectionView.delegate = self
+        locationCollectionView.dataSource = self
+        locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "LocationCell")
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        locationCollectionView.collectionViewLayout = layout
+        
+        
+        locationContainerView.addSubview(locationCollectionView)
+        locationCollectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(44)
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        locationCollectionView.backgroundColor = .clear
+        locationCollectionView.isPagingEnabled = true
+        locationCollectionView.showsHorizontalScrollIndicator = false
+    }
 
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
@@ -139,12 +175,32 @@ class MapViewController: UIViewController {
         }
     }
     
-
+extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return locations.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath) as! LocationCell
+        
+        cell.setupWith(location: locations[indexPath.row])
+        
+        return cell
+    }
 }
 
+extension MapViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = locationCollectionView.frame.width
+        let height = locationCollectionView.frame.height
+        return CGSize(width: width, height: height)
+    }
+}
+
+
 private enum LandmarkType: String, CaseIterable {
-    case mountains
-    case hiking
-    case campground
     case beach
+    case campground
+    case hiking
+    case mountains
 }
