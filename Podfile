@@ -6,6 +6,7 @@ target 'Oasis' do
   use_frameworks!
 
   pod 'SnapKit'
+  pod 'Alamofire', '~> 5.8.1'
 
   # Pods for Oasis
 
