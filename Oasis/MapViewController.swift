@@ -201,17 +201,6 @@ extension MapViewController: MKMapViewDelegate {
         guard let index = locations.firstIndex(where: { $0.name == annotation.title }) else { return }
         let indexPath = IndexPath(item: index, section: 0)
         locationCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        
-        // 抓取天氣資料
-        networkManager.getCurrentWeatherData(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude) { result in
-            switch result {
-            case .success(let weatherResponse):
-                print(weatherResponse)
-            case .failure(let error):
-                print(error)
-            }
-        }
-
     }
 }
 
@@ -223,7 +212,19 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath) as! LocationCell
-        cell.setupWith(location: locations[indexPath.row])
+        let location = locations[indexPath.row]
+        cell.setupWith(location: location)
+        // 抓取天氣資料
+        networkManager.getCurrentWeatherData(lat: location.latitude, lon: location.longitude) { result in
+            switch result {
+            case .success(let weatherData):
+                // 設置天氣資料
+                cell.setupWith(weatherData: weatherData)
+                print(location.name)
+            case .failure(let error):
+                print(error)
+            }
+        }
         return cell
     }
     

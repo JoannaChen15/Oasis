@@ -80,12 +80,6 @@ class LocationCell: UICollectionViewCell {
         createIconLabelStackView(image: humidityImage!, label: humidityLabel)
         createIconLabelStackView(image: cloudsImage!, label: cloudsLabel)
         createIconLabelStackView(image: windSpeedImage!, label: windSpeedLabel)
-        
-        // test
-        temperatureLabel.text = "23.5°C"
-        humidityLabel.text = "25%"
-        cloudsLabel.text = "25%"
-        windSpeedLabel.text = "1.10 m/s"
     }
     
     func createIconLabelStackView(image: UIImage, label: UILabel) {
@@ -115,5 +109,21 @@ class LocationCell: UICollectionViewCell {
     func setupWith(location: Location) {
         locationNameLabel.text = location.name
     }
+    
+    func setupWith(weatherData: WeatherResponse) {
+        temperatureLabel.text = "\((weatherData.main.temp - 273.15).rounded(toDecimals: 1))°C"
+        humidityLabel.text = "\(weatherData.main.humidity) %"
+        cloudsLabel.text = "\(weatherData.clouds.all) %"
+        windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
+    }
 
+}
+
+// 計算溫度用
+extension Double {
+    // 四捨五入到個位數
+    func rounded(toDecimals decimals: Int) -> Double {
+        let multiplier = pow(10, Double(decimals))
+        return (self * multiplier).rounded() / multiplier
+    }
 }
