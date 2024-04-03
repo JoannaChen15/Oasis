@@ -46,25 +46,15 @@ class MapViewController: UIViewController {
         containerBottom = CGPoint(x: locationContainerView.center.x ,y: locationContainerView.center.y + containerBottomOffset)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // 取得第一個地標點
-        guard let annotation = annotations.first else { return }
-        // 選取地標
-        mapView.selectAnnotation(annotation, animated: true)
-        // 以地標點為中心，重新設置地圖範圍
-        mapView.setRegion(MKCoordinateRegion(center: annotation.coordinate, latitudinalMeters: 100000, longitudinalMeters: 100000), animated: true)
-    }
-    
     func setupMapView() {
         view.addSubview(mapView)
         mapView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
         mapView.delegate = self
 //        mapView.showsUserLocation = true
+        mapView.setRegion(MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 50000, longitudinalMeters: 50000), animated: true)
     }
     
     private func fetchLandmarks(for type: LandmarkType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [Location]) -> Void) {
