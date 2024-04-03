@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Location {
+struct Location: Equatable {
     let name: String
     let latitude: Double
     let longitude: Double
+    var favoriteStatus: FavoriteButtonStatus = .unselected
 }

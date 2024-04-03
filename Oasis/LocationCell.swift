@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol LocationCellDelegate: AnyObject {
+    func didTabFavoriteButton(location: Location)
+}
+
 class LocationCell: UICollectionViewCell {
     
     private let shadowView = UIView()
@@ -22,6 +26,9 @@ class LocationCell: UICollectionViewCell {
     private let cloudsLabel = UILabel()
     private let windSpeedImage = UIImage(systemName: "wind")
     private let windSpeedLabel = UILabel()
+    
+    private var location: Location?
+    weak var delegate: LocationCellDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,7 +70,7 @@ class LocationCell: UICollectionViewCell {
             make.right.equalToSuperview().inset(16)
             make.size.equalTo(24)
         }
-        favoriteButton.tintColor = .systemGray
+        favoriteButton.addTarget(self, action: #selector(tabFavoriteButton), for: .touchUpInside)
         
         // 天氣狀況 mainStackView
         shadowView.addSubview(mainStackView)
@@ -108,6 +115,8 @@ class LocationCell: UICollectionViewCell {
     
     func setupWith(location: Location) {
         locationNameLabel.text = location.name
+        favoriteButton.status = location.favoriteStatus
+        self.location = location
     }
     
     func setupWith(weatherData: WeatherResponse) {
@@ -117,6 +126,13 @@ class LocationCell: UICollectionViewCell {
         windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
     }
 
+    @objc func tabFavoriteButton() {
+        // 儲存此筆cell的location
+        guard let location = self.location else { return }
+        // 呼叫delegate執行按下按鈕要做的事
+        delegate?.didTabFavoriteButton(location: location)
+    }
+    
 }
 
 // 計算溫度用

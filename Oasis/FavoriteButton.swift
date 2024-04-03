@@ -7,15 +7,10 @@
 
 import UIKit
 
-//protocol FavoriteButtonDelegate {
-//    func FavoriteButtonTapped(_ sender: FavoriteButton)
-//}
-
 class FavoriteButton: UIButton {
     
     let favoriteImageView = UIImageView()
     
-//    var delegate: FavoriteButtonDelegate?
     var status: FavoriteButtonStatus = .unselected {
         didSet {
             updateUI()
@@ -29,8 +24,7 @@ class FavoriteButton: UIButton {
         favoriteImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        favoriteImageView.image = status.image
-        addTarget(self, action: #selector(didSelected), for: .touchUpInside)
+        updateUI()
     }
 
     required init?(coder: NSCoder) {
@@ -38,20 +32,10 @@ class FavoriteButton: UIButton {
     }
 
     func updateUI() {
-        self.favoriteImageView.image = status.image
+        favoriteImageView.image = status.image
+        tintColor = status.color
     }
-    
-    @objc func didSelected(sender: UIButton) {
-        switch self.status {
-        case .unselected:
-            self.status = .selected
-            self.tintColor = .red
-        case .selected:
-            self.status = .unselected
-            self.tintColor = .systemGray
-        }
-//        self.delegate?.FavoriteButtonTapped(sender as! FavoriteButton)
-    }
+
 }
 
 enum FavoriteButtonStatus {
@@ -64,6 +48,15 @@ enum FavoriteButtonStatus {
             return UIImage(systemName: "heart")!
         case .selected:
             return UIImage(systemName: "heart.fill")!
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .unselected:
+            return .systemGray
+        case .selected:
+            return .red
         }
     }
 }

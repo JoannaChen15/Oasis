@@ -204,6 +204,7 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
         let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath) as! LocationCell
         let location = locations[indexPath.row]
         cell.setupWith(location: location)
+        cell.delegate = self
         // 抓取天氣資料
         networkManager.getCurrentWeatherData(lat: location.latitude, lon: location.longitude) { result in
             switch result {
@@ -242,6 +243,23 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension MapViewController: LocationCellDelegate {
+    
+    func didTabFavoriteButton(location: Location) {
+        // 按下按鈕後找到按的是第幾筆Location
+        guard let index = locations.firstIndex(of: location) else { return }
+        // 改變Location的最愛狀態
+        switch locations[index].favoriteStatus {
+        case .unselected:
+            locations[index].favoriteStatus = .selected
+        case .selected:
+            locations[index].favoriteStatus = .unselected
+        }
+        // 通知tableView重畫
+        locationCollectionView.reloadData()
+    }
+   
+}
 
 private enum LandmarkType: String, CaseIterable {
     case campground
