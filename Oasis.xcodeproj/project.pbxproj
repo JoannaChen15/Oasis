@@ -15,7 +15,7 @@
 		9E2D966A2BBA71D6005EEC7D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D96692BBA71D6005EEC7D /* TabBarController.swift */; };
 		9E378B682BBAD19F00FCD2AF /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E378B672BBAD19F00FCD2AF /* LocationCell.swift */; };
 		9E378B6A2BBB1FA700FCD2AF /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */; };
-		9E38C30C2BBA9FAD00B1D875 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E38C30B2BBA9FAD00B1D875 /* Location.swift */; };
+		9E38C30C2BBA9FAD00B1D875 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */; };
 		9EF3416C2BB987550073FF0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416B2BB987550073FF0E /* AppDelegate.swift */; };
 		9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416D2BB987550073FF0E /* SceneDelegate.swift */; };
 		9EF341702BB987550073FF0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416F2BB987550073FF0E /* ViewController.swift */; };
@@ -61,7 +61,7 @@
 		9E2D96692BBA71D6005EEC7D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		9E378B672BBAD19F00FCD2AF /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
-		9E38C30B2BBA9FAD00B1D875 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
 		9EF341682BB987550073FF0E /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF3416B2BB987550073FF0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EF3416D2BB987550073FF0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,14 +148,10 @@
 			children = (
 				9EF3416B2BB987550073FF0E /* AppDelegate.swift */,
 				9EF3416D2BB987550073FF0E /* SceneDelegate.swift */,
-				9E2D96692BBA71D6005EEC7D /* TabBarController.swift */,
 				9EF3416F2BB987550073FF0E /* ViewController.swift */,
-				9E2D96652BBA6D53005EEC7D /* MapViewController.swift */,
-				9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */,
-				9E378B672BBAD19F00FCD2AF /* LocationCell.swift */,
+				9E2D96692BBA71D6005EEC7D /* TabBarController.swift */,
 				9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */,
-				9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */,
-				9E38C30B2BBA9FAD00B1D875 /* Location.swift */,
+				9EFF49292BBD43010071FFCF /* MapView */,
 				9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */,
 				9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */,
 				9EF341712BB987550073FF0E /* Main.storyboard */,
@@ -182,6 +178,18 @@
 				9EF341912BB9875A0073FF0E /* OasisUITestsLaunchTests.swift */,
 			);
 			path = OasisUITests;
+			sourceTree = "<group>";
+		};
+		9EFF49292BBD43010071FFCF /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D96652BBA6D53005EEC7D /* MapViewController.swift */,
+				9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */,
+				9E378B672BBAD19F00FCD2AF /* LocationCell.swift */,
+				9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */,
+				9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		D15727FEBBAFA693938C9016 /* Pods */ = {
@@ -442,7 +450,7 @@
 				9E2D96662BBA6D53005EEC7D /* MapViewController.swift in Sources */,
 				9E2D96682BBA6EEC005EEC7D /* NewDiaryViewController.swift in Sources */,
 				9EFF49282BBC435D0071FFCF /* WeatherResponse.swift in Sources */,
-				9E38C30C2BBA9FAD00B1D875 /* Location.swift in Sources */,
+				9E38C30C2BBA9FAD00B1D875 /* LocationModel.swift in Sources */,
 				9EF341762BB987550073FF0E /* Oasis.xcdatamodeld in Sources */,
 				9E378B682BBAD19F00FCD2AF /* LocationCell.swift in Sources */,
 				9E2D96642BBA6B8C005EEC7D /* ProfileViewController.swift in Sources */,

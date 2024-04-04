@@ -23,14 +23,12 @@ class MapViewController: UIViewController {
     
     private let taipeiCenter = CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654)
     
-    private var locations = [Location]() {
+    private var locations = [LocationModel]() {
         didSet { locationCollectionView.reloadData() }
     }
     
     private var annotations = [MKPointAnnotation]()
-    
-    private var networkManager = NetworkManager()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
@@ -57,9 +55,9 @@ class MapViewController: UIViewController {
         mapView.setRegion(MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 50000, longitudinalMeters: 50000), animated: true)
     }
     
-    private func fetchLandmarks(for type: LandmarkType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [Location]) -> Void) {
+    private func fetchLandmarks(for type: LandmarkType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [LocationModel]) -> Void) {
         
-        var locations = [Location]()
+        var locations = [LocationModel]()
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = type.rawValue // 搜尋的地標類型
         request.region = region // 搜尋的區域
@@ -79,14 +77,14 @@ class MapViewController: UIViewController {
             
             // 處理搜尋結果
             for item in response.mapItems {
-                let location = Location(name: item.name ?? "未知", latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude)
+                let location = LocationModel(name: item.name ?? "未知", latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude, favoriteStatus: FavoriteButtonStatus.unselected)
                 locations.append(location)
             }
             completion(locations)
         }
     }
     
-    func createAnnotation(locations: [Location]) {
+    func createAnnotation(locations: [LocationModel]) {
         for location in locations {
             let annotation = MKPointAnnotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
@@ -203,19 +201,8 @@ extension MapViewController: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = locationCollectionView.dequeueReusableCell(withReuseIdentifier: "LocationCell", for: indexPath) as! LocationCell
         let location = locations[indexPath.row]
-        cell.setupWith(location: location)
+        cell.setupWith(locationModel: location)
         cell.delegate = self
-        // 抓取天氣資料
-        networkManager.getCurrentWeatherData(lat: location.latitude, lon: location.longitude) { result in
-            switch result {
-            case .success(let weatherData):
-                // 設置天氣資料
-                cell.setupWith(weatherData: weatherData)
-                print(location.name)
-            case .failure(let error):
-                print(error)
-            }
-        }
         return cell
     }
     
@@ -245,7 +232,7 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 
 extension MapViewController: LocationCellDelegate {
     
-    func didTabFavoriteButton(location: Location) {
+    func didTabFavoriteButton(location: LocationModel) {
         // 按下按鈕後找到按的是第幾筆Location
         guard let index = locations.firstIndex(of: location) else { return }
         // 改變Location的最愛狀態
@@ -255,8 +242,8 @@ extension MapViewController: LocationCellDelegate {
         case .selected:
             locations[index].favoriteStatus = .unselected
         }
-        // 通知tableView重畫
-        locationCollectionView.reloadData()
+        // 通知collectionView重畫
+        locationCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
    
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LocationCellDelegate: AnyObject {
-    func didTabFavoriteButton(location: Location)
+    func didTabFavoriteButton(location: LocationModel)
 }
 
 class LocationCell: UICollectionViewCell {
@@ -27,7 +27,7 @@ class LocationCell: UICollectionViewCell {
     private let windSpeedImage = UIImage(systemName: "wind")
     private let windSpeedLabel = UILabel()
     
-    private var location: Location?
+    private var location: LocationModel?
     weak var delegate: LocationCellDelegate?
 
     override init(frame: CGRect) {
@@ -38,6 +38,15 @@ class LocationCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        // 在這裡重置 cell 的狀態或清除之前設置的任何資料，以便重用
+        temperatureLabel.text = nil
+        humidityLabel.text = nil
+        cloudsLabel.text = nil
+        windSpeedLabel.text = nil
     }
     
     func configureUI() {
@@ -113,17 +122,18 @@ class LocationCell: UICollectionViewCell {
         mainStackView.addArrangedSubview(iconLabelStackView)
     }
     
-    func setupWith(location: Location) {
-        locationNameLabel.text = location.name
-        favoriteButton.status = location.favoriteStatus
-        self.location = location
-    }
-    
-    func setupWith(weatherData: WeatherResponse) {
-        temperatureLabel.text = "\((weatherData.main.temp - 273.15).rounded(toDecimals: 1))°C"
-        humidityLabel.text = "\(weatherData.main.humidity) %"
-        cloudsLabel.text = "\(weatherData.clouds.all) %"
-        windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
+    func setupWith(locationModel: LocationModel) {
+        locationNameLabel.text = locationModel.name
+        favoriteButton.status = locationModel.favoriteStatus
+        self.location = locationModel
+        
+        locationModel.fetchWeatherData { [weak self] weatherData in
+            guard let self else { return }
+            self.temperatureLabel.text = "\((weatherData.main.temp - 273.15).rounded(toDecimals: 1))°C"
+            self.humidityLabel.text = "\(weatherData.main.humidity) %"
+            self.cloudsLabel.text = "\(weatherData.clouds.all) %"
+            self.windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
+        }
     }
 
     @objc func tabFavoriteButton() {
