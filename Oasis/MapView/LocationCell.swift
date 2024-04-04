@@ -43,10 +43,10 @@ class LocationCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         // 在這裡重置 cell 的狀態或清除之前設置的任何資料，以便重用
-        temperatureLabel.text = nil
-        humidityLabel.text = nil
-        cloudsLabel.text = nil
-        windSpeedLabel.text = nil
+        temperatureLabel.text = ""
+        humidityLabel.text = ""
+        cloudsLabel.text = ""
+        windSpeedLabel.text = ""
     }
     
     func configureUI() {
@@ -123,17 +123,15 @@ class LocationCell: UICollectionViewCell {
     }
     
     func setupWith(locationModel: LocationModel) {
+        location = locationModel
         locationNameLabel.text = locationModel.name
         favoriteButton.status = locationModel.favoriteStatus
-        self.location = locationModel
         
-        locationModel.fetchWeatherData { [weak self] weatherData in
-            guard let self else { return }
-            self.temperatureLabel.text = "\((weatherData.main.temp - 273.15).rounded(toDecimals: 1))°C"
-            self.humidityLabel.text = "\(weatherData.main.humidity) %"
-            self.cloudsLabel.text = "\(weatherData.clouds.all) %"
-            self.windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
-        }
+        guard let weatherData = locationModel.weatherData else { return }
+        temperatureLabel.text = "\(((weatherData.main.temp) - 273.15).rounded(toDecimals: 1))°C"
+        humidityLabel.text = "\(weatherData.main.humidity) %"
+        cloudsLabel.text = "\(weatherData.clouds.all) %"
+        windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
     }
 
     @objc func tabFavoriteButton() {

@@ -13,7 +13,7 @@ class LocationModel: Hashable {
     let latitude: Double
     let longitude: Double
     var favoriteStatus: FavoriteButtonStatus
-    private var weatherData: WeatherResponse?
+    var weatherData: WeatherResponse?
     
     private let networkManager = NetworkManager()
     
