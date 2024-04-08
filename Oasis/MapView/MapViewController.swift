@@ -57,7 +57,7 @@ class MapViewController: UIViewController {
 //        mapView.showsUserLocation = true
     }
     
-    private func fetchLandmarks(for type: LandmarkType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [LocationModel]) -> Void) {
+    private func fetchLandmarks(for type: LocationType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [LocationModel]) -> Void) {
         
         var locations = [LocationModel]()
         let request = MKLocalSearch.Request()
@@ -99,7 +99,7 @@ class MapViewController: UIViewController {
     func fetchLandmarksForTypes() {
         locations = []
         let taipeiRegion = MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        for type in LandmarkType.allCases {
+        for type in LocationType.allCases {
             fetchLandmarks(for: type, in: taipeiRegion) { locations in
                 self.createAnnotation(locations: locations)
                 self.locations += locations
@@ -264,11 +264,4 @@ extension MapViewController: LocationCellDelegate {
         locationCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
    
-}
-
-private enum LandmarkType: String, CaseIterable {
-    case campground
-    case beach
-    case hiking
-//    case mountains
 }

@@ -24,9 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let newDiaryViewController = NewDiaryViewController()
         let profileViewController = ProfileViewController()
         
+        // 定義Navigation
+        let profileViewNavigation = UINavigationController(rootViewController: profileViewController)
+        
         // 定義Tab有哪些畫面
-        tabBarController.viewControllers = [mapViewController, newDiaryViewController,
-            profileViewController]
+        tabBarController.viewControllers = [
+            mapViewController,
+            newDiaryViewController,
+            profileViewNavigation]
         
         // 定義TabBarItem
         mapViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "magnifyingglass"), tag: 0)
