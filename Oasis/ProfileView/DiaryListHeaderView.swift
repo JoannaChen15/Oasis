@@ -13,19 +13,25 @@ protocol ChangeListContentDelegate: AnyObject {
 }
 
 class DiaryListHeaderView: UICollectionReusableView {
+    enum ButtonType {
+        case diary
+        case favorite
+    }
     
     static let headerIdentifier = "DiaryListHeaderView"
     weak var delegate: ChangeListContentDelegate?
+    var viewModel: DiaryListHeaderViewModel!
     
     //MARK: Properities
     private let stackView = UIStackView()
-    private let diaryButton = DiaryListHeaderButton()
-    private let favoriteButton = DiaryListHeaderButton()
+    private let diaryButton = UIButton()
+    private let favoriteButton = UIButton()
     private let underline = UIView()
     private let underlineBackground = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         configureListStackView()
     }
     
@@ -33,7 +39,7 @@ class DiaryListHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureListStackView() {
+    private func configureListStackView() {
         addSubview(stackView)
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -75,11 +81,11 @@ class DiaryListHeaderView: UICollectionReusableView {
         for (index, button) in buttons.enumerated() {
             let button = button as! UIButton
             button.tag = index
-            button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+            button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         }
     }
     
-    func setButtonUnderlineConstraint(button: UIButton) {
+    private func setButtonUnderlineConstraint(button: UIButton) {
         underline.snp.remakeConstraints { make in
             make.bottom.equalTo(stackView.snp.bottom)
             make.width.equalTo(diaryButton.snp.width)
@@ -91,13 +97,39 @@ class DiaryListHeaderView: UICollectionReusableView {
         }.startAnimation()
     }
     
-    @objc func buttonTapped(_ sender: UIButton){
-        setButtonUnderlineConstraint(button: sender)
-        // 設置按鈕 isSelected 屬性
-        for case let button as UIButton in stackView.arrangedSubviews {
-            button.isSelected = (button == sender)
-        }
+    @objc private func buttonTapped(_ sender: UIButton){
         delegate?.changeListContent()
+        viewModel.buttonTapped(type: sender == diaryButton ? .diary : .favorite)
     }
     
+}
+
+extension DiaryListHeaderView: DiaryListHeaderModelDelegate {
+    func buttonDidTapped(type: DiaryListHeaderView.ButtonType) {
+        switch type {
+        case .diary:
+            diaryButton.isSelected = true
+            favoriteButton.isSelected = false
+            setButtonUnderlineConstraint(button: diaryButton)
+        case .favorite:
+            diaryButton.isSelected = false
+            favoriteButton.isSelected = true
+            setButtonUnderlineConstraint(button: favoriteButton)
+        }
+    }
+}
+    
+protocol DiaryListHeaderModelDelegate: AnyObject {
+    func buttonDidTapped(type: DiaryListHeaderView.ButtonType)
+}
+    
+class DiaryListHeaderViewModel {
+    
+    weak var collectionViewSectionDelegate: DiaryListHeaderModelDelegate?
+    weak var stickyHeaderViewDelegate: DiaryListHeaderModelDelegate?
+    
+    func buttonTapped(type: DiaryListHeaderView.ButtonType) {
+        collectionViewSectionDelegate?.buttonDidTapped(type: type)
+        stickyHeaderViewDelegate?.buttonDidTapped(type: type)
+    }
 }

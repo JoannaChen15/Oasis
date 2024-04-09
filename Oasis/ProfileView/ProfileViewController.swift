@@ -11,7 +11,9 @@ import SnapKit
 class ProfileViewController: UIViewController {
     
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     lazy var diaryListHeaderView = DiaryListHeaderView()
+    var headerViewModel = DiaryListHeaderViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,8 @@ class ProfileViewController: UIViewController {
         }
         diaryListHeaderView.delegate = self
         diaryListHeaderView.isHidden = true
+        diaryListHeaderView.viewModel = headerViewModel
+        headerViewModel.stickyHeaderViewDelegate = diaryListHeaderView
     }
     
     @objc func settings() {
@@ -114,6 +118,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         if kind == "Header" {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DiaryListHeaderView.headerIdentifier, for: indexPath) as! DiaryListHeaderView
             header.delegate = self
+            header.viewModel = headerViewModel
+            headerViewModel.collectionViewSectionDelegate = header
             return header
         } else {
             fatalError("Unexpected supplementary element kind")
