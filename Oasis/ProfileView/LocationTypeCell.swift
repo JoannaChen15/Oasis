@@ -51,7 +51,7 @@ class LocationTypeCell: UICollectionViewCell {
         }
         emojiView.layer.cornerRadius = 30
         emojiView.layer.borderWidth = 1
-        emojiView.layer.borderColor = UIColor.systemGray4.cgColor
+        emojiView.layer.borderColor = UIColor.systemGray5.cgColor
         
         contentView.addSubview(emojiLabel)
         emojiLabel.snp.makeConstraints { make in

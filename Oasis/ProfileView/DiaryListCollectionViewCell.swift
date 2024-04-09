@@ -43,7 +43,7 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.left.equalToSuperview()
+            make.left.equalToSuperview().inset(16)
             make.size.equalTo(80)
         }
         coverImageView.layer.cornerRadius = 20
@@ -82,10 +82,11 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(locationNameLabel.snp.bottom).offset(8)
+            make.top.equalTo(locationNameLabel.snp.bottom).offset(10)
             make.left.equalTo(timeLabel.snp.left)
             make.right.equalToSuperview().inset(16)
         }
+        contentLabel.textColor = .primary
         contentLabel.font = UIFont.systemFont(ofSize: 15)
         contentLabel.numberOfLines = 2
         
@@ -99,7 +100,7 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         let attributedString = NSMutableAttributedString(string: contentLabel.text ?? "")
         // 設置段落樣式，包括上下間距
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 8 // 上下間距
+        paragraphStyle.lineSpacing = 6 // 上下間距
         let range = NSRange(location: 0, length: attributedString.length)
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
         // 將屬性字串設置給UILabel

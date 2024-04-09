@@ -10,14 +10,15 @@ import SnapKit
 
 class ProfileViewController: UIViewController {
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    lazy var diaryListHeaderView = DiaryListHeaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavigation()
         configureCollectionView()
         configureCompositionalLayout()
-
+        configureDiaryListHeaderView()
     }
     
     func configureNavigation() {
@@ -33,11 +34,23 @@ class ProfileViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UserInfoCell.self, forCellWithReuseIdentifier: UserInfoCell.cellIdentifier)
+        collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
         collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
         collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    func configureDiaryListHeaderView() {
+        view.addSubview(diaryListHeaderView)
+        diaryListHeaderView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(40)
+        }
+        diaryListHeaderView.delegate = self
+        diaryListHeaderView.isHidden = true
     }
     
     @objc func settings() {
@@ -95,7 +108,31 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
             return cell
         }
-        
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == "Header" {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: DiaryListHeaderView.headerIdentifier, for: indexPath) as! DiaryListHeaderView
+            header.delegate = self
+            return header
+        } else {
+            fatalError("Unexpected supplementary element kind")
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offestY = scrollView.contentOffset.y
+        if abs(offestY) > 282 {
+            diaryListHeaderView.isHidden = false
+        } else {
+            diaryListHeaderView.isHidden = true
+        }
+    }
+    
+}
+
+extension ProfileViewController: ChangeListContentDelegate {
+    func changeListContent() {
+        
+    }
 }
