@@ -40,6 +40,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // is Initial Controller
         window?.rootViewController = tabBarController
+        
+        #if DEBUG
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            tabBarController.selectedIndex = 1
+        })
+        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -23,6 +23,7 @@
 		9E84DE252BC44D7B0096F98E /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */; };
 		9E84DE272BC50D760096F98E /* DiaryListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */; };
 		9EAEB53D2BC5388B00EA648C /* DiaryListHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEB53C2BC5388B00EA648C /* DiaryListHeaderButton.swift */; };
+		9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAEB5452BC68B0600EA648C /* SelectionButton.swift */; };
 		9EF3416C2BB987550073FF0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416B2BB987550073FF0E /* AppDelegate.swift */; };
 		9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416D2BB987550073FF0E /* SceneDelegate.swift */; };
 		9EF341702BB987550073FF0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416F2BB987550073FF0E /* ViewController.swift */; };
@@ -78,6 +79,7 @@
 		9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = SOURCE_ROOT; };
 		9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListHeaderView.swift; sourceTree = "<group>"; };
 		9EAEB53C2BC5388B00EA648C /* DiaryListHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListHeaderButton.swift; sourceTree = "<group>"; };
+		9EAEB5452BC68B0600EA648C /* SelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButton.swift; sourceTree = "<group>"; };
 		9EF341682BB987550073FF0E /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF3416B2BB987550073FF0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EF3416D2BB987550073FF0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9EAEB5442BC67B2200EA648C /* NewDiaryView */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */,
+				9EAEB5452BC68B0600EA648C /* SelectionButton.swift */,
+			);
+			path = NewDiaryView;
+			sourceTree = "<group>";
+		};
 		9EF3415F2BB987550073FF0E = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +183,7 @@
 				9E84DE202BC3EC4E0096F98E /* LocationType.swift */,
 				9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */,
 				9EFF49292BBD43010071FFCF /* MapView */,
-				9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */,
+				9EAEB5442BC67B2200EA648C /* NewDiaryView */,
 				9EFF492E2BBEF4300071FFCF /* ProfileView */,
 				9EF341712BB987550073FF0E /* Main.storyboard */,
 				9EF341772BB987590073FF0E /* Assets.xcassets */,
@@ -496,6 +507,7 @@
 				9E84DE232BC42F560096F98E /* LocationTypeCell.swift in Sources */,
 				9E378B6A2BBB1FA700FCD2AF /* FavoriteButton.swift in Sources */,
 				9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */,
+				9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */,
 				9EFF49302BBEF4960071FFCF /* DiaryListModel.swift in Sources */,
 				9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */,
 				9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */,
