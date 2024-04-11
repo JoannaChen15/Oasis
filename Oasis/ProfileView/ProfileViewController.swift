@@ -39,6 +39,9 @@ class ProfileViewController: UIViewController {
         collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
         collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
         collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
+        
+//        collectionView.register(ListViewCell.self, forCellWithReuseIdentifier: ListViewCell.cellIdentifier)
+        
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -72,8 +75,10 @@ extension ProfileViewController {
                 return AppLayouts.shared.userInfoSection()
             case 1 :
                 return AppLayouts.shared.locationTypeSection()
-            default:
+            default :
                 return AppLayouts.shared.diaryListSection()
+//            default:
+//                return AppLayouts.shared.listViewSection()
             }
         }
         //    layout.register(SectionDecorationView.self, forDecorationViewOfKind: "SectionBackground")
@@ -90,8 +95,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return 1
         case 1 :
             return 5
-        default:
-            return 5
+        default :
+            return 2
+//        default:
+//            return 2
         }
     }
     
@@ -108,9 +115,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 1 :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationTypeCell.cellIdentifier, for: indexPath) as? LocationTypeCell else {fatalError("Unable deque cell...")}
             return cell
-        default:
+        default :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
             return cell
+//        default:
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListViewCell.cellIdentifier, for: indexPath) as? ListViewCell else { fatalError("Unable deque cell...") }
+//            return cell
         }
     }
     
