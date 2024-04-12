@@ -24,8 +24,24 @@ class ProfileViewController: UIViewController {
     }
     
     func configureNavigation() {
+        // 設置標題文本的字體和重量
+        let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular) // 設置標題字體大小和粗細
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor.primary
+        ]
+        // 配置導航欄的標準外觀
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.titleTextAttributes = titleTextAttributes
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        navBarAppearance.backgroundColor = .systemBackground
+        navBarAppearance.shadowColor = .clear
+        
+        // 設置導航欄的標準外觀和滾動到邊緣時的外觀
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
         navigationItem.title = "個人檔案"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemGray]
         // 添加右側按鈕
         let settingButton = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(settings))
         navigationItem.rightBarButtonItem = settingButton

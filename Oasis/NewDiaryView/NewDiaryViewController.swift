@@ -87,6 +87,8 @@ private extension NewDiaryViewController {
             $0.centerX.equalToSuperview()
             $0.left.equalTo(constant)
         }
+        view.backgroundColor = .systemGray6
+        configureNavigation()
 
         stackView.addArrangedSubview(typeButton)
         configTypeButton()
@@ -108,6 +110,31 @@ private extension NewDiaryViewController {
 
         stackView.addArrangedSubview(contentView)
         configContentView()
+    }
+    
+    func configureNavigation() {
+        // 設置標題文本的字體和重量
+        let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular)
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor.primary
+        ]
+        // 配置導航欄的標準外觀
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.titleTextAttributes = titleTextAttributes
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        navBarAppearance.backgroundColor = .systemBackground
+
+        // 設置導航欄的標準外觀和滾動到邊緣時的外觀
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        navigationItem.title = "新增日記"
+        // 添加按鈕
+        let finishButton = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(finish))
+        navigationItem.rightBarButtonItem = finishButton
+        let backButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(back))
+        navigationItem.leftBarButtonItem = backButton
     }
 
     func configTypeButton() {
