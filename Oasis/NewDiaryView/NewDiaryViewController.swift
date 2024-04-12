@@ -30,7 +30,10 @@ class NewDiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-
+        // 添加點擊手勢
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        // 訂閱鍵盤彈出和隱藏的通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -43,16 +46,32 @@ class NewDiaryViewController: UIViewController {
         }
     }
 
+    @objc func hideKeyboard() {
+        view.endEditing(true) // 收起所有正在編輯的元素的鍵盤
+    }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-
+        // 獲取鍵盤的高度
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
         }
+        // 設置 scrollView 的內容偏移量，使文本字段在鍵盤上方可見
+        scrollView.contentInset.bottom = keyboardSize.height
     }
-
+    
     @objc func keyboardWillHide(_ notification: Notification) {
-
+        // 隱藏鍵盤時重置 scrollView 的內容偏移量
+        scrollView.contentInset = .zero
     }
 
+    @objc func finish() {
+
+    }
+    
+    @objc func back() {
+        self.dismiss(animated: true)
+    }
+    
 
     deinit {
         // Unsubscribe from keyboard notifications
@@ -62,33 +81,11 @@ class NewDiaryViewController: UIViewController {
 
 private extension NewDiaryViewController {
     func configure() {
-        view.addSubview(scrollView)
-        scrollView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        scrollView.backgroundColor = .systemGray5
-        scrollView.alwaysBounceVertical = true
-
-        scrollView.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.edges.equalTo(scrollView.contentLayoutGuide)
-        }
-
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = constant
-
-        containerView.addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.top.equalTo(24)
-            $0.bottom.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.left.equalTo(constant)
-        }
         view.backgroundColor = .systemGray6
         configureNavigation()
+        configScrollView()
+        configContainerView()
+        configStackView()
 
         stackView.addArrangedSubview(typeButton)
         configTypeButton()
@@ -136,7 +133,38 @@ private extension NewDiaryViewController {
         let backButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(back))
         navigationItem.leftBarButtonItem = backButton
     }
+    
+    func configScrollView() {
+        view.addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        scrollView.backgroundColor = .systemGray6
+        scrollView.alwaysBounceVertical = true
+    }
 
+    func configContainerView() {
+        scrollView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.edges.equalTo(scrollView.contentLayoutGuide)
+        }
+    }
+    
+    func configStackView() {
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.spacing = constant
+        containerView.addSubview(stackView)
+        stackView.snp.makeConstraints {
+            $0.top.equalTo(24)
+            $0.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.left.equalTo(constant)
+        }
+    }
+    
     func configTypeButton() {
         typeButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
@@ -209,6 +237,7 @@ private extension NewDiaryViewController {
         contentTextField.contentVerticalAlignment = .top
         contentTextField.contentHorizontalAlignment = .left
         contentTextField.placeholder = "寫下這次感受大自然的心情吧. 🌱"
+        contentTextField.delegate = self
     }
 }
 
@@ -226,5 +255,13 @@ extension NewDiaryViewController {
         dashedBorder.fillColor = nil
         dashedBorder.path = UIBezierPath(roundedRect: photoButton.bounds, cornerRadius: 8).cgPath
         photoButton.layer.addSublayer(dashedBorder)
+    }
+}
+
+extension NewDiaryViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // 當用戶按下 return 鍵時，結束編輯狀態
+        textField.resignFirstResponder()
+        return true
     }
 }
