@@ -31,7 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarController.viewControllers = [
             mapViewController,
             newDiaryViewController,
-            profileViewNavigation]
+            profileViewNavigation
+        ]
         
         // 定義TabBarItem
         mapViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "magnifyingglass"), tag: 0)
