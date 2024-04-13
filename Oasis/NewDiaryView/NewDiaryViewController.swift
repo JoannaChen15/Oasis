@@ -159,7 +159,7 @@ private extension NewDiaryViewController {
         containerView.addSubview(stackView)
         stackView.snp.makeConstraints {
             $0.top.equalTo(24)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(24)
             $0.centerX.equalToSuperview()
             $0.left.equalTo(constant)
         }
@@ -226,6 +226,7 @@ private extension NewDiaryViewController {
         contentView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(200)
+            make.bottom.equalToSuperview()
         }
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 8
