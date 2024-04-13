@@ -73,6 +73,11 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func chooseLocationType() {
+        let chooseController = ChooseLocationTypeController()
+//        if let sheetPresentationController = chooseController.sheetPresentationController {
+//            sheetPresentationController.detents = [.large()]
+//        }
+        present(chooseController, animated: true)
     }
     
     @objc func chooseLocation() {
