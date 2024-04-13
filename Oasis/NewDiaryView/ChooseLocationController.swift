@@ -1,0 +1,65 @@
+//
+//  ChooseLocationController.swift
+//  Oasis
+//
+//  Created by joanna on 2024/4/13.
+//
+
+import UIKit
+import SnapKit
+
+class ChooseLocationController: UIViewController {
+    
+    private let navigationBar = UINavigationBar()
+    private let locationTableView = UITableView()
+    
+    var locationType: LocationType!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configure()
+    }
+    
+    @objc func cancelAction() {
+        dismiss(animated: true)
+    }
+    
+}
+
+extension ChooseLocationController {
+    private func configure() {
+        view.backgroundColor = .systemBackground
+        configureNavigationBar()
+        configureTableView()
+    }
+    
+    private func configureNavigationBar() {
+        view.addSubview(navigationBar)
+        navigationBar.isTranslucent = false
+        navigationBar.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+        }
+        // 設置導航欄的標題
+        let navigationItem = UINavigationItem(title: "選擇地點")
+        // 設置導航欄的標題文本屬性
+        let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular)
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor.primary // 設置文字顏色
+        ]
+        navigationBar.titleTextAttributes = titleTextAttributes
+        // 添加按鈕
+        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelAction))
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationBar.setItems([navigationItem], animated: false)
+        navigationBar.backgroundColor = .systemBackground
+    }
+    
+    private func configureTableView() {
+        view.addSubview(locationTableView)
+        locationTableView.snp.makeConstraints { make in
+            make.top.equalTo(navigationBar.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+        }
+    }
+}

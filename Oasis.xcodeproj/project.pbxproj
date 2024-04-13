@@ -16,6 +16,7 @@
 		9E378B682BBAD19F00FCD2AF /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E378B672BBAD19F00FCD2AF /* LocationCell.swift */; };
 		9E378B6A2BBB1FA700FCD2AF /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */; };
 		9E38C30C2BBA9FAD00B1D875 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */; };
+		9E5830242BCAB64E001454E9 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */; };
 		9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */; };
 		9E84DE1F2BC3E93F0096F98E /* UIColor+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */; };
 		9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE202BC3EC4E0096F98E /* LocationType.swift */; };
@@ -74,6 +75,7 @@
 		9E378B672BBAD19F00FCD2AF /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
 		9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationController.swift; sourceTree = "<group>"; };
 		9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayouts.swift; sourceTree = "<group>"; };
 		9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ext.swift"; sourceTree = "<group>"; };
 		9E84DE202BC3EC4E0096F98E /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = SOURCE_ROOT; };
@@ -150,6 +152,7 @@
 			children = (
 				9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */,
 				9EAEB5472BC944F600EA648C /* ChooseLocationTypeController.swift */,
+				9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */,
 				9EAEB5452BC68B0600EA648C /* SelectionButton.swift */,
 			);
 			path = NewDiaryView;
@@ -505,6 +508,7 @@
 				9E84DE272BC50D760096F98E /* DiaryListHeaderView.swift in Sources */,
 				9EFF49282BBC435D0071FFCF /* WeatherResponse.swift in Sources */,
 				9E38C30C2BBA9FAD00B1D875 /* LocationModel.swift in Sources */,
+				9E5830242BCAB64E001454E9 /* ChooseLocationController.swift in Sources */,
 				9E84DE252BC44D7B0096F98E /* UserInfoCell.swift in Sources */,
 				9EF341762BB987550073FF0E /* Oasis.xcdatamodeld in Sources */,
 				9E378B682BBAD19F00FCD2AF /* LocationCell.swift in Sources */,
