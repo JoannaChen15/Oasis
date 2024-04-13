@@ -16,6 +16,8 @@ class ChooseLocationTypeController: UIViewController {
     private let beachButton = UIButton()
     private let hikingButton = UIButton()
     
+    var buttonHandler: ((String) -> Void)? // 接收按鈕資料的閉包
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -26,6 +28,10 @@ class ChooseLocationTypeController: UIViewController {
     }
     
     @objc func selectLocationType(_ sender: UIButton) {
+        if let locationType = sender.titleLabel?.text {
+            // 調用閉包並傳遞按鈕資料
+            buttonHandler?(locationType)
+        }
         dismiss(animated: true)
     }
     

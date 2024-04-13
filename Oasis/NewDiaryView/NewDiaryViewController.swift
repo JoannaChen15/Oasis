@@ -77,6 +77,7 @@ class NewDiaryViewController: UIViewController {
 //        if let sheetPresentationController = chooseController.sheetPresentationController {
 //            sheetPresentationController.detents = [.large()]
 //        }
+        chooseController.buttonHandler = handleChooseLocationType
         present(chooseController, animated: true)
     }
     
@@ -90,6 +91,11 @@ class NewDiaryViewController: UIViewController {
     
     @objc func choosePhoto() {
         
+    }
+    
+    // 選擇地點類型時呼叫的函式
+    func handleChooseLocationType(type: String) {
+        typeButton.detailLabel.text = type
     }
 
     deinit {
