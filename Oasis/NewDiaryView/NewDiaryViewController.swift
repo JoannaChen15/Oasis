@@ -26,7 +26,7 @@ class NewDiaryViewController: UIViewController {
     private let constant: CGFloat = 24
     private let buttonHeight: CGFloat = 56
     private var isFirstPresent = true
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -64,14 +64,28 @@ class NewDiaryViewController: UIViewController {
         scrollView.contentInset = .zero
     }
 
-    @objc func finish() {
+    @objc func doneAction() {
 
     }
     
-    @objc func back() {
-        self.dismiss(animated: true)
+    @objc func cancelAction() {
+        dismiss(animated: true)
     }
     
+    @objc func chooseLocationType() {
+    }
+    
+    @objc func chooseLocation() {
+        
+    }
+    
+    @objc func chooseTime() {
+        
+    }
+    
+    @objc func choosePhoto() {
+        
+    }
 
     deinit {
         // Unsubscribe from keyboard notifications
@@ -128,10 +142,10 @@ private extension NewDiaryViewController {
         
         navigationItem.title = "新增日記"
         // 添加按鈕
-        let finishButton = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(finish))
-        navigationItem.rightBarButtonItem = finishButton
-        let backButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(back))
-        navigationItem.leftBarButtonItem = backButton
+        let doneButton = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(doneAction))
+        navigationItem.rightBarButtonItem = doneButton
+        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelAction))
+        navigationItem.leftBarButtonItem = cancelButton
     }
     
     func configScrollView() {
@@ -172,6 +186,7 @@ private extension NewDiaryViewController {
         }
         typeButton.mainLabel.text = "類型"
         typeButton.detailLabel.text = "選擇"
+        typeButton.addTarget(self, action: #selector(chooseLocationType), for: .touchUpInside)
     }
 
     func configLocationButton() {
@@ -181,6 +196,7 @@ private extension NewDiaryViewController {
         }
         locationButton.mainLabel.text = "地點"
         locationButton.detailLabel.text = "選擇"
+        locationButton.addTarget(self, action: #selector(chooseLocation), for: .touchUpInside)
     }
 
     func configTimeButton() {
@@ -190,6 +206,7 @@ private extension NewDiaryViewController {
         }
         timeButton.mainLabel.text = "時間"
         timeButton.detailLabel.text = "選擇"
+        timeButton.addTarget(self, action: #selector(chooseTime), for: .touchUpInside)
     }
 
     func configPhotoLabel() {
@@ -211,6 +228,7 @@ private extension NewDiaryViewController {
         photoButton.setImage(image, for: .normal)
         photoButton.tintColor = .systemGray2
         photoButton.layer.cornerRadius = 8
+        photoButton.addTarget(self, action: #selector(choosePhoto), for: .touchUpInside)
     }
 
     func configContentLabel() {
