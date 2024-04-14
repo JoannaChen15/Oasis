@@ -21,6 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // 生成Controllers
         let tabBarController = TabBarController()
         let mapViewController = MapViewController()
+        let viewModel = MapViewModel()
+        mapViewController.viewModel = viewModel
+        viewModel.delegate = mapViewController
         let newDiaryViewController = NewDiaryViewController()
         let profileViewController = ProfileViewController()
         
@@ -41,12 +44,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // is Initial Controller
         window?.rootViewController = tabBarController
-        
-        #if DEBUG
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            tabBarController.selectedIndex = 1
-        })
-        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
