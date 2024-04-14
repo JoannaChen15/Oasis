@@ -61,5 +61,20 @@ extension ChooseLocationController {
             make.top.equalTo(navigationBar.snp.bottom)
             make.left.right.bottom.equalToSuperview()
         }
+        locationTableView.delegate = self
+        locationTableView.dataSource = self
+        locationTableView.register(ChooseLocationCell.self, forCellReuseIdentifier: ChooseLocationCell.cellIdentifier)
+    }
+}
+
+extension ChooseLocationController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = locationTableView.dequeueReusableCell(withIdentifier: ChooseLocationCell.cellIdentifier, for: indexPath) as! ChooseLocationCell
+        return cell
+
     }
 }
