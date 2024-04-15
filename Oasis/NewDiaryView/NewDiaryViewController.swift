@@ -16,7 +16,7 @@ class NewDiaryViewController: UIViewController {
 
     private let typeButton = SelectionButton()
     private let locationButton = SelectionButton()
-    private let timeButton = SelectionButton()
+    private let dateButton = SelectionButton()
     private let photoLabel = UILabel()
     private let photoButton = UIButton()
     private let contentLabel = UILabel()
@@ -28,6 +28,7 @@ class NewDiaryViewController: UIViewController {
     private var isFirstPresent = true
     
     var selectedType: LocationType?
+    var seletedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +106,16 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func chooseTime() {
-        
+        let controller = ChooseDateController()
+        if let sheetPresentationController = controller.sheetPresentationController {
+            sheetPresentationController.detents = [.medium()]
+        }
+        controller.buttonHandler = handleChooseDate
+        if let selectedDate = seletedDate {
+            // 設置選擇的日期
+            controller.datePicker.setDate(selectedDate, animated: true)
+        }
+        present(controller, animated: true)
     }
     
     @objc func choosePhoto() {
@@ -120,6 +130,15 @@ class NewDiaryViewController: UIViewController {
     // 選擇地點時呼叫的函式
     func handleChooseLocation(locationName: String) {
         locationButton.detailLabel.text = locationName
+    }
+    
+    // 選擇日期時呼叫的函式
+    func handleChooseDate(selectedDate: Date) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年MM月dd日"
+        let dateString = dateFormatter.string(from: selectedDate)
+        dateButton.detailLabel.text = dateString
+        seletedDate = selectedDate
     }
     }
 
@@ -143,8 +162,8 @@ private extension NewDiaryViewController {
         stackView.addArrangedSubview(locationButton)
         configLocationButton()
 
-        stackView.addArrangedSubview(timeButton)
-        configTimeButton()
+        stackView.addArrangedSubview(dateButton)
+        configDateButton()
 
         stackView.addArrangedSubview(photoLabel)
         configPhotoLabel()
@@ -235,14 +254,18 @@ private extension NewDiaryViewController {
         locationButton.addTarget(self, action: #selector(chooseLocation), for: .touchUpInside)
     }
 
-    func configTimeButton() {
-        timeButton.snp.makeConstraints { make in
+    func configDateButton() {
+        dateButton.snp.makeConstraints { make in
             make.height.equalTo(buttonHeight)
             make.width.equalToSuperview()
         }
-        timeButton.mainLabel.text = "時間"
-        timeButton.detailLabel.text = "選擇"
-        timeButton.addTarget(self, action: #selector(chooseTime), for: .touchUpInside)
+        dateButton.mainLabel.text = "日期"
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年MM月dd日"
+        let dateString = dateFormatter.string(from: today)
+        dateButton.detailLabel.text = dateString
+        dateButton.addTarget(self, action: #selector(chooseTime), for: .touchUpInside)
     }
 
     func configPhotoLabel() {

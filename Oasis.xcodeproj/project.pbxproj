@@ -19,6 +19,7 @@
 		9E5830242BCAB64E001454E9 /* ChooseLocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */; };
 		9E5FB2532BCADC750052703B /* ChooseLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2522BCADC750052703B /* ChooseLocationCell.swift */; };
 		9E5FB2552BCC15D50052703B /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2542BCC15D50052703B /* MapViewModel.swift */; };
+		9E5FB2572BCCFF0F0052703B /* ChooseDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */; };
 		9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */; };
 		9E84DE1F2BC3E93F0096F98E /* UIColor+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */; };
 		9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE202BC3EC4E0096F98E /* LocationType.swift */; };
@@ -78,6 +79,7 @@
 		9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationController.swift; sourceTree = "<group>"; };
 		9E5FB2522BCADC750052703B /* ChooseLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationCell.swift; sourceTree = "<group>"; };
 		9E5FB2542BCC15D50052703B /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = SOURCE_ROOT; };
+		9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDateController.swift; sourceTree = "<group>"; };
 		9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayouts.swift; sourceTree = "<group>"; };
 		9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ext.swift"; sourceTree = "<group>"; };
 		9E84DE202BC3EC4E0096F98E /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = SOURCE_ROOT; };
@@ -153,6 +155,7 @@
 				9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */,
 				9EAEB5472BC944F600EA648C /* ChooseLocationTypeController.swift */,
 				9E5830232BCAB64E001454E9 /* ChooseLocationController.swift */,
+				9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */,
 				9E5FB2522BCADC750052703B /* ChooseLocationCell.swift */,
 				9EAEB5452BC68B0600EA648C /* SelectionButton.swift */,
 			);
@@ -511,6 +514,7 @@
 				9E5830242BCAB64E001454E9 /* ChooseLocationController.swift in Sources */,
 				9E84DE252BC44D7B0096F98E /* UserInfoCell.swift in Sources */,
 				9EF341762BB987550073FF0E /* Oasis.xcdatamodeld in Sources */,
+				9E5FB2572BCCFF0F0052703B /* ChooseDateController.swift in Sources */,
 				9E378B682BBAD19F00FCD2AF /* LocationCell.swift in Sources */,
 				9E2D96642BBA6B8C005EEC7D /* ProfileViewController.swift in Sources */,
 				9EAEB5482BC944F600EA648C /* ChooseLocationTypeController.swift in Sources */,
