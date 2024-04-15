@@ -100,6 +100,7 @@ class NewDiaryViewController: UIViewController {
         }
         //已選擇地點類型
         controller.selectedLocationType = selectedType
+        controller.didSelectCellHandler = handleChooseLocation
         present(controller, animated: true)
     }
     
@@ -115,6 +116,11 @@ class NewDiaryViewController: UIViewController {
     func handleChooseLocationType(index: Int, type: String) {
         typeButton.detailLabel.text = type
         selectedType = LocationType.allCases[index]
+    
+    // 選擇地點時呼叫的函式
+    func handleChooseLocation(locationName: String) {
+        locationButton.detailLabel.text = locationName
+    }
     }
 
     deinit {

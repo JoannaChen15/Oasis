@@ -23,6 +23,7 @@ class ChooseLocationController: UIViewController {
         }
     }
     
+    var didSelectCellHandler: ((String) -> Void)? // 接收資料的閉包
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +96,13 @@ extension ChooseLocationController: UITableViewDelegate, UITableViewDataSource {
         let location = selectedTypeOfLocations[indexPath.row]
         cell.setupWith(location: location)
         return cell
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let locationName = selectedTypeOfLocations[indexPath.row].name
+        // 調用閉包並傳遞按鈕資料
+        didSelectCellHandler?(locationName)
+        dismiss(animated: true)
+    }
 
     }
 }
