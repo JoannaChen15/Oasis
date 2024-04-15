@@ -12,15 +12,17 @@ class LocationModel: Hashable {
     let name: String
     let latitude: Double
     let longitude: Double
+    let type: LocationType
     var favoriteStatus: FavoriteButtonStatus
     var weatherData: WeatherResponse?
     
     private let networkManager = NetworkManager()
     
-    init(name: String, latitude: Double, longitude: Double, favoriteStatus: FavoriteButtonStatus, weatherData: WeatherResponse? = nil) {
+    init(name: String, latitude: Double, longitude: Double, type: LocationType, favoriteStatus: FavoriteButtonStatus, weatherData: WeatherResponse? = nil) {
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
+        self.type = type
         self.favoriteStatus = favoriteStatus
         self.weatherData = weatherData
     }

@@ -13,17 +13,35 @@ class ChooseLocationController: UIViewController {
     private let navigationBar = UINavigationBar()
     private let locationTableView = UITableView()
     
-    var locationType: LocationType!
+    var selectedLocationType: LocationType!
+    
+    let locations = MapViewModel.shared.locations
+    
+    var selectedTypeOfLocations = [LocationModel]() {
+        didSet {
+            locationTableView.reloadData()
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        getSelectedTypeOfLocation()
     }
     
     @objc func cancelAction() {
         dismiss(animated: true)
     }
     
+    func getSelectedTypeOfLocation() {
+        selectedTypeOfLocations = []
+        for location in locations {
+            if location.type == selectedLocationType {
+                selectedTypeOfLocations.append(location)
+            }
+        }
+    }
 }
 
 extension ChooseLocationController {
@@ -69,11 +87,13 @@ extension ChooseLocationController {
 
 extension ChooseLocationController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return selectedTypeOfLocations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = locationTableView.dequeueReusableCell(withIdentifier: ChooseLocationCell.cellIdentifier, for: indexPath) as! ChooseLocationCell
+        let location = selectedTypeOfLocations[indexPath.row]
+        cell.setupWith(location: location)
         return cell
 
     }

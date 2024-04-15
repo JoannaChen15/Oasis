@@ -10,7 +10,7 @@ import SnapKit
 import MapKit
 
 class MapViewController: UIViewController {
-    
+
     private let mapView = MKMapView()
     
     private let locationContainerView = UIView()
@@ -21,16 +21,16 @@ class MapViewController: UIViewController {
     
     private let locationCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
-    private let taipeiCenter = CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654)
-    
-    private var locations = [LocationModel]() {
-        didSet { locationCollectionView.reloadData() }
-    }
-    
     private var annotations = [MKPointAnnotation]()
     private var hasSelectFirstAnnotation = false
     
     private let networkManager = NetworkManager()
+    
+    let mapViewModel = MapViewModel.shared
+    
+    var locations: [LocationModel] {
+        mapViewModel.locations
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,8 @@ class MapViewController: UIViewController {
         fetchLandmarksForTypes()
         configureLocationContainerView()
         configureLocationCollectionView()
+        mapViewModel.delegate = self
+        mapViewModel.fetchLandmarksForTypes()
     }
     
     override func viewDidLayoutSubviews() {
@@ -264,4 +266,20 @@ extension MapViewController: LocationCellDelegate {
         locationCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
    
+}
+
+extension MapViewController: MapViewModelDelegate {
+    func reloadData() {
+        locationCollectionView.reloadData()
+    }
+    
+    func createAnnotation(locations: [LocationModel]) {
+        for location in locations {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+            annotation.title = location.name
+            mapView.addAnnotation(annotation)
+            annotations.append(annotation)
+        }
+    }
 }

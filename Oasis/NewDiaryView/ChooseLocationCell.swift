@@ -24,6 +24,11 @@ class ChooseLocationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupWith(location: LocationModel) {
+        iconLabel.text = location.type.emoji
+        locationNameLabel.text = location.name
+    }
+    
 }
 
 extension ChooseLocationCell {
@@ -44,9 +49,5 @@ extension ChooseLocationCell {
         locationNameLabel.textColor = .primary
         locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         locationNameLabel.textColor = .primary
-        
-        //test
-        iconLabel.text = "🏕️"
-        locationNameLabel.text = "123露營區"
     }
 }

@@ -27,7 +27,7 @@ class NewDiaryViewController: UIViewController {
     private let buttonHeight: CGFloat = 56
     private var isFirstPresent = true
     
-    var locationType: LocationType?
+    var selectedType: LocationType?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +84,9 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func chooseLocation() {
-        let chooseController = ChooseLocationController()
+        let controller = ChooseLocationController()
         //未選擇地點類型時
-        guard let locationType else {
+        guard let selectedType else {
             let controller = UIAlertController(title: "請先選擇地點類型 😉", message: "", preferredStyle: .alert)
             let continueAction = UIAlertAction(title: "好", style: .default) { _ in
                 //跳轉至選擇地點類型頁面
@@ -99,8 +99,8 @@ class NewDiaryViewController: UIViewController {
             return
         }
         //已選擇地點類型
-        chooseController.locationType = locationType
-        present(chooseController, animated: true)
+        controller.selectedLocationType = selectedType
+        present(controller, animated: true)
     }
     
     @objc func chooseTime() {
@@ -114,7 +114,7 @@ class NewDiaryViewController: UIViewController {
     // 選擇地點類型時呼叫的函式
     func handleChooseLocationType(index: Int, type: String) {
         typeButton.detailLabel.text = type
-        locationType = LocationType.allCases[index]
+        selectedType = LocationType.allCases[index]
     }
 
     deinit {
