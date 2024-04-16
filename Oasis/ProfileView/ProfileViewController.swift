@@ -55,9 +55,6 @@ class ProfileViewController: UIViewController {
         collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
         collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
         collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
-        
-//        collectionView.register(ListViewCell.self, forCellWithReuseIdentifier: ListViewCell.cellIdentifier)
-        
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -93,11 +90,8 @@ extension ProfileViewController {
                 return AppLayouts.shared.locationTypeSection()
             default :
                 return AppLayouts.shared.diaryListSection()
-//            default:
-//                return AppLayouts.shared.listViewSection()
             }
         }
-        //    layout.register(SectionDecorationView.self, forDecorationViewOfKind: "SectionBackground")
         collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
@@ -112,9 +106,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 1 :
             return 5
         default :
-            return 2
-//        default:
-//            return 2
+            return 5
         }
     }
     
@@ -134,9 +126,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         default :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
             return cell
-//        default:
-//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ListViewCell.cellIdentifier, for: indexPath) as? ListViewCell else { fatalError("Unable deque cell...") }
-//            return cell
         }
     }
     
