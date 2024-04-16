@@ -28,7 +28,7 @@ class NewDiaryViewController: UIViewController {
     private var isFirstPresent = true
     
     var selectedType: LocationType?
-    var seletedDate: Date?
+    var selectedDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +108,7 @@ class NewDiaryViewController: UIViewController {
             sheetPresentationController.detents = [.medium()]
         }
         controller.buttonHandler = handleChooseDate
-        if let selectedDate = seletedDate {
+        if let selectedDate = selectedDate {
             // 設置選擇的日期
             controller.datePicker.setDate(selectedDate, animated: true)
         }
@@ -140,7 +140,7 @@ class NewDiaryViewController: UIViewController {
         dateFormatter.dateFormat = "yyyy年MM月dd日"
         let dateString = dateFormatter.string(from: selectedDate)
         dateButton.detailLabel.text = dateString
-        seletedDate = selectedDate
+        self.selectedDate = selectedDate
     }
     }
 
