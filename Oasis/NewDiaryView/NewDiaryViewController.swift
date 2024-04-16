@@ -119,7 +119,10 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func choosePhoto() {
-        
+        let controller = UIImagePickerController()
+        controller.sourceType = .photoLibrary
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
     // 選擇地點類型時呼叫的函式
@@ -287,6 +290,7 @@ private extension NewDiaryViewController {
         photoButton.setImage(image, for: .normal)
         photoButton.tintColor = .systemGray2
         photoButton.layer.cornerRadius = 8
+        photoButton.clipsToBounds = true
         photoButton.addTarget(self, action: #selector(choosePhoto), for: .touchUpInside)
     }
 
@@ -341,5 +345,14 @@ extension NewDiaryViewController: UITextFieldDelegate {
         // 當用戶按下 return 鍵時，結束編輯狀態
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension NewDiaryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let pickImage = info[.originalImage] as? UIImage
+        photoButton.setImage(pickImage, for: .normal)
+        photoButton.imageView?.contentMode = .scaleAspectFill
+        dismiss(animated: true)
     }
 }
