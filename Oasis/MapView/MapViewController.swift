@@ -35,7 +35,6 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        fetchLandmarksForTypes()
         configureLocationContainerView()
         configureLocationCollectionView()
         mapViewModel.delegate = self
@@ -57,56 +56,6 @@ class MapViewController: UIViewController {
         }
         mapView.delegate = self
 //        mapView.showsUserLocation = true
-    }
-    
-    private func fetchLandmarks(for type: LocationType, in region: MKCoordinateRegion, completion: @escaping (_ locations: [LocationModel]) -> Void) {
-        
-        var locations = [LocationModel]()
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = type.rawValue // 搜尋的地標類型
-        request.region = region // 搜尋的區域
-        
-        // 設置感興趣的地點類別
-        let naturalPointOfInterests: [MKPointOfInterestCategory] = [.beach, .campground, .marina, .nationalPark, .park]
-        request.pointOfInterestFilter = MKPointOfInterestFilter(including: naturalPointOfInterests)
-        
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-            guard let response = response else {
-                if let error = error {
-                    print("搜尋失敗: \(error)")
-                }
-                return
-            }
-            
-            // 處理搜尋結果
-            for item in response.mapItems {
-                let location = LocationModel(name: item.name ?? "未知", latitude: item.placemark.coordinate.latitude, longitude: item.placemark.coordinate.longitude, favoriteStatus: FavoriteButtonStatus.unselected)
-                locations.append(location)
-            }
-            completion(locations)
-        }
-    }
-    
-    func createAnnotation(locations: [LocationModel]) {
-        for location in locations {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-            annotation.title = location.name
-            mapView.addAnnotation(annotation)
-            annotations.append(annotation)
-        }
-    }
-    
-    func fetchLandmarksForTypes() {
-        locations = []
-        let taipeiRegion = MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        for type in LocationType.allCases {
-            fetchLandmarks(for: type, in: taipeiRegion) { locations in
-                self.createAnnotation(locations: locations)
-                self.locations += locations
-            }
-        }
     }
     
     func configureLocationContainerView() {
