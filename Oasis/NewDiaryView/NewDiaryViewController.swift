@@ -28,7 +28,9 @@ class NewDiaryViewController: UIViewController {
     private var isFirstPresent = true
     
     var selectedType: LocationType?
+    var selectedLocation: String?
     var selectedDate: Date?
+    var selectedPhoto: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +74,18 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func cancelAction() {
-        dismiss(animated: true)
+        guard selectedType == nil, selectedLocation == nil, selectedDate == nil, selectedPhoto == nil, contentTextField.text == "" else {
+            let controller = UIAlertController(title: "捨棄日記", message: "確定要放棄編輯並離開？", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+            controller.addAction(cancelAction)
+            let confirmAction = UIAlertAction(title: "捨棄", style: .destructive) { _ in
+                self.dismiss(animated: true)
+            }
+            controller.addAction(confirmAction)
+            present(controller, animated: true)
+            return
+        }
+        self.dismiss(animated: true)
     }
     
     @objc func chooseLocationType() {
@@ -128,10 +141,12 @@ class NewDiaryViewController: UIViewController {
         selectedType = LocationType.allCases[index]
         // reset地點
         locationButton.detailLabel.text = "選擇"
+        selectedLocation = nil
     
     // 選擇地點時呼叫的函式
     func handleChooseLocation(locationName: String) {
         locationButton.detailLabel.text = locationName
+        selectedLocation = locationName
     }
     
     // 選擇日期時呼叫的函式
@@ -348,6 +363,7 @@ extension NewDiaryViewController: UIImagePickerControllerDelegate, UINavigationC
         let pickImage = info[.originalImage] as? UIImage
         photoButton.setImage(pickImage, for: .normal)
         photoButton.imageView?.contentMode = .scaleAspectFill
+        selectedPhoto = pickImage
         dismiss(animated: true)
     }
 }
