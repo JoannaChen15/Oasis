@@ -27,7 +27,7 @@ class ChooseLocationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
         getSelectedTypeOfLocation()
     }
     
@@ -46,7 +46,7 @@ class ChooseLocationController: UIViewController {
 }
 
 extension ChooseLocationController {
-    private func configure() {
+    private func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
         configureTableView()

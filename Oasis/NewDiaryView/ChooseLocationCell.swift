@@ -17,7 +17,7 @@ class ChooseLocationCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: "ChooseLocationCell")
         
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +32,7 @@ class ChooseLocationCell: UITableViewCell {
 }
 
 extension ChooseLocationCell {
-    private func configure() {
+    private func configureUI() {
         contentView.addSubview(iconLabel)
         iconLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(16)

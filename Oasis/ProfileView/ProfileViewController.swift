@@ -17,82 +17,11 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureNavigation()
-        configureCollectionView()
-        configureCompositionalLayout()
-        configureDiaryListHeaderView()
-    }
-    
-    func configureNavigation() {
-        // 設置標題文本的字體和重量
-        let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular) // 設置標題字體大小和粗細
-        let titleTextAttributes: [NSAttributedString.Key: Any] = [
-            .font: titleFont,
-            .foregroundColor: UIColor.primary
-        ]
-        // 配置導航欄的標準外觀
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.titleTextAttributes = titleTextAttributes
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
-        navBarAppearance.backgroundColor = .systemBackground
-        navBarAppearance.shadowColor = .clear
-        
-        // 設置導航欄的標準外觀和滾動到邊緣時的外觀
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        
-        navigationItem.title = "個人檔案"
-        // 添加右側按鈕
-        let settingButton = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(settings))
-        navigationItem.rightBarButtonItem = settingButton
-    }
-    
-    func configureCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(UserInfoCell.self, forCellWithReuseIdentifier: UserInfoCell.cellIdentifier)
-        collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
-        collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
-        collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    
-    func configureDiaryListHeaderView() {
-        view.addSubview(diaryListHeaderView)
-        diaryListHeaderView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(40)
-        }
-        diaryListHeaderView.delegate = self
-        diaryListHeaderView.isHidden = true
-        diaryListHeaderView.viewModel = headerViewModel
-        headerViewModel.stickyHeaderViewDelegate = diaryListHeaderView
+        configureUI()
     }
     
     @objc func settings() {
         
-    }
-    
-}
-
-extension ProfileViewController {
-
-    func configureCompositionalLayout(){
-        let layout = UICollectionViewCompositionalLayout {sectionIndex,enviroment in
-            switch sectionIndex {
-            case 0 :
-                return AppLayouts.shared.userInfoSection()
-            case 1 :
-                return AppLayouts.shared.locationTypeSection()
-            default :
-                return AppLayouts.shared.diaryListSection()
-            }
-        }
-        collectionView.setCollectionViewLayout(layout, animated: true)
     }
     
 }
@@ -155,5 +84,78 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension ProfileViewController: ChangeListContentDelegate {
     func changeListContent() {
         
+    }
+}
+
+extension ProfileViewController {
+    private func configureUI() {
+        configureNavigation()
+        configureCollectionView()
+        configureCompositionalLayout()
+        configureDiaryListHeaderView()
+    }
+    
+    private func configureNavigation() {
+        // 設置標題文本的字體和重量
+        let titleFont = UIFont.systemFont(ofSize: 17, weight: .regular) // 設置標題字體大小和粗細
+        let titleTextAttributes: [NSAttributedString.Key: Any] = [
+            .font: titleFont,
+            .foregroundColor: UIColor.primary
+        ]
+        // 配置導航欄的標準外觀
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.titleTextAttributes = titleTextAttributes
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        navBarAppearance.backgroundColor = .systemBackground
+        navBarAppearance.shadowColor = .clear
+        
+        // 設置導航欄的標準外觀和滾動到邊緣時的外觀
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        navigationItem.title = "個人檔案"
+        // 添加右側按鈕
+        let settingButton = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(settings))
+        navigationItem.rightBarButtonItem = settingButton
+    }
+        
+    private func configureCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(UserInfoCell.self, forCellWithReuseIdentifier: UserInfoCell.cellIdentifier)
+        collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
+        collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
+        collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    private func configureCompositionalLayout(){
+        let layout = UICollectionViewCompositionalLayout {sectionIndex,enviroment in
+            switch sectionIndex {
+            case 0 :
+                return AppLayouts.shared.userInfoSection()
+            case 1 :
+                return AppLayouts.shared.locationTypeSection()
+            default :
+                return AppLayouts.shared.diaryListSection()
+            }
+        }
+        collectionView.setCollectionViewLayout(layout, animated: true)
+    }
+    
+    private func configureDiaryListHeaderView() {
+        view.addSubview(diaryListHeaderView)
+        diaryListHeaderView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(40)
+        }
+        diaryListHeaderView.delegate = self
+        diaryListHeaderView.isHidden = true
+        diaryListHeaderView.viewModel = headerViewModel
+        headerViewModel.stickyHeaderViewDelegate = diaryListHeaderView
     }
 }

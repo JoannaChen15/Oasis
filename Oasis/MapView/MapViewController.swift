@@ -34,9 +34,7 @@ class MapViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMapView()
-        configureLocationContainerView()
-        configureLocationCollectionView()
+        configureUI()
         mapViewModel.delegate = self
         mapViewModel.fetchLandmarksForTypes()
     }
@@ -46,71 +44,6 @@ class MapViewController: UIViewController {
         containerBottomOffset = 140
         containerTop = locationContainerView.center
         containerBottom = CGPoint(x: locationContainerView.center.x ,y: locationContainerView.center.y + containerBottomOffset)
-    }
-    
-    func setupMapView() {
-        view.addSubview(mapView)
-        mapView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        mapView.delegate = self
-//        mapView.showsUserLocation = true
-    }
-    
-    func configureLocationContainerView() {
-        view.addSubview(locationContainerView)
-        locationContainerView.layer.cornerRadius = 20
-        locationContainerView.backgroundColor = .systemBackground
-        locationContainerView.snp.makeConstraints { make in
-            make.height.equalTo(220)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(20)
-        }
-        
-        let handleView = UIView()
-        let handleTriggerView = UIView()
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        
-        locationContainerView.addSubview(handleTriggerView)
-        handleTriggerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(60)
-        }
-        handleTriggerView.addGestureRecognizer(panGesture)
-        
-        handleTriggerView.addSubview(handleView)
-        handleView.snp.makeConstraints { make in
-            make.top.centerX.equalToSuperview()
-            make.height.equalTo(5)
-            make.width.equalTo(48)
-        }
-        handleView.backgroundColor = .systemGray5
-        handleView.layer.cornerRadius = 2.5
-    }
-    
-    func configureLocationCollectionView() {
-        locationCollectionView.delegate = self
-        locationCollectionView.dataSource = self
-        locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "LocationCell")
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        locationCollectionView.collectionViewLayout = layout
-        
-        
-        locationContainerView.addSubview(locationCollectionView)
-        locationCollectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(44)
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        locationCollectionView.backgroundColor = .clear
-        locationCollectionView.isPagingEnabled = true
-        locationCollectionView.showsHorizontalScrollIndicator = false
     }
 
     @objc func handlePanGesture(_ sender: UIPanGestureRecognizer) {
@@ -230,5 +163,78 @@ extension MapViewController: MapViewModelDelegate {
             mapView.addAnnotation(annotation)
             annotations.append(annotation)
         }
+    }
+}
+
+extension MapViewController {
+    private func configureUI() {
+        configureMapView()
+        configureLocationContainerView()
+        configureLocationCollectionView()
+    }
+    
+    private func configureMapView() {
+        view.addSubview(mapView)
+        mapView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        mapView.delegate = self
+//        mapView.showsUserLocation = true
+    }
+    
+    private func configureLocationContainerView() {
+        view.addSubview(locationContainerView)
+        locationContainerView.layer.cornerRadius = 20
+        locationContainerView.backgroundColor = .systemBackground
+        locationContainerView.snp.makeConstraints { make in
+            make.height.equalTo(220)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(20)
+        }
+        
+        let handleView = UIView()
+        let handleTriggerView = UIView()
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        
+        locationContainerView.addSubview(handleTriggerView)
+        handleTriggerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(60)
+        }
+        handleTriggerView.addGestureRecognizer(panGesture)
+        
+        handleTriggerView.addSubview(handleView)
+        handleView.snp.makeConstraints { make in
+            make.top.centerX.equalToSuperview()
+            make.height.equalTo(5)
+            make.width.equalTo(48)
+        }
+        handleView.backgroundColor = .systemGray5
+        handleView.layer.cornerRadius = 2.5
+    }
+    
+    private func configureLocationCollectionView() {
+        locationCollectionView.delegate = self
+        locationCollectionView.dataSource = self
+        locationCollectionView.register(LocationCell.self, forCellWithReuseIdentifier: "LocationCell")
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        locationCollectionView.collectionViewLayout = layout
+        
+        
+        locationContainerView.addSubview(locationCollectionView)
+        locationCollectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(44)
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        locationCollectionView.backgroundColor = .clear
+        locationCollectionView.isPagingEnabled = true
+        locationCollectionView.showsHorizontalScrollIndicator = false
     }
 }

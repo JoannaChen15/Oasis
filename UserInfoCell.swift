@@ -22,14 +22,14 @@ class UserInfoCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(){
+    func configureUI(){
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

@@ -239,9 +239,9 @@
 		9EFF492E2BBEF4300071FFCF /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */,
 				9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */,
 				9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */,
+				9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */,
 				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
 				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
 				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,

@@ -32,7 +32,7 @@ class NewDiaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
         // 添加點擊手勢
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -151,7 +151,7 @@ class NewDiaryViewController: UIViewController {
 }
 
 private extension NewDiaryViewController {
-    func configure() {
+    func configureUI() {
         view.backgroundColor = .systemGray6
         configureNavigation()
         configScrollView()
@@ -321,11 +321,6 @@ private extension NewDiaryViewController {
         contentTextField.textColor = .primary
         contentTextField.delegate = self
     }
-}
-
-extension NewDiaryViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    
 }
 
 extension NewDiaryViewController {

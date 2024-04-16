@@ -17,14 +17,14 @@ class SelectionButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+    private func configureUI() {
         backgroundColor = .systemBackground
         layer.cornerRadius = 8
         

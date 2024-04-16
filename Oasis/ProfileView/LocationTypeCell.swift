@@ -22,14 +22,14 @@ class LocationTypeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(){
+    func configureUI(){
         contentView.addSubview(shadowView)
         shadowView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -65,7 +65,7 @@ class LocationTypeCell: UICollectionViewCell {
             make.centerX.equalTo(shadowView)
         }
         locationTypeLabel.textColor = .primary
-        locationTypeLabel.font = UIFont.systemFont(ofSize: 18)
+        locationTypeLabel.font = UIFont.systemFont(ofSize: 17)
         
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in

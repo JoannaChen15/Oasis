@@ -20,7 +20,7 @@ class ChooseLocationTypeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        configureUI()
     }
     
     @objc func cancelAction() {
@@ -38,7 +38,7 @@ class ChooseLocationTypeController: UIViewController {
 }
 
 extension ChooseLocationTypeController {
-    private func configure() {
+    private func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigationBar()
         configureStackView()

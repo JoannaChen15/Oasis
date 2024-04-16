@@ -32,14 +32,14 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(){
+    func configureUI(){
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -77,7 +77,7 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
             make.top.equalTo(timeLabel.snp.bottom).offset(6)
             make.left.equalTo(timeLabel.snp.left)
         }
-        locationNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         locationNameLabel.textColor = .primary
         
         contentView.addSubview(contentLabel)
