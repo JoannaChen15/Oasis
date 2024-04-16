@@ -101,6 +101,8 @@ extension ChooseLocationTypeController {
             let overlayView = UIView()
             overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
             containerView.addSubview(overlayView)
+            overlayView.layer.cornerRadius = 10
+            overlayView.layer.masksToBounds = true
             overlayView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
             }

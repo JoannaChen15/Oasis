@@ -76,12 +76,9 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func chooseLocationType() {
-        let chooseController = ChooseLocationTypeController()
-//        if let sheetPresentationController = chooseController.sheetPresentationController {
-//            sheetPresentationController.detents = [.large()]
-//        }
-        chooseController.buttonHandler = handleChooseLocationType
-        present(chooseController, animated: true)
+        let controller = ChooseLocationTypeController()
+        controller.buttonHandler = handleChooseLocationType
+        present(controller, animated: true)
     }
     
     @objc func chooseLocation() {
@@ -91,9 +88,9 @@ class NewDiaryViewController: UIViewController {
             let controller = UIAlertController(title: "請先選擇地點類型 😉", message: "", preferredStyle: .alert)
             let continueAction = UIAlertAction(title: "好", style: .default) { _ in
                 //跳轉至選擇地點類型頁面
-                let chooseController = ChooseLocationTypeController()
-                chooseController.buttonHandler = self.handleChooseLocationType
-                self.present(chooseController, animated: true)
+                let controller = ChooseLocationTypeController()
+                controller.buttonHandler = self.handleChooseLocationType
+                self.present(controller, animated: true)
             }
             controller.addAction(continueAction)
             present(controller, animated: true)
@@ -129,6 +126,8 @@ class NewDiaryViewController: UIViewController {
     func handleChooseLocationType(index: Int, type: String) {
         typeButton.detailLabel.text = type
         selectedType = LocationType.allCases[index]
+        // reset地點
+        locationButton.detailLabel.text = "選擇"
     
     // 選擇地點時呼叫的函式
     func handleChooseLocation(locationName: String) {
@@ -319,6 +318,7 @@ private extension NewDiaryViewController {
         contentTextField.contentVerticalAlignment = .top
         contentTextField.contentHorizontalAlignment = .left
         contentTextField.placeholder = "寫下這次感受大自然的心情吧. 🌱"
+        contentTextField.textColor = .primary
         contentTextField.delegate = self
     }
 }
