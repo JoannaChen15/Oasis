@@ -11,15 +11,31 @@ enum LocationType: String, CaseIterable {
     case campground
     case beach
     case hiking
+    case park
     //    case mountains
     var emoji: String {
         switch self {
         case .campground:
             return "🏕️"
         case .beach:
-            return "🏝"
+            return "🏖"
         case .hiking:
-            return "🏔"
+            return "⛰"
+        case .park:
+            return "🌳"
+        }
+    }
+    
+    var displayName: String {
+        switch self {
+        case .campground:
+            return "營地"
+        case .beach:
+            return "海灘"
+        case .hiking:
+            return "步道"
+        case .park:
+            return "公園"
         }
     }
 }

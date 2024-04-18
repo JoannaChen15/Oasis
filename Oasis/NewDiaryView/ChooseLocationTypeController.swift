@@ -109,14 +109,7 @@ extension ChooseLocationTypeController {
             //設置按鈕
             let button = UIButton()
             //設置按鈕文字
-            switch locationType {
-            case .campground:
-                button.setTitle("營地", for: .normal)
-            case .beach:
-                button.setTitle("海灘", for: .normal)
-            case .hiking:
-                button.setTitle("步道", for: .normal)
-            }
+            button.setTitle("\(locationType.displayName)", for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
             //設置按鈕功能
             button.tag = index
