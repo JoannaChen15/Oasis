@@ -79,6 +79,16 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 2:
+                let diaryDetailController = DiaryDetailController()
+                navigationController?.pushViewController(diaryDetailController, animated: true)
+        default:
+            break
+        }
+    }
+    
 }
 
 extension ProfileViewController: ChangeListContentDelegate {
