@@ -133,8 +133,7 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MapViewController: LocationCellDelegate {
-    
-    func didTabFavoriteButton(location: LocationModel) {
+    func didTapFavoriteButton(location: LocationModel) {
         // 按下按鈕後找到按的是第幾筆Location
         guard let index = locations.firstIndex(of: location) else { return }
         // 改變Location的最愛狀態

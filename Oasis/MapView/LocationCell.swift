@@ -8,7 +8,7 @@
 import UIKit
 
 protocol LocationCellDelegate: AnyObject {
-    func didTabFavoriteButton(location: LocationModel)
+    func didTapFavoriteButton(location: LocationModel)
 }
 
 class LocationCell: UICollectionViewCell {
@@ -138,7 +138,7 @@ class LocationCell: UICollectionViewCell {
         // 儲存此筆cell的location
         guard let location = self.location else { return }
         // 呼叫delegate執行按下按鈕要做的事
-        delegate?.didTabFavoriteButton(location: location)
+        delegate?.didTapFavoriteButton(location: location)
     }
     
 }
