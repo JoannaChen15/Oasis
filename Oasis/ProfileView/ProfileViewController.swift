@@ -21,7 +21,8 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func settings() {
-        
+        let setupController = ProfileSetupViewController()
+        navigationController?.pushViewController(setupController, animated: true)
     }
     
 }
@@ -48,6 +49,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case 0 :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserInfoCell.cellIdentifier, for: indexPath) as? UserInfoCell else {fatalError("Unable deque cell...")}
+            cell.delegate = self
             return cell
         case 1 :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationTypeCell.cellIdentifier, for: indexPath) as? LocationTypeCell else {fatalError("Unable deque cell...")}
@@ -89,6 +91,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+}
+
+extension ProfileViewController: UserInfoCellDelegate {
+    func editProfile() {
+        let setupController = ProfileSetupViewController()
+        navigationController?.pushViewController(setupController, animated: true)
+    }
 }
 
 extension ProfileViewController: ChangeListContentDelegate {

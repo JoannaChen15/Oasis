@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol UserInfoCellDelegate: AnyObject {
+    func editProfile()
+}
+
 class UserInfoCell: UICollectionViewCell {
     
     static let cellIdentifier = "UserInfoCell"
@@ -17,6 +21,8 @@ class UserInfoCell: UICollectionViewCell {
     private let userNameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let userImageView = UIButton()
+    
+    weak var delegate: UserInfoCellDelegate?
     
     // MARK: MAIN -
     
@@ -32,6 +38,10 @@ class UserInfoCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func editProfile() {
+        delegate?.editProfile()
     }
     
     func configureUI(){
@@ -70,6 +80,7 @@ class UserInfoCell: UICollectionViewCell {
         userImageView.layer.cornerRadius = 30
         userImageView.clipsToBounds = true
         userImageView.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+        userImageView.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
     }
     
 }
