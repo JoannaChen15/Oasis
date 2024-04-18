@@ -33,6 +33,11 @@ class FavoriteLocationCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupWith(favoriteLocationModel: LocationModel) {
+        locationTypeView.setTitle("\(favoriteLocationModel.type.emoji) \(favoriteLocationModel.type.displayName)", for: .normal)
+        locationNameLabel.text = "\(favoriteLocationModel.name)"
+        favoriteButton.status = favoriteLocationModel.favoriteStatus
+    }
 }
 
 extension FavoriteLocationCell {

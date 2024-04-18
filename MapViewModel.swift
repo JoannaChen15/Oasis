@@ -24,6 +24,8 @@ class MapViewModel {
         didSet { delegate?.reloadData() }
     }
     
+    private(set) var favoriteLocations = [LocationModel]()
+    
     func fetchLandmarksForTypes() {
         locations = []
         let taipeiRegion = MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 5000, longitudinalMeters: 5000)
@@ -61,5 +63,14 @@ class MapViewModel {
             }
             completion(locations)
         }
+    }
+    
+    func appendFavoriteLocation(location: LocationModel) {
+        favoriteLocations.append(location)
+    }
+    
+    func removeFavoriteLocation(location: LocationModel) {
+        guard let index = favoriteLocations.firstIndex(of: location) else { return }
+        favoriteLocations.remove(at: index)
     }
 }

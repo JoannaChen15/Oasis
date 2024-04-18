@@ -140,13 +140,14 @@ extension MapViewController: LocationCellDelegate {
         switch locations[index].favoriteStatus {
         case .unselected:
             locations[index].favoriteStatus = .selected
+            mapViewModel.appendFavoriteLocation(location: location)
         case .selected:
             locations[index].favoriteStatus = .unselected
+            mapViewModel.removeFavoriteLocation(location: location)
         }
         // 通知collectionView重畫
         locationCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }
-   
 }
 
 extension MapViewController: MapViewModelDelegate {

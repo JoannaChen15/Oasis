@@ -15,9 +15,16 @@ class ProfileViewController: UIViewController {
     lazy var diaryListHeaderView = DiaryListHeaderView()
     var headerViewModel = DiaryListHeaderViewModel()
     
+    let mapViewModel = MapViewModel.shared
+    var favoriteLocations = [LocationModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        favoriteLocations = mapViewModel.favoriteLocations
+        collectionView.reloadData()
     }
     
     @objc func settings() {
@@ -36,7 +43,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 1 :
             return 5
         default :
-            return 5
+            return favoriteLocations.count
         }
     }
     
@@ -60,6 +67,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }
+                cell.setupWith(favoriteLocationModel: favoriteLocations[indexPath.row])
                 return cell
             }
         }
