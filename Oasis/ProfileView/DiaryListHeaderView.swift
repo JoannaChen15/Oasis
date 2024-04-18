@@ -24,8 +24,8 @@ class DiaryListHeaderView: UICollectionReusableView {
     
     //MARK: Properities
     private let stackView = UIStackView()
-    private let diaryButton = UIButton()
-    private let favoriteButton = UIButton()
+    let diaryButton = UIButton()
+    let favoriteButton = UIButton()
     private let underline = UIView()
     private let underlineBackground = UIView()
 

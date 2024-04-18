@@ -55,8 +55,13 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationTypeCell.cellIdentifier, for: indexPath) as? LocationTypeCell else {fatalError("Unable deque cell...")}
             return cell
         default :
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
-            return cell
+            if self.diaryListHeaderView.diaryButton.isSelected {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }
+                return cell
+            }
         }
     }
     
@@ -84,8 +89,12 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 2:
+            if self.diaryListHeaderView.diaryButton.isSelected {
                 let diaryDetailController = DiaryDetailController()
                 navigationController?.pushViewController(diaryDetailController, animated: true)
+            } else {
+                return
+            }
         default:
             break
         }
@@ -102,7 +111,7 @@ extension ProfileViewController: UserInfoCellDelegate {
 
 extension ProfileViewController: ChangeListContentDelegate {
     func changeListContent() {
-        
+        collectionView.reloadData()
     }
 }
 
@@ -142,9 +151,10 @@ extension ProfileViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UserInfoCell.self, forCellWithReuseIdentifier: UserInfoCell.cellIdentifier)
+        collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
         collectionView.register(DiaryListHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: DiaryListHeaderView.headerIdentifier)
         collectionView.register(DiaryListCollectionViewCell.self, forCellWithReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier)
-        collectionView.register(LocationTypeCell.self, forCellWithReuseIdentifier: LocationTypeCell.cellIdentifier)
+        collectionView.register(FavoriteLocationCell.self, forCellWithReuseIdentifier: FavoriteLocationCell.cellIdentifier)
         collectionView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -158,7 +168,11 @@ extension ProfileViewController {
             case 1 :
                 return AppLayouts.shared.locationTypeSection()
             default :
-                return AppLayouts.shared.diaryListSection()
+                if self.diaryListHeaderView.diaryButton.isSelected {
+                    return AppLayouts.shared.diaryListSection()
+                } else {
+                    return AppLayouts.shared.favoriteLocationSection()
+                }
             }
         }
         collectionView.setCollectionViewLayout(layout, animated: true)

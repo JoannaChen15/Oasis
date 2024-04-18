@@ -22,6 +22,7 @@
 		9E5FB2572BCCFF0F0052703B /* ChooseDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */; };
 		9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */; };
 		9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */; };
+		9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */; };
 		9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */; };
 		9E84DE1F2BC3E93F0096F98E /* UIColor+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */; };
 		9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE202BC3EC4E0096F98E /* LocationType.swift */; };
@@ -84,6 +85,7 @@
 		9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDateController.swift; sourceTree = "<group>"; };
 		9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailController.swift; sourceTree = "<group>"; };
 		9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
+		9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationCell.swift; sourceTree = "<group>"; };
 		9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayouts.swift; sourceTree = "<group>"; };
 		9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ext.swift"; sourceTree = "<group>"; };
 		9E84DE202BC3EC4E0096F98E /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = SOURCE_ROOT; };
@@ -252,6 +254,7 @@
 				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
 				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
 				9EFF492F2BBEF4960071FFCF /* DiaryListModel.swift */,
+				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */,
 				9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */,
 				9EFF49302BBEF4960071FFCF /* DiaryListModel.swift in Sources */,
+				9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */,
 				9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */,
 				9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */,
 				9E84DE1F2BC3E93F0096F98E /* UIColor+ext.swift in Sources */,
