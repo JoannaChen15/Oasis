@@ -105,7 +105,6 @@ extension ProfileViewController {
         // 配置導航欄的標準外觀
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = titleTextAttributes
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
         navBarAppearance.backgroundColor = .systemBackground
         navBarAppearance.shadowColor = .clear
         
@@ -115,7 +114,7 @@ extension ProfileViewController {
         
         navigationItem.title = "個人檔案"
         // 添加右側按鈕
-        let settingButton = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(settings))
+        let settingButton = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain,  target: self, action: #selector(settings))
         navigationItem.rightBarButtonItem = settingButton
     }
         

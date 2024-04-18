@@ -16,13 +16,18 @@ class UserInfoCell: UICollectionViewCell {
     private let userView = UIView()
     private let userNameLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let userImageView = UIImageView()
+    private let userImageView = UIButton()
     
     // MARK: MAIN -
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+        
+        //test
+        userNameLabel.text = "Joanna"
+        descriptionLabel.text = "設定你的日記描述"
+        userImageView.setTitle("J", for: .normal)
     }
     
     required init?(coder: NSCoder) {
@@ -63,10 +68,8 @@ class UserInfoCell: UICollectionViewCell {
         }
         userImageView.backgroundColor = .tintColor
         userImageView.layer.cornerRadius = 30
-        
-        //test
-        userNameLabel.text = "Joanna"
-        descriptionLabel.text = "設定你的短描述"
+        userImageView.clipsToBounds = true
+        userImageView.titleLabel?.font = UIFont.systemFont(ofSize: 28)
     }
     
 }

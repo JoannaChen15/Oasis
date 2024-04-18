@@ -84,7 +84,7 @@ extension ChooseLocationController {
         ]
         navigationBar.titleTextAttributes = titleTextAttributes
         // 添加按鈕
-        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelAction))
+        let cancelButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelAction))
         navigationItem.leftBarButtonItem = cancelButton
         navigationBar.setItems([navigationItem], animated: false)
         navigationBar.backgroundColor = .systemBackground

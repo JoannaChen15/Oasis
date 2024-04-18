@@ -57,7 +57,7 @@ class LocationTypeCell: UICollectionViewCell {
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(emojiView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 40)
+        emojiLabel.font = UIFont.systemFont(ofSize: 36)
         
         contentView.addSubview(locationTypeLabel)
         locationTypeLabel.snp.makeConstraints { make in

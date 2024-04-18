@@ -53,7 +53,7 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(coverImageView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 40)
+        emojiLabel.font = UIFont.systemFont(ofSize: 36)
         
         contentView.addSubview(timeLine)
         timeLine.snp.makeConstraints { make in

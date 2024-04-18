@@ -27,7 +27,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             let newDiaryViewController = NewDiaryViewController()
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
-            self.present(newDiaryViewNavigation, animated: true, completion: nil)
+            present(newDiaryViewNavigation, animated: true, completion: nil)
             return false
         }
         return true

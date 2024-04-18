@@ -145,7 +145,7 @@ class NewDiaryViewController: UIViewController {
     
     // 選擇地點時呼叫的函式
     func handleChooseLocation(locationName: String) {
-        locationButton.detailLabel.text = locationName
+        locationButton.detailLabel.text = "\(selectedType!.emoji) \(locationName)"
         selectedLocation = locationName
     }
     
@@ -205,7 +205,6 @@ private extension NewDiaryViewController {
         // 配置導航欄的標準外觀
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.titleTextAttributes = titleTextAttributes
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.systemGray]
         navBarAppearance.backgroundColor = .systemBackground
 
         // 設置導航欄的標準外觀和滾動到邊緣時的外觀
@@ -216,7 +215,7 @@ private extension NewDiaryViewController {
         // 添加按鈕
         let doneButton = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(doneAction))
         navigationItem.rightBarButtonItem = doneButton
-        let cancelButton = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(cancelAction))
+        let cancelButton = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: self, action: #selector(cancelAction))
         navigationItem.leftBarButtonItem = cancelButton
     }
     
