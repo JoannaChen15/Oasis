@@ -44,7 +44,6 @@
 		9EFF49262BBC1AA80071FFCF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */; };
 		9EFF49282BBC435D0071FFCF /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */; };
 		9EFF492D2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */; };
-		9EFF49302BBEF4960071FFCF /* DiaryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF492F2BBEF4960071FFCF /* DiaryListModel.swift */; };
 		AA047EA90D9E8C76911B5487 /* Pods_OasisTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7871F8CB0758D090BC0AA6B8 /* Pods_OasisTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +110,6 @@
 		9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCollectionViewCell.swift; sourceTree = "<group>"; };
-		9EFF492F2BBEF4960071FFCF /* DiaryListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListModel.swift; sourceTree = "<group>"; };
 		C82E5AA6D67204C42E7C52E4 /* Pods-Oasis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Oasis.debug.xcconfig"; path = "Target Support Files/Pods-Oasis/Pods-Oasis.debug.xcconfig"; sourceTree = "<group>"; };
 		C87D9EAB7366EDB93F32147B /* Pods_Oasis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oasis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA6ACC6F775D3D1B1B7543FF /* Pods-OasisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OasisTests.release.xcconfig"; path = "Target Support Files/Pods-OasisTests/Pods-OasisTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
 				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
 				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
-				9EFF492F2BBEF4960071FFCF /* DiaryListModel.swift */,
 				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
 			);
 			path = ProfileView;
@@ -536,7 +533,6 @@
 				9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */,
 				9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */,
 				9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */,
-				9EFF49302BBEF4960071FFCF /* DiaryListModel.swift in Sources */,
 				9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */,
 				9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */,
 				9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */,
