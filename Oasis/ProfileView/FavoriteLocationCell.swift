@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+protocol FavoriteLocationCellDelegate: AnyObject {
+    func didTapFavoriteButton(location: LocationModel)
+    func didTapNewDiaryButton(location: LocationModel)
+}
+
 class FavoriteLocationCell: UICollectionViewCell {
     
     static let cellIdentifier = "FavoriteLocationCell"
@@ -17,6 +22,18 @@ class FavoriteLocationCell: UICollectionViewCell {
     private let locationNameLabel = UILabel()
     private let newDiaryButton = UIButton()
     private let underLine = UIView()
+    
+    weak var delegate: FavoriteLocationCellDelegate?
+    
+    var favoriteLocation: LocationModel?
+//    {
+//        didSet {
+//            guard let favoriteLocation else { return }
+//            locationTypeView.setTitle("\(favoriteLocation.type.emoji) \(favoriteLocation.type.displayName)", for: .normal)
+//            locationNameLabel.text = "\(favoriteLocation.name)"
+//            favoriteButton.status = favoriteLocation.favoriteStatus
+//        }
+//    }
     
     // MARK: MAIN -
     
@@ -34,10 +51,24 @@ class FavoriteLocationCell: UICollectionViewCell {
     }
     
     func setupWith(favoriteLocationModel: LocationModel) {
+        favoriteLocation = favoriteLocationModel
         locationTypeView.setTitle("\(favoriteLocationModel.type.emoji) \(favoriteLocationModel.type.displayName)", for: .normal)
         locationNameLabel.text = "\(favoriteLocationModel.name)"
         favoriteButton.status = favoriteLocationModel.favoriteStatus
     }
+    
+    @objc func tapFavoriteButton() {
+        // 儲存此筆cell的location
+        guard let favoriteLocation = self.favoriteLocation else { return }
+        // 呼叫delegate執行按下按鈕要做的事
+        delegate?.didTapFavoriteButton(location: favoriteLocation)
+    }
+    
+    @objc func tapNewDiaryButton() {
+        guard let favoriteLocation = self.favoriteLocation else { return }
+        delegate?.didTapNewDiaryButton(location: favoriteLocation)
+    }
+    
 }
 
 extension FavoriteLocationCell {
@@ -56,6 +87,7 @@ extension FavoriteLocationCell {
             make.left.equalToSuperview().inset(16)
             make.size.equalTo(24)
         }
+        favoriteButton.addTarget(self, action: #selector(tapFavoriteButton), for: .touchUpInside)
     }
     
     private func configureLocationTypeButton() {
@@ -91,6 +123,7 @@ extension FavoriteLocationCell {
         newDiaryButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         newDiaryButton.backgroundColor = .systemCyan
         newDiaryButton.layer.cornerRadius = 10
+        newDiaryButton.addTarget(self, action: #selector(tapNewDiaryButton), for: .touchUpInside)
         newDiaryButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(16)

@@ -39,6 +39,10 @@ class MapViewController: UIViewController {
         mapViewModel.fetchLandmarksForTypes()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        locationCollectionView.reloadData()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         containerBottomOffset = 140

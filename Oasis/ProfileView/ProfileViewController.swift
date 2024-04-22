@@ -16,6 +16,9 @@ class ProfileViewController: UIViewController {
     var headerViewModel = DiaryListHeaderViewModel()
     
     let mapViewModel = MapViewModel.shared
+    var locations: [LocationModel] {
+        mapViewModel.locations
+    }
     var favoriteLocations = [LocationModel]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +70,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }
-                cell.setupWith(favoriteLocationModel: favoriteLocations[indexPath.row])
+                let favoriteLocationModel = favoriteLocations[indexPath.row]
+                cell.setupWith(favoriteLocationModel: favoriteLocationModel)
+//                cell.favoriteLocation = favoriteLocations[indexPath.row]
+                cell.delegate = self
                 return cell
             }
         }
@@ -114,6 +120,28 @@ extension ProfileViewController: UserInfoCellDelegate {
     func editProfile() {
         let setupController = ProfileSetupViewController()
         navigationController?.pushViewController(setupController, animated: true)
+    }
+}
+
+extension ProfileViewController: FavoriteLocationCellDelegate {
+    func didTapNewDiaryButton(location: LocationModel) {
+        let newDiaryViewController = NewDiaryViewController()
+        newDiaryViewController.selectedType = location.type
+        newDiaryViewController.selectedLocation = location.name
+        let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
+        newDiaryViewNavigation.modalPresentationStyle = .fullScreen
+        present(newDiaryViewNavigation, animated: true, completion: nil)
+    }
+    
+    func didTapFavoriteButton(location: LocationModel) {
+        // 按下按鈕後找到按的是第幾筆Location
+        guard let index = locations.firstIndex(of: location) else { return }
+        // 改變Location的最愛狀態
+        locations[index].favoriteStatus = .unselected
+        mapViewModel.removeFavoriteLocation(location: location)
+        favoriteLocations = mapViewModel.favoriteLocations
+        // 通知collectionView重畫
+        collectionView.reloadData()
     }
 }
 
