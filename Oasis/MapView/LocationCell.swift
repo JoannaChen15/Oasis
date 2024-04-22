@@ -79,7 +79,7 @@ class LocationCell: UICollectionViewCell {
             make.right.equalToSuperview().inset(16)
             make.size.equalTo(24)
         }
-        favoriteButton.addTarget(self, action: #selector(tabFavoriteButton), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(tapFavoriteButton), for: .touchUpInside)
         
         // 天氣狀況 mainStackView
         shadowView.addSubview(mainStackView)
@@ -134,7 +134,7 @@ class LocationCell: UICollectionViewCell {
         windSpeedLabel.text = "\(weatherData.wind.speed) m/s"
     }
 
-    @objc func tabFavoriteButton() {
+    @objc func tapFavoriteButton() {
         // 儲存此筆cell的location
         guard let location = self.location else { return }
         // 呼叫delegate執行按下按鈕要做的事

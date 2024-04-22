@@ -21,7 +21,7 @@ class NewDiaryViewController: UIViewController {
     private let photoButton = UIButton()
     private let contentLabel = UILabel()
     private let contentView = UIView()
-    private let contentTextField = UITextField()
+    private let contentTextView = UITextView()
 
     private let constant: CGFloat = 24
     private let buttonHeight: CGFloat = 56
@@ -325,15 +325,12 @@ private extension NewDiaryViewController {
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 8
 
-        contentView.addSubview(contentTextField)
-        contentTextField.snp.makeConstraints { make in
+        contentView.addSubview(contentTextView)
+        contentTextView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(16)
         }
-        contentTextField.contentVerticalAlignment = .top
-        contentTextField.contentHorizontalAlignment = .left
-        contentTextField.placeholder = "寫下這次感受大自然的心情吧. 🌱"
-        contentTextField.textColor = .primary
-        contentTextField.delegate = self
+        contentTextView.font = UIFont.systemFont(ofSize: 17)
+        contentTextView.textColor = .primary
     }
 }
 
@@ -346,14 +343,6 @@ extension NewDiaryViewController {
         dashedBorder.fillColor = nil
         dashedBorder.path = UIBezierPath(roundedRect: photoButton.bounds, cornerRadius: 8).cgPath
         photoButton.layer.addSublayer(dashedBorder)
-    }
-}
-
-extension NewDiaryViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // 當用戶按下 return 鍵時，結束編輯狀態
-        textField.resignFirstResponder()
-        return true
     }
 }
 
