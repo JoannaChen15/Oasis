@@ -154,8 +154,7 @@ extension ProfileViewController: UserInfoCellDelegate {
 extension ProfileViewController: FavoriteLocationCellDelegate {
     func didTapNewDiaryButton(location: LocationModel) {
         let newDiaryViewController = NewDiaryViewController()
-        newDiaryViewController.selectedType = location.type
-        newDiaryViewController.selectedLocation = location.name
+        newDiaryViewController.favoriteLocation = location
         let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
         newDiaryViewNavigation.modalPresentationStyle = .fullScreen
         present(newDiaryViewNavigation, animated: true, completion: nil)

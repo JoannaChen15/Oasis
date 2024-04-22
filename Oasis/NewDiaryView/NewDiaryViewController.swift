@@ -44,12 +44,14 @@ class NewDiaryViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var diaryListDelegate: DiaryListDelegate?
     var diaryDetailDelegate: DiaryDetailDelegate?
+    
+    var favoriteLocation: LocationModel?
     var diary: Diary?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        updateUI()
+        update(with: diary, or: favoriteLocation)
         setupNavigationBarForEditing()
         // 添加點擊手勢
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -67,7 +69,15 @@ class NewDiaryViewController: UIViewController {
         }
     }
     
-    func updateUI() {
+    func update(with diary: Diary? = nil, or favoriteLocation: LocationModel? = nil) {
+        if diary != nil {
+            updateWithDiary()
+        } else if favoriteLocation != nil {
+            updateWithFavoriteLocation()
+        }
+    }
+    
+    func updateWithDiary() {
         guard let diary else { return }
         // 設置地點及類型
         if let locationType = LocationType(rawValue: diary.locationType!) {
@@ -98,6 +108,15 @@ class NewDiaryViewController: UIViewController {
                           NSAttributedString.Key.foregroundColor: UIColor.primary,
                           NSAttributedString.Key.paragraphStyle: paraph]
         contentTextView.attributedText = NSAttributedString(string: string, attributes: attributes)
+    }
+    
+    func updateWithFavoriteLocation() {
+        guard let location = self.favoriteLocation else { return }
+        // 設置地點及類型
+        typeButton.detailLabel.text = location.type.displayName
+        locationButton.detailLabel.text = "\(location.type.emoji) \(location.name)"
+        selectedType = location.type
+        selectedLocation = location.name
     }
     
     func setupNavigationBarForEditing() {
