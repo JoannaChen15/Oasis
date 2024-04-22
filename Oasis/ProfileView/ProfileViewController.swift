@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         favoriteLocations = mapViewModel.favoriteLocations
-        collectionView.reloadData()
+        getAllDiaries()
     }
     
     @objc func settings() {
@@ -66,7 +66,11 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 1 :
             return 5
         default :
-            return favoriteLocations.count
+            if self.diaryListHeaderView.diaryButton.isSelected {
+                return diaryModels.count
+            } else {
+                return favoriteLocations.count
+            }
         }
     }
     
@@ -87,6 +91,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         default :
             if self.diaryListHeaderView.diaryButton.isSelected {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiaryListCollectionViewCell.cellIdentifier, for: indexPath) as? DiaryListCollectionViewCell else { fatalError("Unable deque cell...") }
+                let diaryModel = diaryModels[indexPath.row]
+                cell.setupWith(diaryModel: diaryModel)
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }

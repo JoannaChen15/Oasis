@@ -18,16 +18,6 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
     private let dateLabel = UILabel()
     private let contentLabel = UILabel()
     private let timeLine = UIView()
-    
-//    var cellData : DiaryListModel? {
-//        didSet {
-//            guard let diaryData = cellData else { return }
-//            locationNameLabel.text = diaryData.locationName
-//            coverImageView.image = UIImage(named: diaryData.coverImage)
-//            contentLabel.text = diaryData.content
-//        }
-//    }
-    
     private let underLine = UIView()
         
     // MARK: MAIN -
@@ -41,6 +31,19 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupWith(diaryModel: Diary) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy年MM月dd日"
+        let dateString = dateFormatter.string(from: diaryModel.date ?? Date())
+        dateLabel.text = dateString
+        locationNameLabel.text = diaryModel.locationName
+        emojiLabel.text = LocationType(rawValue: diaryModel.locationType!)?.emoji
+        coverImageView.image = UIImage(data: diaryModel.photo ?? Data())
+        contentLabel.text = diaryModel.content
+    }
+
+}
+
 extension DiaryListCollectionViewCell {
     private func configureUI(){
         configureCoverImageView()
