@@ -74,6 +74,10 @@ class NewDiaryViewController: UIViewController {
 
     @objc func doneAction() {
 
+        guard let selectedType,
+              let selectedLocation else { return }
+        self.createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
+        dismiss(animated: true)
     }
     // Core Data
     
