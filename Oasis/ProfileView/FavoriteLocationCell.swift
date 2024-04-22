@@ -26,14 +26,6 @@ class FavoriteLocationCell: UICollectionViewCell {
     weak var delegate: FavoriteLocationCellDelegate?
     
     var favoriteLocation: LocationModel?
-//    {
-//        didSet {
-//            guard let favoriteLocation else { return }
-//            locationTypeView.setTitle("\(favoriteLocation.type.emoji) \(favoriteLocation.type.displayName)", for: .normal)
-//            locationNameLabel.text = "\(favoriteLocation.name)"
-//            favoriteButton.status = favoriteLocation.favoriteStatus
-//        }
-//    }
     
     // MARK: MAIN -
     

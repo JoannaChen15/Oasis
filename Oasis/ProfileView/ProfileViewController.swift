@@ -45,8 +45,14 @@ class ProfileViewController: UIViewController {
     // Core Data
     
     func getAllDiaries() {
+        // 依日期從新到舊排序
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        // 創建請求
+        let fetchRequest: NSFetchRequest<Diary> = Diary.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
-            diaryModels = try context.fetch(Diary.fetchRequest())
+            diaryModels = try context.fetch(fetchRequest)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -98,7 +104,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }
                 let favoriteLocationModel = favoriteLocations[indexPath.row]
                 cell.setupWith(favoriteLocationModel: favoriteLocationModel)
-//                cell.favoriteLocation = favoriteLocations[indexPath.row]
                 cell.delegate = self
                 return cell
             }
