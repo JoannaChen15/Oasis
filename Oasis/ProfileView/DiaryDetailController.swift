@@ -32,6 +32,8 @@ class DiaryDetailController: UIViewController {
         let editAction = UIAlertAction(title: "編輯", style: .default) { [weak self] _ in
             let newDiaryViewController = NewDiaryViewController()
             newDiaryViewController.diary = self?.diary
+            newDiaryViewController.diaryDetailDelegate = self
+            
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
             self?.present(newDiaryViewNavigation, animated: true, completion: nil)
@@ -91,6 +93,11 @@ class DiaryDetailController: UIViewController {
         }
     }
     
+}
+
+extension DiaryDetailController: DiaryDetailDelegate {
+    func updateDiaryDetail(with diary: Diary) {
+        updateUI(with: diary)
     }
 }
 

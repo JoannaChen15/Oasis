@@ -13,6 +13,10 @@ protocol DiaryListDelegate: AnyObject {
     func updateDiaryList()
 }
 
+protocol DiaryDetailDelegate: AnyObject {
+    func updateDiaryDetail(with diary: Diary)
+}
+
 class NewDiaryViewController: UIViewController {
 
     private let scrollView = UIScrollView()
@@ -39,6 +43,7 @@ class NewDiaryViewController: UIViewController {
         
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var diaryListDelegate: DiaryListDelegate?
+    var diaryDetailDelegate: DiaryDetailDelegate?
     var diary: Diary?
     
     override func viewDidLoad() {
@@ -129,6 +134,14 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func doneEdit() {
+        guard let diary,
+              let selectedType,
+              let selectedLocation,
+              let selectedDate else { return }
+        self.updateDiary(diary: diary, newLocationName: selectedLocation, newLocationType: selectedType.rawValue, newDate: selectedDate, newPhoto: selectedPhoto?.pngData(), newContent: contentTextView.text ?? "")
+        diaryDetailDelegate?.updateDiaryDetail(with: diary)
+        diaryListDelegate?.updateDiaryList()
+        dismiss(animated: true)
     }
     
     // Core Data
