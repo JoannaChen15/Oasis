@@ -40,6 +40,12 @@ class DiaryDetailController: UIViewController {
         }
         controller.addAction(editAction)
         
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+            self?.deleteDiary(diary: (self?.diary)!)
+            self?.navigationController?.popToRootViewController(animated: true)
+        }
+        controller.addAction(deleteAction)
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         controller.addAction(cancelAction)
         present(controller, animated: true)
