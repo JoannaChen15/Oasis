@@ -17,11 +17,16 @@ class DiaryDetailController: UIViewController {
     private let contentLabel = UILabel()
     
     var diary: Diary!
+    var photoData: Data?
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        handleNoPhotoData()
+    }
+    
     @objc func tapEditButton() {
     func setupWith(diaryModel: Diary) {
         diary = diaryModel
@@ -48,6 +53,16 @@ class DiaryDetailController: UIViewController {
         // 設置日記內容
         contentLabel.text = diary.content
     }
+    
+    func handleNoPhotoData() {
+        guard photoData == nil else { return }
+        photoImageView.removeFromSuperview()
+        locationTypeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.left.equalToSuperview().inset(16)
+            make.width.equalTo(76)
+            make.height.equalTo(32)
+        }
     }
     
         let newDiaryViewController = NewDiaryViewController()
