@@ -18,26 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        // 生成Controllers
+        // 生成tabBar
         let tabBarController = TabBarController()
-        let mapViewController = MapViewController()
-        let newDiaryViewController = NewDiaryViewController()
-        let profileViewController = ProfileViewController()
-        
-        // 定義Navigation
-        let profileViewNavigation = UINavigationController(rootViewController: profileViewController)
-        
-        // 定義Tab有哪些畫面
-        tabBarController.viewControllers = [
-            mapViewController,
-            newDiaryViewController,
-            profileViewNavigation
-        ]
-        
-        // 定義TabBarItem
-        mapViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "magnifyingglass"), tag: 0)
-        newDiaryViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "plus.circle"), tag: 1)
-        profileViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person.crop.circle"), tag: 2)
         
         // is Initial Controller
         window?.rootViewController = tabBarController
