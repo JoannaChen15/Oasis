@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import CoreData
+
 
 class ProfileViewController: UIViewController {
     
@@ -20,6 +22,11 @@ class ProfileViewController: UIViewController {
         mapViewModel.locations
     }
     var favoriteLocations = [LocationModel]()
+        
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    private var diaryModels = [Diary]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -35,6 +42,19 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(setupController, animated: true)
     }
     
+    // Core Data
+    
+    func getAllDiaries() {
+        do {
+            diaryModels = try context.fetch(Diary.fetchRequest())
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        } catch {
+            // error
+        }
+    }
+
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

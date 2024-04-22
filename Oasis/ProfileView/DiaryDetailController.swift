@@ -16,6 +16,8 @@ class DiaryDetailController: UIViewController {
     private let locationNameLabel = UILabel()
     private let contentLabel = UILabel()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -26,6 +28,17 @@ class DiaryDetailController: UIViewController {
         let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
         newDiaryViewNavigation.modalPresentationStyle = .fullScreen
         self.present(newDiaryViewNavigation, animated: true, completion: nil)
+    // Core Data
+    
+    func deleteDiary(diary: Diary) {
+        context.delete(diary)
+        do {
+            try context.save()
+        } catch {
+            // error
+        }
+    }
+    
     }
 }
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class NewDiaryViewController: UIViewController {
 
@@ -31,6 +32,8 @@ class NewDiaryViewController: UIViewController {
     var selectedLocation: String?
     var selectedDate: Date?
     var selectedPhoto: UIImage?
+        
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +74,34 @@ class NewDiaryViewController: UIViewController {
 
     @objc func doneAction() {
 
+    }
+    // Core Data
+    
+    func createDiary(locationName: String, locationType: String, date: Date, photo: Data?, content: String) {
+        let newDiary = Diary(context: context)
+        newDiary.locationName = locationName
+        newDiary.locationType = locationType
+        newDiary.date = date
+        newDiary.photo = photo
+        newDiary.content = content
+        do {
+            try context.save()
+        } catch {
+            // error
+        }
+    }
+    
+    func updateDiary(diary: Diary, newLocationName: String, newLocationType: String, newDate: Date, newPhoto: Data?, newContent: String) {
+        diary.locationName = newLocationName
+        diary.locationType = newLocationType
+        diary.date = newDate
+        diary.photo = newPhoto
+        diary.content = newContent
+        do {
+            try context.save()
+        } catch {
+            // error
+        }
     }
     
     @objc func cancelAction() {
@@ -142,6 +173,7 @@ class NewDiaryViewController: UIViewController {
         // reset地點
         locationButton.detailLabel.text = "選擇"
         selectedLocation = nil
+    }
     
     // 選擇地點時呼叫的函式
     func handleChooseLocation(locationName: String) {
@@ -156,7 +188,6 @@ class NewDiaryViewController: UIViewController {
         let dateString = dateFormatter.string(from: selectedDate)
         dateButton.detailLabel.text = dateString
         self.selectedDate = selectedDate
-    }
     }
 
     deinit {
