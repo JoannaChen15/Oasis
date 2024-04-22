@@ -120,15 +120,15 @@ extension FavoriteLocationCell {
         contentView.addSubview(newDiaryButton)
         newDiaryButton.setTitle("新增日記", for: .normal)
         newDiaryButton.setTitleColor(.white, for: .normal)
-        newDiaryButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        newDiaryButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         newDiaryButton.backgroundColor = .systemCyan
-        newDiaryButton.layer.cornerRadius = 10
+        newDiaryButton.layer.cornerRadius = 6
         newDiaryButton.addTarget(self, action: #selector(tapNewDiaryButton), for: .touchUpInside)
         newDiaryButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().inset(16)
-            make.width.equalTo(92)
-            make.height.equalTo(36)
+            make.width.equalTo(88)
+            make.height.equalTo(32)
         }
         locationNameLabel.snp.makeConstraints { make in
             make.right.lessThanOrEqualTo(newDiaryButton.snp.left).offset(-2)
@@ -140,7 +140,7 @@ extension FavoriteLocationCell {
         underLine.backgroundColor = .systemGray6
         underLine.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().inset(8)
+            make.width.equalToSuperview().inset(16)
             make.height.equalTo(1)
             make.bottom.equalToSuperview()
         }

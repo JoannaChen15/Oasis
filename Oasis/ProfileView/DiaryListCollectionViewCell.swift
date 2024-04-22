@@ -15,7 +15,7 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
     private let coverImageView = UIImageView()
     private let emojiLabel = UILabel()
     private let locationNameLabel = UILabel()
-    private let timeLabel = UILabel()
+    private let dateLabel = UILabel()
     private let contentLabel = UILabel()
     private let timeLine = UIView()
     
@@ -28,6 +28,8 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
 //        }
 //    }
     
+    private let underLine = UIView()
+        
     // MARK: MAIN -
     
     override init(frame: CGRect) {
@@ -39,63 +41,116 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI(){
+extension DiaryListCollectionViewCell {
+    private func configureUI(){
+        configureCoverImageView()
+        configureEmojiLabel()
+        configureTimeLine()
+        configureDateLabel()
+        configureLocationNameLabel()
+        configureContentLabel()
+        configureUnderLine()
+    }
+    
+    private func configureCoverImageView(){
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview().inset(16)
-            make.size.equalTo(80)
+            make.size.equalTo(68)
         }
         coverImageView.layer.cornerRadius = 20
+        coverImageView.clipsToBounds = true
         coverImageView.backgroundColor = .systemGray6
         
+        // 添加白色半透明的覆蓋層
+        let overlayView = UIView()
+        overlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        coverImageView.addSubview(overlayView)
+        overlayView.layer.cornerRadius = 20
+        overlayView.layer.masksToBounds = true
+        overlayView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    private func configureEmojiLabel() {
         contentView.addSubview(emojiLabel)
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(coverImageView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 36)
-        
+        emojiLabel.font = UIFont.systemFont(ofSize: 32)
+    }
+    
+    private func configureTimeLine() {
         contentView.addSubview(timeLine)
         timeLine.snp.makeConstraints { make in
-            make.top.equalTo(coverImageView.snp.bottom).offset(10)
+            make.top.equalTo(coverImageView.snp.bottom).offset(8)
             make.centerX.equalTo(coverImageView)
             make.width.equalTo(1)
             make.bottom.equalToSuperview()
         }
         timeLine.backgroundColor = .systemGray5
-        
-        contentView.addSubview(timeLabel)
-        timeLabel.snp.makeConstraints { make in
-            make.top.equalTo(coverImageView)
+    }
+    
+    private func configureDateLabel() {
+        contentView.addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
+            make.top.equalTo(coverImageView).inset(8)
             make.left.equalTo(coverImageView.snp.right).offset(10)
         }
-        timeLabel.textColor = .systemGray
-        timeLabel.font = UIFont.systemFont(ofSize: 15)
-        
+        dateLabel.textColor = .systemGray
+        dateLabel.font = UIFont.systemFont(ofSize: 15)
+    }
+
+    private func configureLocationNameLabel() {
         contentView.addSubview(locationNameLabel)
         locationNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(timeLabel.snp.bottom).offset(6)
-            make.left.equalTo(timeLabel.snp.left)
+            make.top.equalTo(dateLabel.snp.bottom).offset(6)
+            make.left.equalTo(dateLabel.snp.left)
         }
         locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         locationNameLabel.textColor = .primary
         
         contentView.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(locationNameLabel.snp.bottom).offset(10)
-            make.left.equalTo(timeLabel.snp.left)
+            make.bottom.equalToSuperview().inset(24)
+            make.left.equalTo(dateLabel.snp.left)
             make.right.equalToSuperview().inset(16)
         }
         contentLabel.textColor = .primary
         contentLabel.font = UIFont.systemFont(ofSize: 15)
-        contentLabel.numberOfLines = 2
+        contentLabel.lineBreakMode = .byTruncatingTail // 末尾截斷，並顯示省略號
+        // 創建屬性字串
+        let attributedString = NSMutableAttributedString(string: contentLabel.text ?? "")
+        // 設置段落樣式，包括上下間距
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 6 // 上下間距
+        let range = NSRange(location: 0, length: attributedString.length)
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
+        // 將屬性字串設置給UILabel
+        contentLabel.attributedText = attributedString
         
-        //test
-        timeLabel.text = "2024年4月8日 週一"
-        locationNameLabel.text = "粉鳥林秘境"
-        contentLabel.text = "我的日記內容，我的日記內容我的日記內容我的日記內容我的日記內容diaryContentdiaryContentdiaryContentdiaryContentdiaryCont我的日記內容ContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContentdiaryContent"
-        emojiLabel.text = "🏕️"
-        
+        contentView.addSubview(underLine)
+        underLine.backgroundColor = .systemGray6
+        underLine.snp.makeConstraints { make in
+            make.left.equalTo(dateLabel)
+            make.bottom.equalToSuperview().inset(4)
+            make.right.equalToSuperview().inset(16)
+            make.height.equalTo(1)
+        }
+    }
+
+    private func configureContentLabel() {
+        contentView.addSubview(contentLabel)
+        contentLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(24)
+            make.left.equalTo(dateLabel.snp.left)
+            make.right.equalToSuperview().inset(16)
+        }
+        contentLabel.textColor = .primary
+        contentLabel.font = UIFont.systemFont(ofSize: 15)
+        contentLabel.lineBreakMode = .byTruncatingTail // 末尾截斷，並顯示省略號
         // 創建屬性字串
         let attributedString = NSMutableAttributedString(string: contentLabel.text ?? "")
         // 設置段落樣式，包括上下間距
@@ -106,5 +161,15 @@ class DiaryListCollectionViewCell: UICollectionViewCell {
         // 將屬性字串設置給UILabel
         contentLabel.attributedText = attributedString
     }
-    
+
+    private func configureUnderLine() {
+        contentView.addSubview(underLine)
+        underLine.backgroundColor = .systemGray6
+        underLine.snp.makeConstraints { make in
+            make.left.equalTo(dateLabel)
+            make.bottom.equalToSuperview().inset(4)
+            make.right.equalToSuperview().inset(16)
+            make.height.equalTo(1)
+        }
+    }
 }

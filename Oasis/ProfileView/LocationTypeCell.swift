@@ -33,11 +33,11 @@ class LocationTypeCell: UICollectionViewCell {
         contentView.addSubview(shadowView)
         shadowView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.height.equalTo(132)
-            make.width.equalTo(80)
+            make.height.equalTo(124)
+            make.width.equalTo(72)
         }
         shadowView.backgroundColor = .systemBackground
-        shadowView.layer.cornerRadius = 40
+        shadowView.layer.cornerRadius = 36
         shadowView.layer.shadowColor = UIColor.systemGray4.cgColor
         shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
         shadowView.layer.shadowOpacity = 0.5
@@ -47,9 +47,9 @@ class LocationTypeCell: UICollectionViewCell {
         emojiView.snp.makeConstraints { make in
             make.top.equalTo(shadowView.snp.top).inset(10)
             make.centerX.equalTo(shadowView)
-            make.size.equalTo(60)
+            make.size.equalTo(52)
         }
-        emojiView.layer.cornerRadius = 30
+        emojiView.layer.cornerRadius = 26
         emojiView.layer.borderWidth = 1
         emojiView.layer.borderColor = UIColor.systemGray5.cgColor
         
@@ -57,7 +57,7 @@ class LocationTypeCell: UICollectionViewCell {
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(emojiView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 36)
+        emojiLabel.font = UIFont.systemFont(ofSize: 32)
         
         contentView.addSubview(locationTypeLabel)
         locationTypeLabel.snp.makeConstraints { make in
@@ -69,10 +69,10 @@ class LocationTypeCell: UICollectionViewCell {
         
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in
-            make.top.equalTo(locationTypeLabel.snp.bottom).offset(4)
+            make.top.equalTo(locationTypeLabel.snp.bottom).offset(2)
             make.centerX.equalTo(shadowView)
         }
-        countLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        countLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         countLabel.textColor = .primary
         
         //test

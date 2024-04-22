@@ -19,9 +19,9 @@ class DiaryDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+    @objc func tapEditButton() {
     }
     
-    @objc func edit() {
         let newDiaryViewController = NewDiaryViewController()
         let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
         newDiaryViewNavigation.modalPresentationStyle = .fullScreen
@@ -65,7 +65,7 @@ extension DiaryDetailController {
 
         navigationItem.title = "日記"
         // 添加右側按鈕
-        let editButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(edit))
+        let editButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(tapEditButton))
         navigationItem.rightBarButtonItem = editButton
     }
     
@@ -80,6 +80,7 @@ extension DiaryDetailController {
     private func configurePhotoImageView() {
         scrollView.addSubview(photoImageView)
         photoImageView.contentMode = .scaleAspectFill
+        photoImageView.clipsToBounds = true
         photoImageView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.contentLayoutGuide)
             make.width.equalToSuperview()
@@ -124,15 +125,14 @@ extension DiaryDetailController {
     private func configureContentLabel() {
         scrollView.addSubview(contentLabel)
         contentLabel.textColor = .primary
-        contentLabel.numberOfLines = .max
+        contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .justified
         
-        let attributedString = NSMutableAttributedString(string: "Your multi-line text")
         // 設置行間距
+        let attributedString = NSMutableAttributedString(string: contentLabel.text ?? "")
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8 // 設置行間距為8個點
         attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-        // 將 attributedString 設置給 UILabel
         contentLabel.attributedText = attributedString
         
         contentLabel.snp.makeConstraints { make in

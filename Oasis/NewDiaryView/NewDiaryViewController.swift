@@ -74,11 +74,11 @@ class NewDiaryViewController: UIViewController {
     }
     
     @objc func cancelAction() {
-        guard selectedType == nil, selectedLocation == nil, selectedDate == nil, selectedPhoto == nil, contentTextField.text == "" else {
-            let controller = UIAlertController(title: "捨棄日記", message: "確定要放棄編輯並離開？", preferredStyle: .alert)
+        guard selectedType == nil, selectedLocation == nil, selectedDate == nil, selectedPhoto == nil, contentTextView.text == "" else {
+            let controller = UIAlertController(title: "放棄編輯內容", message: "確定要放棄編輯並離開？", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel)
             controller.addAction(cancelAction)
-            let confirmAction = UIAlertAction(title: "捨棄", style: .destructive) { _ in
+            let confirmAction = UIAlertAction(title: "離開", style: .destructive) { _ in
                 self.dismiss(animated: true)
             }
             controller.addAction(confirmAction)
@@ -275,12 +275,12 @@ private extension NewDiaryViewController {
             make.height.equalTo(buttonHeight)
             make.width.equalToSuperview()
         }
-        dateButton.mainLabel.text = "日期"
         let today = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy年MM月dd日"
         let dateString = dateFormatter.string(from: today)
         dateButton.detailLabel.text = dateString
+        dateButton.mainLabel.text = "日期"
         dateButton.addTarget(self, action: #selector(chooseTime), for: .touchUpInside)
     }
 
@@ -338,7 +338,7 @@ extension NewDiaryViewController {
     func addDashedBorder() {
         let dashedBorder = CAShapeLayer()
         dashedBorder.strokeColor = UIColor.systemGray.cgColor
-        dashedBorder.lineDashPattern = [8, 2] // 设置虚线的间隔
+        dashedBorder.lineDashPattern = [8, 2] // 設置虛線的間隔
         dashedBorder.frame = photoButton.bounds
         dashedBorder.fillColor = nil
         dashedBorder.path = UIBezierPath(roundedRect: photoButton.bounds, cornerRadius: 8).cgPath
