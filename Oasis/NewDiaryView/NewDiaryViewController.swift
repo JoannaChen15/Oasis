@@ -39,10 +39,13 @@ class NewDiaryViewController: UIViewController {
         
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var diaryListDelegate: DiaryListDelegate?
+    var diary: Diary?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        updateUI()
+        setupNavigationBarForEditing()
         // 添加點擊手勢
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -57,6 +60,46 @@ class NewDiaryViewController: UIViewController {
             isFirstPresent = false
             addDashedBorder()
         }
+    }
+    
+    func updateUI() {
+        guard let diary else { return }
+        // 設置地點及類型
+        if let locationType = LocationType(rawValue: diary.locationType!) {
+            typeButton.detailLabel.text = locationType.displayName
+            locationButton.detailLabel.text = "\(locationType.emoji) \(diary.locationName!)"
+            selectedType = locationType
+            selectedLocation = diary.locationName
+        }
+        // 設置日期
+        if let diaryDate = diary.date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy年MM月dd日"
+            let dateString = dateFormatter.string(from: diaryDate)
+            dateButton.detailLabel.text = dateString
+            selectedDate = diaryDate
+        }
+        // 設置照片
+        if let photoData = diary.photo {
+            let photoImage = UIImage(data: photoData)
+            photoButton.setImage(photoImage, for: .normal)
+            selectedPhoto = photoImage
+        }
+        //設置日記內容
+        let string = diary.content ?? ""
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 8
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
+                          NSAttributedString.Key.foregroundColor: UIColor.primary,
+                          NSAttributedString.Key.paragraphStyle: paraph]
+        contentTextView.attributedText = NSAttributedString(string: string, attributes: attributes)
+    }
+    
+    func setupNavigationBarForEditing() {
+        guard diary != nil else { return }
+        navigationItem.title = "編輯日記"
+        let doneEditButton = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(doneEdit))
+        navigationItem.rightBarButtonItem = doneEditButton
     }
 
     @objc func hideKeyboard() {
@@ -78,13 +121,16 @@ class NewDiaryViewController: UIViewController {
     }
 
     @objc func doneAction() {
-
         guard let selectedType,
               let selectedLocation else { return }
         self.createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
         diaryListDelegate?.updateDiaryList()
         dismiss(animated: true)
     }
+    
+    @objc func doneEdit() {
+    }
+    
     // Core Data
     
     func createDiary(locationName: String, locationType: String, date: Date, photo: Data?, content: String) {

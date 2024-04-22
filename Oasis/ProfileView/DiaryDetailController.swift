@@ -28,6 +28,21 @@ class DiaryDetailController: UIViewController {
     }
     
     @objc func tapEditButton() {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let editAction = UIAlertAction(title: "編輯", style: .default) { [weak self] _ in
+            let newDiaryViewController = NewDiaryViewController()
+            newDiaryViewController.diary = self?.diary
+            let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
+            newDiaryViewNavigation.modalPresentationStyle = .fullScreen
+            self?.present(newDiaryViewNavigation, animated: true, completion: nil)
+        }
+        controller.addAction(editAction)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        controller.addAction(cancelAction)
+        present(controller, animated: true)
+    }
+    
     func setupWith(diaryModel: Diary) {
         diary = diaryModel
         updateUI(with: diary)
@@ -65,10 +80,6 @@ class DiaryDetailController: UIViewController {
         }
     }
     
-        let newDiaryViewController = NewDiaryViewController()
-        let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
-        newDiaryViewNavigation.modalPresentationStyle = .fullScreen
-        self.present(newDiaryViewNavigation, animated: true, completion: nil)
     // Core Data
     
     func deleteDiary(diary: Diary) {
