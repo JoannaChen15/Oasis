@@ -173,7 +173,7 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
 
 extension ProfileViewController: ChangeListContentDelegate {
     func changeListContent() {
-        collectionView.reloadData()
+        getAllDiaries()
     }
 }
 
@@ -251,5 +251,11 @@ extension ProfileViewController {
         diaryListHeaderView.isHidden = true
         diaryListHeaderView.viewModel = headerViewModel
         headerViewModel.stickyHeaderViewDelegate = diaryListHeaderView
+    }
+}
+
+extension ProfileViewController: DiaryListDelegate {
+    func updateDiaryList() {
+        getAllDiaries()
     }
 }

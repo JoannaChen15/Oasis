@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import CoreData
 
+protocol DiaryListDelegate: AnyObject {
+    func updateDiaryList()
+}
+
 class NewDiaryViewController: UIViewController {
 
     private let scrollView = UIScrollView()
@@ -34,6 +38,7 @@ class NewDiaryViewController: UIViewController {
     var selectedPhoto: UIImage?
         
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var diaryListDelegate: DiaryListDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +82,7 @@ class NewDiaryViewController: UIViewController {
         guard let selectedType,
               let selectedLocation else { return }
         self.createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
+        diaryListDelegate?.updateDiaryList()
         dismiss(animated: true)
     }
     // Core Data

@@ -50,6 +50,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController is NewDiaryViewController {
             let newDiaryViewController = NewDiaryViewController()
+            newDiaryViewController.diaryListDelegate = profileViewController
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
             present(newDiaryViewNavigation, animated: true, completion: nil)
