@@ -16,12 +16,38 @@ class DiaryDetailController: UIViewController {
     private let locationNameLabel = UILabel()
     private let contentLabel = UILabel()
     
+    var diary: Diary!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     @objc func tapEditButton() {
+    func setupWith(diaryModel: Diary) {
+        diary = diaryModel
+        updateUI(with: diary)
+    }
+    
+    func updateUI(with diary: Diary) {
+        // 設置照片
+        if let photoData = diary.photo {
+            self.photoData = photoData
+            photoImageView.image = UIImage(data: photoData)
+        }
+        // 設置地點類型
+        if let locationType = LocationType(rawValue: diary.locationType!) {
+            locationTypeButton.setTitle("\(locationType.emoji) \(locationType.displayName)", for: .normal)
+        }
+        // 設置日期
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        let dateString = dateFormatter.string(from: diary.date ?? Date())
+        dateLabel.text = "\(dateString) 在 "
+        // 設置地點
+        locationNameLabel.text = diary.locationName
+        // 設置日記內容
+        contentLabel.text = diary.content
+    }
     }
     
         let newDiaryViewController = NewDiaryViewController()
@@ -52,12 +78,6 @@ extension DiaryDetailController {
         configureDateLabel()
         configureLocationNameLabel()
         configureContentLabel()
-        // test
-        photoImageView.image = UIImage(named: "campground")
-        dateLabel.text = "2024/4/17 在 "
-        locationTypeButton.setTitle("🏕️ 營地", for: .normal)
-        locationNameLabel.text = "華中露營地"
-        contentLabel.text = "天氣很好。下次還要來：) 和自己談心：寫日記是一種和自我對話的方式，誠實面對自己的心情，釋放壓力與負能量。讓生活更有意義：讓生活不再過的慵懶，記錄每一天平凡卻重要的事情，幫助自己前往目標的軌道上，找到生活中有意義且快樂的事，獲得成就感。整理一天的思緒：除了與自己獨處，也能提高自我反省、釐清事物的能力，有助於日常的溝通和協調。養成寫日記的習慣，把每一天值得記錄的事情、心情、以及回憶寫下，不管是上班工作的大小事、週末旅行的點滴，還是每天吃飯運動的日常，零碎的小事日日累積，成為每一天記錄生活的儀式感！"
     }
     
     private func configureNavigation() {

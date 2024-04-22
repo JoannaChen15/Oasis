@@ -131,6 +131,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 2:
             if self.diaryListHeaderView.diaryButton.isSelected {
                 let diaryDetailController = DiaryDetailController()
+                let diaryModel = diaryModels[indexPath.row]
+                diaryDetailController.setupWith(diaryModel: diaryModel)
                 navigationController?.pushViewController(diaryDetailController, animated: true)
             } else {
                 return
@@ -139,7 +141,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             break
         }
     }
-    
+
 }
 
 extension ProfileViewController: UserInfoCellDelegate {
