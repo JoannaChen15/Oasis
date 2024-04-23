@@ -23,6 +23,7 @@
 		9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */; };
 		9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */; };
 		9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */; };
+		9E63AAB52BD765770037BC3E /* LocationTypeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */; };
 		9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */; };
 		9E84DE1F2BC3E93F0096F98E /* UIColor+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */; };
 		9E84DE212BC3EC4E0096F98E /* LocationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E84DE202BC3EC4E0096F98E /* LocationType.swift */; };
@@ -85,6 +86,7 @@
 		9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailController.swift; sourceTree = "<group>"; };
 		9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationCell.swift; sourceTree = "<group>"; };
+		9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTypeCellModel.swift; sourceTree = "<group>"; };
 		9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayouts.swift; sourceTree = "<group>"; };
 		9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ext.swift"; sourceTree = "<group>"; };
 		9E84DE202BC3EC4E0096F98E /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = SOURCE_ROOT; };
@@ -249,6 +251,7 @@
 				9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */,
 				9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */,
 				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
+				9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */,
 				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
 				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
 				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
@@ -530,6 +533,7 @@
 				9E5FB2532BCADC750052703B /* ChooseLocationCell.swift in Sources */,
 				9E378B6A2BBB1FA700FCD2AF /* FavoriteButton.swift in Sources */,
 				9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */,
+				9E63AAB52BD765770037BC3E /* LocationTypeCellModel.swift in Sources */,
 				9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */,
 				9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */,
 				9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */,

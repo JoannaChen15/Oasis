@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private var diaryModels = [Diary]()
+    private var locationTypeCellModels = [LocationTypeCellModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,26 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(setupController, animated: true)
     }
     
+    func generateLocationTypeCellModels(diarys: [Diary]) -> [LocationTypeCellModel] {
+        // 計算類別數量
+        var locationTypeCounts = [String: Int]()
+        for diary in diarys {
+            guard let locationType = diary.locationType else { continue }
+            if let count = locationTypeCounts[locationType] {
+                locationTypeCounts[locationType] = count + 1
+            } else {
+                locationTypeCounts[locationType] = 1
+            }
+        }
+        
+        // 產生models
+        var locationTypeCellModels = [LocationTypeCellModel(type: nil, count: diaryModels.count)]
+        for (type, count) in locationTypeCounts {
+            locationTypeCellModels.append(LocationTypeCellModel(type: LocationType(rawValue: type), count: count))
+        }
+        return locationTypeCellModels
+    }
+    
     // Core Data
     
     func getAllDiaries() {
@@ -53,7 +74,9 @@ class ProfileViewController: UIViewController {
         
         do {
             diaryModels = try context.fetch(fetchRequest)
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.locationTypeCellModels = self.generateLocationTypeCellModels(diarys: self.diaryModels)
                 self.collectionView.reloadData()
             }
         } catch {
@@ -70,7 +93,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         case 0 :
             return 1
         case 1 :
-            return 5
+            return locationTypeCellModels.count
         default :
             if self.diaryListHeaderView.diaryButton.isSelected {
                 return diaryModels.count
@@ -93,6 +116,8 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         case 1 :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LocationTypeCell.cellIdentifier, for: indexPath) as? LocationTypeCell else {fatalError("Unable deque cell...")}
+            let locationTypeCellModel = locationTypeCellModels[indexPath.row]
+            cell.setupWith(locationTypeCellModel: locationTypeCellModel)
             return cell
         default :
             if self.diaryListHeaderView.diaryButton.isSelected {

@@ -29,7 +29,13 @@ class LocationTypeCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI(){
+    func setupWith(locationTypeCellModel: LocationTypeCellModel) {
+        emojiLabel.text = "\(locationTypeCellModel.type?.emoji ?? "🌱")"
+        locationTypeLabel.text = "\(locationTypeCellModel.type?.displayName ?? "全部")"
+        countLabel.text = "\(locationTypeCellModel.count)"
+    }
+    
+    private func configureUI(){
         contentView.addSubview(shadowView)
         shadowView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -74,11 +80,6 @@ class LocationTypeCell: UICollectionViewCell {
         }
         countLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
         countLabel.textColor = .primary
-        
-        //test
-        emojiLabel.text = "🏕️"
-        locationTypeLabel.text = "營地"
-        countLabel.text = "2"
     }
-    
+
 }
