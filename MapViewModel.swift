@@ -21,7 +21,9 @@ class MapViewModel {
     private let taipeiCenter = CLLocationCoordinate2D(latitude: 25.0330, longitude: 121.5654)
     
     private(set) var locations = [LocationModel]() {
-        didSet { delegate?.reloadData() }
+        didSet {
+            delegate?.reloadData()
+        }
     }
     
     private(set) var favoriteLocationModels = [LocationModel]()
@@ -37,6 +39,7 @@ class MapViewModel {
             fetchLandmarks(for: type, in: taipeiRegion) { locations in
                 self.delegate?.createAnnotation(locations: locations)
                 self.locations += locations
+                self.getAllFavoriteLocations()
             }
         }
     }
@@ -69,7 +72,7 @@ class MapViewModel {
         }
     }
     
-    func generateFavoriteLocationsModels(with favoriteLocationDatas: [FavoriteLocation]) -> [LocationModel] {
+    private func generateFavoriteLocationsModels(with favoriteLocationDatas: [FavoriteLocation]) -> [LocationModel] {
         var favoriteLocationModels = [LocationModel]()
         for favoriteLocationData in favoriteLocationDatas {
             let location = locations.first { $0.name == favoriteLocationData.name }
@@ -81,7 +84,7 @@ class MapViewModel {
         return favoriteLocationModels
     }
     
-    func updateFavoriteStatusForLocations(with favoriteLocationModels: [LocationModel]) -> [LocationModel] {
+    private func updateFavoriteStatusForLocations(with favoriteLocationModels: [LocationModel]) -> [LocationModel] {
         for favoriteLocation in favoriteLocationModels {
             let location = locations.first { $0.name == favoriteLocation.name }
             location?.favoriteStatus = .selected
