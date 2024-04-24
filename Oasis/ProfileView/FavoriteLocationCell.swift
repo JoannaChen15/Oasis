@@ -25,17 +25,13 @@ class FavoriteLocationCell: UICollectionViewCell {
     
     weak var delegate: FavoriteLocationCellDelegate?
     
-    var favoriteLocation: LocationModel?
+    var cellModel: LocationModel?
     
     // MARK: MAIN -
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
-        
-        //test
-        locationTypeView.setTitle("🏕️ 營地", for: .normal)
-        locationNameLabel.text = "皇后鎮森林金山"
     }
     
     required init?(coder: NSCoder) {
@@ -43,22 +39,21 @@ class FavoriteLocationCell: UICollectionViewCell {
     }
     
     func setupWith(favoriteLocationModel: LocationModel) {
-        favoriteLocation = favoriteLocationModel
+        cellModel = favoriteLocationModel
         locationTypeView.setTitle("\(favoriteLocationModel.type.emoji) \(favoriteLocationModel.type.displayName)", for: .normal)
         locationNameLabel.text = "\(favoriteLocationModel.name)"
         favoriteButton.status = favoriteLocationModel.favoriteStatus
     }
-    
+
     @objc func tapFavoriteButton() {
         // 儲存此筆cell的location
-        guard let favoriteLocation = self.favoriteLocation else { return }
-        // 呼叫delegate執行按下按鈕要做的事
-        delegate?.didTapFavoriteButton(location: favoriteLocation)
+        guard let favoriteLocationModel = cellModel else { return }
+        delegate?.didTapFavoriteButton(location: favoriteLocationModel)
     }
     
     @objc func tapNewDiaryButton() {
-        guard let favoriteLocation = self.favoriteLocation else { return }
-        delegate?.didTapNewDiaryButton(location: favoriteLocation)
+        guard let favoriteLocationModel = cellModel else { return }
+        delegate?.didTapNewDiaryButton(location: favoriteLocationModel)
     }
     
 }
