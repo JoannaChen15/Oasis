@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
     var locations: [LocationModel] {
         mapViewModel.locations
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -144,11 +144,14 @@ extension MapViewController: LocationCellDelegate {
         switch locations[index].favoriteStatus {
         case .unselected:
             locations[index].favoriteStatus = .selected
-            mapViewModel.appendFavoriteLocation(location: location)
+            // 新增CoreData資料
+            mapViewModel.createFavoriteLocation(name: location.name, type: location.type.rawValue)
         case .selected:
             locations[index].favoriteStatus = .unselected
-            mapViewModel.removeFavoriteLocation(location: location)
+            // 刪除CoreData資料
+            mapViewModel.deleteFavoriteLocation(location: location)
         }
+        mapViewModel.getAllFavoriteLocations()
         // 通知collectionView重畫
         locationCollectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
     }

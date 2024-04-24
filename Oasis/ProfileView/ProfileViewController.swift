@@ -21,10 +21,9 @@ class ProfileViewController: UIViewController {
     var locations: [LocationModel] {
         mapViewModel.locations
     }
-        
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var favoriteLocationModels = [LocationModel]()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private var diaryModels = [Diary]()
     private var locationTypeCellModels = [LocationTypeCellModel]()
     
@@ -34,6 +33,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        mapViewModel.getAllFavoriteLocations()
         favoriteLocationModels = mapViewModel.favoriteLocationModels
         getAllDiaries()
     }
@@ -195,7 +195,10 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
         guard let index = locations.firstIndex(of: location) else { return }
         // 改變Location的最愛狀態
         locations[index].favoriteStatus = .unselected
-        mapViewModel.removeFavoriteLocation(location: location)
+        
+        // 刪除CoreData資料
+        mapViewModel.deleteFavoriteLocation(location: location)
+        mapViewModel.getAllFavoriteLocations()
         favoriteLocationModels = mapViewModel.favoriteLocationModels
 
         // 通知collectionView重畫
