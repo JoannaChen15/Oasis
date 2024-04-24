@@ -81,6 +81,14 @@ class MapViewModel {
         return favoriteLocationModels
     }
     
+    func updateFavoriteStatusForLocations(with favoriteLocationModels: [LocationModel]) -> [LocationModel] {
+        for favoriteLocation in favoriteLocationModels {
+            let location = locations.first { $0.name == favoriteLocation.name }
+            location?.favoriteStatus = .selected
+        }
+        return locations
+    }
+    
     // Core Data
         
     func getAllFavoriteLocations() {
@@ -88,6 +96,8 @@ class MapViewModel {
             favoriteLocationDatas = try context.fetch(FavoriteLocation.fetchRequest())
             // 產生models
             favoriteLocationModels = generateFavoriteLocationsModels(with: favoriteLocationDatas)
+            // 更新地點收藏狀態
+            locations = updateFavoriteStatusForLocations(with: favoriteLocationModels)
         } catch {
             // error
         }

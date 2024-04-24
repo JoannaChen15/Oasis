@@ -25,9 +25,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = tabBarController
         
         #if DEBUG
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-            tabBarController.selectedIndex = 1
-        })
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+//            tabBarController.selectedIndex = 2
+//        })
         #endif
     }
 

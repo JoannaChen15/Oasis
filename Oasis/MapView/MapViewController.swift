@@ -40,6 +40,7 @@ class MapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        mapViewModel.getAllFavoriteLocations()
         locationCollectionView.reloadData()
     }
     
