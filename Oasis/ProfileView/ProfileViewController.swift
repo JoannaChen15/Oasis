@@ -21,9 +21,9 @@ class ProfileViewController: UIViewController {
     var locations: [LocationModel] {
         mapViewModel.locations
     }
-    var favoriteLocations = [LocationModel]()
         
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var favoriteLocationModels = [LocationModel]()
     
     private var diaryModels = [Diary]()
     private var locationTypeCellModels = [LocationTypeCellModel]()
@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        favoriteLocations = mapViewModel.favoriteLocations
+        favoriteLocationModels = mapViewModel.favoriteLocationModels
         getAllDiaries()
     }
     
@@ -98,7 +98,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             if self.diaryListHeaderView.diaryButton.isSelected {
                 return diaryModels.count
             } else {
-                return favoriteLocations.count
+                return favoriteLocationModels.count
             }
         }
     }
@@ -127,7 +127,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteLocationCell.cellIdentifier, for: indexPath) as? FavoriteLocationCell else { fatalError("Unable deque cell...") }
-                let favoriteLocationModel = favoriteLocations[indexPath.row]
+                let favoriteLocationModel = favoriteLocationModels[indexPath.row]
                 cell.setupWith(favoriteLocationModel: favoriteLocationModel)
                 cell.delegate = self
                 return cell
@@ -196,7 +196,8 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
         // 改變Location的最愛狀態
         locations[index].favoriteStatus = .unselected
         mapViewModel.removeFavoriteLocation(location: location)
-        favoriteLocations = mapViewModel.favoriteLocations
+        favoriteLocationModels = mapViewModel.favoriteLocationModels
+
         // 通知collectionView重畫
         collectionView.reloadData()
     }
