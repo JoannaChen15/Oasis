@@ -24,7 +24,11 @@ class MapViewModel {
         didSet { delegate?.reloadData() }
     }
     
-    private(set) var favoriteLocations = [LocationModel]()
+    private(set) var favoriteLocationModels = [LocationModel]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private(set) var favoriteLocationDatas = [FavoriteLocation]()
+    
     
     func fetchLandmarksForTypes() {
         locations = []
@@ -65,12 +69,52 @@ class MapViewModel {
         }
     }
     
-    func appendFavoriteLocation(location: LocationModel) {
-        favoriteLocations.append(location)
+    func generateFavoriteLocationsModels(with favoriteLocationDatas: [FavoriteLocation]) -> [LocationModel] {
+        var favoriteLocationModels = [LocationModel]()
+        for favoriteLocationData in favoriteLocationDatas {
+            let location = locations.first { $0.name == favoriteLocationData.name }
+            if let location {
+                location.favoriteStatus = .selected
+                favoriteLocationModels.append(location)
+            }
+        }
+        return favoriteLocationModels
     }
     
-    func removeFavoriteLocation(location: LocationModel) {
-        guard let index = favoriteLocations.firstIndex(of: location) else { return }
-        favoriteLocations.remove(at: index)
+    // Core Data
+        
+    func getAllFavoriteLocations() {
+        do {
+            favoriteLocationDatas = try context.fetch(FavoriteLocation.fetchRequest())
+            // 產生models
+            favoriteLocationModels = generateFavoriteLocationsModels(with: favoriteLocationDatas)
+        } catch {
+            // error
+        }
     }
+    
+    func createFavoriteLocation(name: String, type: String) {
+        let newFavoriteLocation = FavoriteLocation(context: context)
+        newFavoriteLocation.name = name
+        newFavoriteLocation.type = type
+
+        do {
+            try context.save()
+        } catch {
+            // error
+        }
+    }
+    
+    func deleteFavoriteLocation(location: LocationModel) {
+        let favoriteLocationData = favoriteLocationDatas.first { $0.name == location.name }
+        guard let favoriteLocationData else { return }
+        context.delete(favoriteLocationData)
+        
+        do {
+            try context.save()
+        } catch {
+            // error
+        }
+    }
+    
 }

@@ -7,4 +7,8 @@
         <attribute name="locationType" optional="YES" attributeType="String"/>
         <attribute name="photo" optional="YES" attributeType="Binary"/>
     </entity>
+    <entity name="FavoriteLocation" representedClassName="FavoriteLocation" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
 </model>
