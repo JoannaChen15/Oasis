@@ -208,7 +208,7 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
 
 extension ProfileViewController: ChangeListContentDelegate {
     func changeListContent() {
-        getAllDiaries()
+        collectionView.reloadData()
     }
 }
 

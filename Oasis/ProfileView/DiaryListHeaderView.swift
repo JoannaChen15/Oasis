@@ -100,8 +100,8 @@ class DiaryListHeaderView: UICollectionReusableView {
     }
     
     @objc private func buttonTapped(_ sender: UIButton){
-        delegate?.changeListContent()
         viewModel.buttonTapped(type: sender == diaryButton ? .diary : .favorite)
+        delegate?.changeListContent()
     }
     
 }
