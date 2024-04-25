@@ -31,6 +31,8 @@ class NewDiaryViewController: UIViewController {
     private let contentLabel = UILabel()
     private let contentView = UIView()
     private let contentTextView = UITextView()
+    
+    private var textViewBottom: CGFloat = 0
 
     private let constant: CGFloat = 24
     private let buttonHeight: CGFloat = 56
@@ -135,7 +137,13 @@ class NewDiaryViewController: UIViewController {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
             return
         }
-        // 設置 scrollView 的內容偏移量，使文本字段在鍵盤上方可見
+        // 計算scrollView是否需滾動，使textField在鍵盤上方可見
+        let keyboardTop = scrollView.frame.height - keyboardSize.height
+        let distance = textViewBottom - keyboardTop
+        if distance > 0 {
+            scrollView.setContentOffset(CGPoint(x: 0, y: distance + 16), animated: true)
+        }
+        // 設置 scrollView 的內容偏移量
         scrollView.contentInset.bottom = keyboardSize.height
     }
     
@@ -458,6 +466,7 @@ private extension NewDiaryViewController {
         }
         contentTextView.font = UIFont.systemFont(ofSize: 17)
         contentTextView.textColor = .primary
+        contentTextView.delegate = self
     }
 }
 
@@ -480,5 +489,12 @@ extension NewDiaryViewController: UIImagePickerControllerDelegate, UINavigationC
         photoButton.imageView?.contentMode = .scaleAspectFill
         selectedPhoto = pickImage
         dismiss(animated: true)
+    }
+}
+
+extension NewDiaryViewController: UITextViewDelegate {
+    // 計算textView底部位置
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewBottom = (textView.superview?.frame.maxY)!
     }
 }
