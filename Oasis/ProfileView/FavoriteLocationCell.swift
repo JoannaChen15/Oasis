@@ -83,9 +83,9 @@ extension FavoriteLocationCell {
         locationTypeView.setTitleColor(.primary, for: .normal)
         locationTypeView.backgroundColor = .systemGray6
         locationTypeView.layer.cornerRadius = 10
-        locationNameLabel.clipsToBounds = true
+        locationTypeView.clipsToBounds = true
         locationTypeView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(-12)
+            make.top.equalToSuperview().inset(12)
             make.left.equalTo(favoriteButton.snp.right).offset(16)
             make.width.equalTo(68)
             make.height.equalTo(28)
@@ -96,10 +96,11 @@ extension FavoriteLocationCell {
         contentView.addSubview(locationNameLabel)
         locationNameLabel.textColor = .primary
         locationNameLabel.font = UIFont.systemFont(ofSize: 16)
+        locationNameLabel.numberOfLines = 2
         locationNameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview().offset(16)
+            make.top.equalTo(locationTypeView.snp.bottom).offset(6)
             make.left.equalTo(locationTypeView).inset(4)
-            make.bottom.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
         }
     }
     
