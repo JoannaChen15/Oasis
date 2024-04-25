@@ -156,6 +156,7 @@ extension DiaryDetailController {
         photoImageView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.contentLayoutGuide)
             make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.height.equalTo(photoImageView.snp.width).multipliedBy(0.9)
         }
     }

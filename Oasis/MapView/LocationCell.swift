@@ -64,22 +64,24 @@ class LocationCell: UICollectionViewCell {
         shadowView.layer.shadowOpacity = 0.5
         shadowView.layer.shadowRadius = 4
         
+        // 收藏按鈕
+        shadowView.addSubview(favoriteButton)
+        favoriteButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(16)
+            make.right.equalToSuperview().inset(16)
+            make.size.equalTo(24)
+        }
+        favoriteButton.addTarget(self, action: #selector(tapFavoriteButton), for: .touchUpInside)
+        
         // 地點名稱
         shadowView.addSubview(locationNameLabel)
         locationNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.centerX.equalToSuperview()
+            make.centerY.equalTo(favoriteButton.snp.centerY)
+            make.right.lessThanOrEqualTo(favoriteButton.snp.left).offset(-4)
         }
         locationNameLabel.font = UIFont.systemFont(ofSize: 18)
-        
-        // 收藏按鈕
-        shadowView.addSubview(favoriteButton)
-        favoriteButton.snp.makeConstraints { make in
-            make.centerY.equalTo(locationNameLabel.snp.centerY)
-            make.right.equalToSuperview().inset(16)
-            make.size.equalTo(24)
-        }
-        favoriteButton.addTarget(self, action: #selector(tapFavoriteButton), for: .touchUpInside)
         
         // 天氣狀況 mainStackView
         shadowView.addSubview(mainStackView)

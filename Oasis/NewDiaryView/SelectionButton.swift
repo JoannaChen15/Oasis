@@ -46,6 +46,7 @@ class SelectionButton: UIButton {
         addSubview(detailLabel)
         detailLabel.snp.makeConstraints { make in
             make.centerY.equalTo(mainLabel)
+            make.left.greaterThanOrEqualTo(mainLabel.snp.right).offset(16)
             make.right.equalTo(iconImageView.snp.left).offset(-16)
         }
         detailLabel.textColor = .systemGray

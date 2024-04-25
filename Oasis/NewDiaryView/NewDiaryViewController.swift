@@ -436,6 +436,7 @@ private extension NewDiaryViewController {
         let configuration = UIImage.SymbolConfiguration(pointSize: 24)
         let image = UIImage(systemName: "photo", withConfiguration: configuration)
         photoButton.setImage(image, for: .normal)
+        photoButton.imageView?.contentMode = .scaleAspectFill
         photoButton.tintColor = .systemGray2
         photoButton.layer.cornerRadius = 8
         photoButton.clipsToBounds = true

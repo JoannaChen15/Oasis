@@ -88,6 +88,7 @@ class UserInfoCell: UICollectionViewCell {
         userNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview()
+            make.right.equalToSuperview()
         }
         userNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         userNameLabel.textColor = .primary
@@ -97,6 +98,7 @@ class UserInfoCell: UICollectionViewCell {
             make.top.equalTo(userNameLabel.snp.bottom).offset(10)
             make.bottom.equalToSuperview()
             make.left.equalToSuperview()
+            make.right.equalToSuperview()
         }
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
         descriptionLabel.textColor = .primary
