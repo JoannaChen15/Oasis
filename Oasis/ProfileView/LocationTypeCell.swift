@@ -63,7 +63,7 @@ class LocationTypeCell: UICollectionViewCell {
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(emojiView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 32)
+        emojiLabel.font = UIFont.systemFont(ofSize: 28)
         
         contentView.addSubview(locationTypeLabel)
         locationTypeLabel.snp.makeConstraints { make in
@@ -71,14 +71,14 @@ class LocationTypeCell: UICollectionViewCell {
             make.centerX.equalTo(shadowView)
         }
         locationTypeLabel.textColor = .primary
-        locationTypeLabel.font = UIFont.systemFont(ofSize: 17)
+        locationTypeLabel.font = UIFont.systemFont(ofSize: 16)
         
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in
             make.top.equalTo(locationTypeLabel.snp.bottom).offset(2)
             make.centerX.equalTo(shadowView)
         }
-        countLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        countLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         countLabel.textColor = .primary
     }
 

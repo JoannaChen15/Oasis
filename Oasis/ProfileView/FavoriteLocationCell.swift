@@ -109,7 +109,7 @@ extension FavoriteLocationCell {
         newDiaryButton.setTitleColor(.white, for: .normal)
         newDiaryButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         newDiaryButton.backgroundColor = .systemCyan
-        newDiaryButton.layer.cornerRadius = 6
+        newDiaryButton.layer.cornerRadius = 10
         newDiaryButton.addTarget(self, action: #selector(tapNewDiaryButton), for: .touchUpInside)
         newDiaryButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

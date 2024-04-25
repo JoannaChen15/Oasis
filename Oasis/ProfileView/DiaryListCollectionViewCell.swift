@@ -64,7 +64,7 @@ extension DiaryListCollectionViewCell {
         }
         coverImageView.layer.cornerRadius = 20
         coverImageView.clipsToBounds = true
-        coverImageView.backgroundColor = .systemGray6
+        coverImageView.backgroundColor = .systemGray5
         
         // 添加白色半透明的覆蓋層
         let overlayView = UIView()
@@ -82,7 +82,7 @@ extension DiaryListCollectionViewCell {
         emojiLabel.snp.makeConstraints { make in
             make.center.equalTo(coverImageView)
         }
-        emojiLabel.font = UIFont.systemFont(ofSize: 32)
+        emojiLabel.font = UIFont.systemFont(ofSize: 28)
     }
     
     private func configureTimeLine() {
@@ -112,7 +112,7 @@ extension DiaryListCollectionViewCell {
             make.top.equalTo(dateLabel.snp.bottom).offset(6)
             make.left.equalTo(dateLabel.snp.left)
         }
-        locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        locationNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         locationNameLabel.textColor = .primary
         
         contentView.addSubview(contentLabel)
