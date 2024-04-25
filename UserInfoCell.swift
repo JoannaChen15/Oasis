@@ -29,11 +29,6 @@ class UserInfoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
-        
-        //test
-        userNameLabel.text = "Joanna"
-        descriptionLabel.text = "設定你的日記描述"
-        userImageView.setTitle("J", for: .normal)
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +39,41 @@ class UserInfoCell: UICollectionViewCell {
         delegate?.editProfile()
     }
     
-    func configureUI(){
+    func setupWithUserDefaults() {
+        // 使用者名稱
+        let userName = UserDefaults.standard.string(forKey: "userName")
+        if userName == "" {
+            userNameLabel.text = "Hi,"
+        } else {
+            userNameLabel.text = "Hi, \(userName!)"
+        }
+        
+        // 日記描述
+        let diaryDescription = UserDefaults.standard.string(forKey: "diaryDescription")
+        if diaryDescription == "" {
+            descriptionLabel.text = "寫下感受大自然的心情吧 🌱"
+        } else {
+            descriptionLabel.text = diaryDescription
+        }
+        
+        // 頭像文字
+        if let firstChar = userName?.first {
+            let firstCharString = String(firstChar)
+            userImageView.setTitle("\(firstCharString)", for: .normal)
+        } else {
+            userImageView.setTitle("", for: .normal)
+        }
+        
+        // 頭像圖片
+        if let userImageData = UserDefaults.standard.data(forKey: "userImageData") {
+            let userImage = UIImage(data: userImageData)
+            userImageView.setImage(userImage, for: .normal)
+        } else {
+            userImageView.setImage(UIImage(), for: .normal)
+        }
+    }
+        
+    private func configureUI(){
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

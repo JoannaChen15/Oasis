@@ -13,6 +13,7 @@ class ProfileSetupViewController: UIViewController {
     private let navigationBar = UINavigationBar()
     private let imageLabel = UILabel()
     private let imageButton = UIButton()
+    private let deleteImageButton = UIButton()
     private let nameLabel = UILabel()
     private let nameTextField = UITextField()
     private let descriptionLabel = UILabel()
@@ -20,18 +21,18 @@ class ProfileSetupViewController: UIViewController {
     
     private var textFieldBottom: CGFloat = 0
     
+    private var imageData: Data?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setupWithUserDefaults()
         // 添加點擊手勢
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         // 訂閱鍵盤彈出和隱藏的通知
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        // test
-        imageButton.setTitle("J", for: .normal)
-        nameTextField.text = "Joanna"
     }
     
     @objc func hideKeyboard() {
@@ -59,7 +60,14 @@ class ProfileSetupViewController: UIViewController {
     }
     
     @objc func saveAction() {
-        
+        if let imageData {
+            UserDefaults.standard.set(imageData, forKey: "userImageData")
+        } else {
+            UserDefaults.standard.set(nil, forKey: "userImageData")
+        }
+        UserDefaults.standard.set(nameTextField.text, forKey: "userName")
+        UserDefaults.standard.set(descriptionTextField.text, forKey: "diaryDescription")
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @objc func setProfileImage() {
@@ -67,6 +75,46 @@ class ProfileSetupViewController: UIViewController {
         controller.sourceType = .photoLibrary
         controller.delegate = self
         present(controller, animated: true)
+    }
+    
+    @objc func deleteProfileImage() {
+        let controller = UIAlertController(title: "確定移除照片？", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        controller.addAction(cancelAction)
+        let confirmAction = UIAlertAction(title: "移除", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            self.imageButton.setImage(UIImage(), for: .normal)
+            self.imageData = nil
+            self.deleteImageButton.isHidden = true
+        }
+        controller.addAction(confirmAction)
+        present(controller, animated: true)
+    }
+    
+    private func setupWithUserDefaults() {
+        // 使用者名稱
+        let userName = UserDefaults.standard.string(forKey: "userName")
+        nameTextField.text = userName
+        
+        // 日記描述
+        let diaryDescription = UserDefaults.standard.string(forKey: "diaryDescription")
+        descriptionTextField.text = diaryDescription
+        
+        // 頭像文字
+        if let firstChar = userName?.first {
+            let firstCharString = String(firstChar)
+            imageButton.setTitle("\(firstCharString)", for: .normal)
+        }
+        
+        // 頭像圖片
+        if let userImageData = UserDefaults.standard.data(forKey: "userImageData") {
+            let userImage = UIImage(data: userImageData)
+            imageButton.setImage(userImage, for: .normal)
+            deleteImageButton.isHidden = false
+            imageData = userImageData
+        } else {
+            deleteImageButton.isHidden = true
+        }
     }
     
     deinit {
@@ -78,8 +126,10 @@ class ProfileSetupViewController: UIViewController {
 extension ProfileSetupViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let pickImage = info[.originalImage] as? UIImage
-        imageButton.setImage(pickImage, for: .normal)
         imageButton.imageView?.contentMode = .scaleAspectFill
+        imageButton.setImage(pickImage, for: .normal)
+        imageData = imageButton.imageView?.image?.pngData()
+        deleteImageButton.isHidden = false
         dismiss(animated: true)
     }
 }
@@ -158,6 +208,18 @@ extension ProfileSetupViewController {
             make.size.equalTo(160)
         }
         imageButton.addTarget(self, action: #selector(setProfileImage), for: .touchUpInside)
+        
+        scrollView.addSubview(deleteImageButton)
+        deleteImageButton.backgroundColor = .systemGray6
+        deleteImageButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        deleteImageButton.tintColor = .primary
+        deleteImageButton.layer.cornerRadius = 20
+        deleteImageButton.snp.makeConstraints { make in
+            make.top.equalTo(imageButton)
+            make.right.equalTo(imageButton)
+            make.size.equalTo(40)
+        }
+        deleteImageButton.addTarget(self, action: #selector(deleteProfileImage), for: .touchUpInside)
     }
     
     private func configureName() {
@@ -209,7 +271,7 @@ extension ProfileSetupViewController {
         descriptionTextField.font = UIFont.systemFont(ofSize: 18)
         descriptionTextField.layer.cornerRadius = 8
         descriptionTextField.clipsToBounds = true
-        descriptionTextField.placeholder = "例：這是一本簡單的小日記"
+        descriptionTextField.placeholder = "例：寫下感受大自然的心情吧 🌱"
         // 創建左側視圖
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0)) // 左側間距為10
         descriptionTextField.leftView = leftView

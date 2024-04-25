@@ -112,6 +112,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
             
         case 0 :
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserInfoCell.cellIdentifier, for: indexPath) as? UserInfoCell else {fatalError("Unable deque cell...")}
+            cell.setupWithUserDefaults()
             cell.delegate = self
             return cell
         case 1 :
