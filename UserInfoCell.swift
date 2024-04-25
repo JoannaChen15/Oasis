@@ -42,18 +42,22 @@ class UserInfoCell: UICollectionViewCell {
     func setupWithUserDefaults() {
         // 使用者名稱
         let userName = UserDefaults.standard.string(forKey: "userName")
-        if userName == "" {
-            userNameLabel.text = "Hi,"
+        if let userName {
+            userNameLabel.text = "Hi, \(userName)"
         } else {
-            userNameLabel.text = "Hi, \(userName!)"
+            userNameLabel.text = "Hi,"
         }
         
         // 日記描述
         let diaryDescription = UserDefaults.standard.string(forKey: "diaryDescription")
-        if diaryDescription == "" {
-            descriptionLabel.text = "寫下感受大自然的心情吧 🌱"
+        if let diaryDescription {
+            if diaryDescription == "" {
+                descriptionLabel.text = "寫下感受大自然的心情吧 🌱"
+            } else {
+                descriptionLabel.text = diaryDescription
+            }
         } else {
-            descriptionLabel.text = diaryDescription
+            descriptionLabel.text = "寫下感受大自然的心情吧 🌱"
         }
         
         // 頭像文字
