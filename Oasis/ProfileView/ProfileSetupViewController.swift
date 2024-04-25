@@ -22,6 +22,8 @@ class ProfileSetupViewController: UIViewController {
     private var textFieldBottom: CGFloat = 0
     
     private var imageData: Data?
+    private var userName: String?
+    private var diaryDescription: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,14 +62,29 @@ class ProfileSetupViewController: UIViewController {
     }
     
     @objc func saveAction() {
-        if let imageData {
-            UserDefaults.standard.set(imageData, forKey: "userImageData")
+        if let userImageData = imageButton.imageView?.image?.pngData() {
+            UserDefaults.standard.set(userImageData, forKey: "userImageData")
         } else {
             UserDefaults.standard.set(nil, forKey: "userImageData")
         }
         UserDefaults.standard.set(nameTextField.text, forKey: "userName")
         UserDefaults.standard.set(descriptionTextField.text, forKey: "diaryDescription")
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @objc func backButtonTapped() {
+        guard imageData == nil, userName == nil, diaryDescription == nil else {
+            let controller = UIAlertController(title: "放棄更改內容？", message: nil, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+            controller.addAction(cancelAction)
+            let confirmAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
+            controller.addAction(confirmAction)
+            present(controller, animated: true)
+            return
+        }
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func setProfileImage() {
@@ -84,7 +101,8 @@ class ProfileSetupViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "移除", style: .destructive) { [weak self] _ in
             guard let self else { return }
             self.imageButton.setImage(UIImage(), for: .normal)
-            self.imageData = nil
+            self.imageButton.imageView?.image = nil
+            self.imageData = Data()
             self.deleteImageButton.isHidden = true
         }
         controller.addAction(confirmAction)
@@ -111,7 +129,6 @@ class ProfileSetupViewController: UIViewController {
             let userImage = UIImage(data: userImageData)
             imageButton.setImage(userImage, for: .normal)
             deleteImageButton.isHidden = false
-            imageData = userImageData
         } else {
             deleteImageButton.isHidden = true
         }
@@ -143,6 +160,24 @@ extension ProfileSetupViewController: UITextFieldDelegate {
     // 計算textField底部位置
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textFieldBottom = textField.frame.maxY
+        // 開始編輯時紀錄原始文字
+        userName = nameTextField.text
+        diaryDescription = descriptionTextField.text
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // 結束編輯時比較文字是否變化
+        if nameTextField.text != userName {
+            userName = ""
+        } else {
+            userName = nil
+        }
+        
+        if descriptionTextField.text != diaryDescription {
+            diaryDescription = ""
+        } else {
+            diaryDescription = nil
+        }
     }
 }
 
@@ -176,6 +211,10 @@ extension ProfileSetupViewController {
         // 添加右側按鈕
         let saveButton = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(saveAction))
         navigationItem.rightBarButtonItem = saveButton
+        // 自定義返回按鈕
+        let backButtonImage = UIImage(systemName: "chevron.left")
+        let backButton = UIBarButtonItem(title: "個人檔案", image: backButtonImage, target: self, action: #selector(backButtonTapped))
+        navigationItem.leftBarButtonItem = backButton
     }
     
     private func configureScrollView() {
