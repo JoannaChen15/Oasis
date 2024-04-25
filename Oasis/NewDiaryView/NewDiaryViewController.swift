@@ -145,11 +145,19 @@ class NewDiaryViewController: UIViewController {
     }
 
     @objc func doneAction() {
-        guard let selectedType,
-              let selectedLocation else { return }
-        self.createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
-        diaryListDelegate?.updateDiaryList()
-        dismiss(animated: true)
+        // 填寫完畢
+        if let selectedType,
+           let selectedLocation {
+            createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
+            diaryListDelegate?.updateDiaryList()
+            dismiss(animated: true)
+        } else {
+            // 未填寫完畢
+            let controller = UIAlertController(title: "尚未填寫完畢", message: "請選擇類型及地點", preferredStyle: .alert)
+            let continueAction = UIAlertAction(title: "好", style: .default)
+            controller.addAction(continueAction)
+            present(controller, animated: true)
+        }
     }
     
     @objc func doneEdit() {
