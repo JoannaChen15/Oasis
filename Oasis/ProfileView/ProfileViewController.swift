@@ -150,7 +150,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offestY = scrollView.contentOffset.y
-        if abs(offestY) > 282 {
+        if abs(offestY) > 248 {
             diaryListHeaderView.isHidden = false
         } else {
             diaryListHeaderView.isHidden = true
