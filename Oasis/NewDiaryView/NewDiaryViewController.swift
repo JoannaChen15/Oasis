@@ -17,6 +17,10 @@ protocol DiaryDetailDelegate: AnyObject {
     func updateDiaryDetail(with diary: Diary)
 }
 
+protocol DiaryCompletionDelegate: AnyObject {
+    func goToDiaryList()
+}
+
 class NewDiaryViewController: UIViewController {
 
     private let scrollView = UIScrollView()
@@ -44,8 +48,9 @@ class NewDiaryViewController: UIViewController {
     var selectedPhoto: UIImage?
         
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var diaryListDelegate: DiaryListDelegate?
-    var diaryDetailDelegate: DiaryDetailDelegate?
+    weak var diaryListDelegate: DiaryListDelegate?
+    weak var diaryDetailDelegate: DiaryDetailDelegate?
+    weak var doneButtonDelegate: DiaryCompletionDelegate?
     
     var favoriteLocation: LocationModel?
     var diary: Diary?
@@ -158,6 +163,7 @@ class NewDiaryViewController: UIViewController {
            let selectedLocation {
             createDiary(locationName: selectedLocation, locationType: selectedType.rawValue, date: selectedDate ?? Date(), photo: selectedPhoto?.pngData(), content: contentTextView.text ?? "")
             diaryListDelegate?.updateDiaryList()
+            doneButtonDelegate?.goToDiaryList()
             dismiss(animated: true)
         } else {
             // 未填寫完畢

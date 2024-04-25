@@ -51,6 +51,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         if viewController is NewDiaryViewController {
             let newDiaryViewController = NewDiaryViewController()
             newDiaryViewController.diaryListDelegate = profileViewController
+            newDiaryViewController.doneButtonDelegate = self
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
             present(newDiaryViewNavigation, animated: true, completion: nil)
@@ -58,5 +59,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         return true
     }
-    
+}
+
+extension TabBarController: DiaryCompletionDelegate {
+    func goToDiaryList() {
+        selectedIndex = 2
+        profileViewController.diaryListHeaderView.viewModel.buttonTapped(type: .diary)
+    }
 }

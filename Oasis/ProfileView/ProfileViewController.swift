@@ -186,6 +186,7 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
     func didTapNewDiaryButton(location: LocationModel) {
         let newDiaryViewController = NewDiaryViewController()
         newDiaryViewController.favoriteLocation = location
+        newDiaryViewController.doneButtonDelegate = self
         let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
         newDiaryViewNavigation.modalPresentationStyle = .fullScreen
         present(newDiaryViewNavigation, animated: true, completion: nil)
@@ -293,5 +294,11 @@ extension ProfileViewController {
 extension ProfileViewController: DiaryListDelegate {
     func updateDiaryList() {
         getAllDiaries()
+    }
+}
+
+extension ProfileViewController: DiaryCompletionDelegate {
+    func goToDiaryList() {
+        diaryListHeaderView.viewModel.buttonTapped(type: .diary)
     }
 }
