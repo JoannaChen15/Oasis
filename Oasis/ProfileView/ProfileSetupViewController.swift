@@ -15,8 +15,10 @@ class ProfileSetupViewController: UIViewController {
     private let imageButton = UIButton()
     private let deleteImageButton = UIButton()
     private let nameLabel = UILabel()
+    private let nameLabelDetail = UILabel()
     private let nameTextField = UITextField()
     private let descriptionLabel = UILabel()
+    private let descriptionLabelDetail = UILabel()
     private let descriptionTextField = UITextField()
     
     private var textFieldBottom: CGFloat = 0
@@ -179,6 +181,21 @@ extension ProfileSetupViewController: UITextFieldDelegate {
             diaryDescription = nil
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 獲取當前文本長度
+        guard let text = textField.text else { return true }
+        let currentLength = text.count + string.count - range.length
+        var maxLength = 15 // 最大字符數
+        if textField === descriptionTextField {
+            maxLength = 18
+        }
+        // 檢查是否超過最大字符數
+        if currentLength > maxLength {
+            return false // 返回 false 表示不允許輸入更多字符
+        }
+        return true // 允許輸入更多字符
+    }
 }
 
 extension ProfileSetupViewController {
@@ -271,6 +288,15 @@ extension ProfileSetupViewController {
             make.left.equalToSuperview().inset(24)
         }
         
+        scrollView.addSubview(nameLabelDetail)
+        nameLabelDetail.text = "(最多可輸入15個字)"
+        nameLabelDetail.textColor = .primary
+        nameLabelDetail.font = UIFont.systemFont(ofSize: 15)
+        nameLabelDetail.snp.makeConstraints { make in
+            make.centerY.equalTo(nameLabel)
+            make.left.equalTo(nameLabel.snp.right).offset(4)
+        }
+        
         scrollView.addSubview(nameTextField)
         nameTextField.backgroundColor = .systemGray6
         nameTextField.textColor = .primary
@@ -302,6 +328,15 @@ extension ProfileSetupViewController {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(nameTextField.snp.bottom).offset(24)
             make.left.equalToSuperview().inset(24)
+        }
+        
+        scrollView.addSubview(descriptionLabelDetail)
+        descriptionLabelDetail.text = "(最多可輸入18個字)"
+        descriptionLabelDetail.textColor = .primary
+        descriptionLabelDetail.font = UIFont.systemFont(ofSize: 15)
+        descriptionLabelDetail.snp.makeConstraints { make in
+            make.centerY.equalTo(descriptionLabel)
+            make.left.equalTo(descriptionLabel.snp.right).offset(4)
         }
         
         scrollView.addSubview(descriptionTextField)
