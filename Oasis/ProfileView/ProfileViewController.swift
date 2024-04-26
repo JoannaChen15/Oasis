@@ -204,7 +204,16 @@ extension ProfileViewController: FavoriteLocationCellDelegate {
         favoriteLocationModels = mapViewModel.favoriteLocationModels
 
         // 通知collectionView重畫
-        collectionView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.7) {
+            self.collectionView.reloadData()
+        }
+        
+        // 彈出移除通知
+        let toastView = ToastView()
+        toastView.label.text = "移除 \(location.name)"
+        toastView.label.textColor = .white
+        view.addSubview(toastView)
+        toastView.showMessage()
     }
 }
 

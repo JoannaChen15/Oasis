@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		671193DD72EAAF684745B6AE /* Pods_Oasis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D9EAB7366EDB93F32147B /* Pods_Oasis.framework */; };
 		922432AEBA280A6BAEB1F637 /* Pods_Oasis_OasisUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F619E57482188E4AE47673D /* Pods_Oasis_OasisUITests.framework */; };
+		9E05FCD82BDB7F5600AC9DA0 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */; };
 		9E2D96642BBA6B8C005EEC7D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */; };
 		9E2D96662BBA6D53005EEC7D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D96652BBA6D53005EEC7D /* MapViewController.swift */; };
 		9E2D96682BBA6EEC005EEC7D /* NewDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */; };
@@ -72,6 +73,7 @@
 		7871F8CB0758D090BC0AA6B8 /* Pods_OasisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OasisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F619E57482188E4AE47673D /* Pods_Oasis_OasisUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oasis_OasisUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94A6FAB871DD8F149A8CC8DC /* Pods-OasisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OasisTests.debug.xcconfig"; path = "Target Support Files/Pods-OasisTests/Pods-OasisTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToastView.swift; path = Oasis/ToastView.swift; sourceTree = SOURCE_ROOT; };
 		9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E2D96652BBA6D53005EEC7D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDiaryViewController.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
 				9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */,
 				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
+				9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 			files = (
 				9EFF49262BBC1AA80071FFCF /* NetworkManager.swift in Sources */,
 				9E2D966A2BBA71D6005EEC7D /* TabBarController.swift in Sources */,
+				9E05FCD82BDB7F5600AC9DA0 /* ToastView.swift in Sources */,
 				9EF341702BB987550073FF0E /* ViewController.swift in Sources */,
 				9E2D96662BBA6D53005EEC7D /* MapViewController.swift in Sources */,
 				9EFF492D2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift in Sources */,
