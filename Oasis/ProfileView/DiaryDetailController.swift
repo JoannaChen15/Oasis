@@ -34,19 +34,21 @@ class DiaryDetailController: UIViewController {
     @objc func tapEditButton() {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let editAction = UIAlertAction(title: "編輯", style: .default) { [weak self] _ in
+            guard let self else { return }
             let newDiaryViewController = NewDiaryViewController()
-            newDiaryViewController.diary = self?.diary
+            newDiaryViewController.diary = self.diary
             newDiaryViewController.diaryDetailDelegate = self
             
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
-            self?.present(newDiaryViewNavigation, animated: true, completion: nil)
+            self.navigationController?.pushViewController(newDiaryViewController, animated: true)
         }
         controller.addAction(editAction)
         
         let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
-            self?.deleteDiary(diary: (self?.diary)!)
-            self?.navigationController?.popToRootViewController(animated: true)
+            guard let self else { return }
+            self.deleteDiary(diary: self.diary)
+            self.navigationController?.popToRootViewController(animated: true)
         }
         controller.addAction(deleteAction)
         

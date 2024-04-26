@@ -86,6 +86,7 @@ class NewDiaryViewController: UIViewController {
     
     func updateWithDiary() {
         guard let diary else { return }
+        self.diary = diary
         // 設置地點及類型
         if let locationType = LocationType(rawValue: diary.locationType!) {
             typeButton.detailLabel.text = locationType.displayName
@@ -182,7 +183,7 @@ class NewDiaryViewController: UIViewController {
         updateDiary(diary: diary, newLocationName: selectedLocation, newLocationType: selectedType.rawValue, newDate: selectedDate, newPhoto: selectedPhoto?.pngData(), newContent: contentTextView.text ?? "")
         diaryDetailDelegate?.updateDiaryDetail(with: diary)
         diaryListDelegate?.updateDiaryList()
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     // Core Data
@@ -219,8 +220,13 @@ class NewDiaryViewController: UIViewController {
             let controller = UIAlertController(title: "放棄編輯內容", message: "確定要放棄編輯並離開？", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "取消", style: .cancel)
             controller.addAction(cancelAction)
-            let confirmAction = UIAlertAction(title: "離開", style: .destructive) { _ in
-                self.dismiss(animated: true)
+            let confirmAction = UIAlertAction(title: "離開", style: .destructive) { [weak self] _ in
+                guard let self else { return }
+                if self.diary == nil {
+                    self.dismiss(animated: true)
+                } else {
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
             controller.addAction(confirmAction)
             present(controller, animated: true)
