@@ -67,6 +67,8 @@ class DiaryDetailController: UIViewController {
         if let photoData = diary.photo {
             self.photoData = photoData
             photoImageView.image = UIImage(data: photoData)
+        } else {
+            photoData = nil
         }
         // 設置地點類型
         if let locationType = LocationType(rawValue: diary.locationType!) {

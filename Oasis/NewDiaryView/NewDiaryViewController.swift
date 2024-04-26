@@ -30,8 +30,12 @@ class NewDiaryViewController: UIViewController {
     private let typeButton = SelectionButton()
     private let locationButton = SelectionButton()
     private let dateButton = SelectionButton()
+    
+    private let photoView = UIView()
     private let photoLabel = UILabel()
     private let photoButton = UIButton()
+    private let deletePhotoButton = UIButton()
+
     private let contentLabel = UILabel()
     private let contentView = UIView()
     private let contentTextView = UITextView()
@@ -106,6 +110,7 @@ class NewDiaryViewController: UIViewController {
         if let photoData = diary.photo {
             let photoImage = UIImage(data: photoData)
             photoButton.setImage(photoImage, for: .normal)
+            deletePhotoButton.isHidden = false
             selectedPhoto = photoImage
         }
         //設置日記內容
@@ -282,6 +287,22 @@ class NewDiaryViewController: UIViewController {
         present(controller, animated: true)
     }
     
+    @objc func deletePhoto() {
+        let controller = UIAlertController(title: "確定移除照片？", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        controller.addAction(cancelAction)
+        let confirmAction = UIAlertAction(title: "移除", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            let configuration = UIImage.SymbolConfiguration(pointSize: 24)
+            let image = UIImage(systemName: "photo", withConfiguration: configuration)
+            self.photoButton.setImage(image, for: .normal)
+            self.selectedPhoto = nil
+            self.deletePhotoButton.isHidden = true
+        }
+        controller.addAction(confirmAction)
+        present(controller, animated: true)
+    }
+    
     // 選擇地點類型時呼叫的函式
     func handleChooseLocationType(index: Int, type: String) {
         typeButton.detailLabel.text = type
@@ -329,11 +350,8 @@ private extension NewDiaryViewController {
         stackView.addArrangedSubview(dateButton)
         configDateButton()
 
-        stackView.addArrangedSubview(photoLabel)
-        configPhotoLabel()
-
-        stackView.addArrangedSubview(photoButton)
-        configPhotoButton()
+        stackView.addArrangedSubview(photoView)
+        configPhotoView()
 
         stackView.addArrangedSubview(contentLabel)
         configContentLabel()
@@ -430,18 +448,32 @@ private extension NewDiaryViewController {
         dateButton.mainLabel.text = "日期"
         dateButton.addTarget(self, action: #selector(chooseTime), for: .touchUpInside)
     }
-
+    
+    func configPhotoView() {
+        photoView.snp.makeConstraints { make in
+            make.height.equalTo(138)
+            make.width.equalToSuperview()
+        }
+        configPhotoLabel()
+        configPhotoButton()
+        configDeletePhotoButton()
+    }
+    
     func configPhotoLabel() {
+        photoView.addSubview(photoLabel)
         photoLabel.text = "選擇照片"
         photoLabel.textColor = .primary
         photoLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         photoLabel.snp.makeConstraints { make in
-            make.height.equalTo(18)
+            make.top.left.equalToSuperview()
         }
     }
 
     func configPhotoButton() {
+        photoView.addSubview(photoButton)
         photoButton.snp.makeConstraints { make in
+            make.top.equalTo(photoLabel.snp.bottom).offset(16)
+            make.left.equalToSuperview()
             make.size.equalTo(100)
         }
         photoButton.backgroundColor = .systemBackground
@@ -453,6 +485,22 @@ private extension NewDiaryViewController {
         photoButton.layer.cornerRadius = 8
         photoButton.clipsToBounds = true
         photoButton.addTarget(self, action: #selector(choosePhoto), for: .touchUpInside)
+    }
+    
+    func configDeletePhotoButton() {
+        photoView.addSubview(deletePhotoButton)
+        
+        deletePhotoButton.backgroundColor = .systemBackground
+        deletePhotoButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+        deletePhotoButton.tintColor = .primary
+        deletePhotoButton.layer.cornerRadius = 16
+        deletePhotoButton.snp.makeConstraints { make in
+            make.top.equalTo(photoButton).offset(-10)
+            make.right.equalTo(photoButton).offset(10)
+            make.size.equalTo(32)
+        }
+        deletePhotoButton.isHidden = true
+        deletePhotoButton.addTarget(self, action: #selector(deletePhoto), for: .touchUpInside)
     }
 
     func configContentLabel() {
@@ -501,6 +549,7 @@ extension NewDiaryViewController: UIImagePickerControllerDelegate, UINavigationC
         photoButton.setImage(pickImage, for: .normal)
         photoButton.imageView?.contentMode = .scaleAspectFill
         selectedPhoto = pickImage
+        deletePhotoButton.isHidden = false
         dismiss(animated: true)
     }
 }

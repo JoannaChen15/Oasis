@@ -272,8 +272,7 @@ extension ProfileSetupViewController {
         deleteImageButton.tintColor = .primary
         deleteImageButton.layer.cornerRadius = 20
         deleteImageButton.snp.makeConstraints { make in
-            make.top.equalTo(imageButton)
-            make.right.equalTo(imageButton)
+            make.top.right.equalTo(imageButton)
             make.size.equalTo(40)
         }
         deleteImageButton.addTarget(self, action: #selector(deleteProfileImage), for: .touchUpInside)
