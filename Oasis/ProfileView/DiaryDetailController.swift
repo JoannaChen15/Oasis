@@ -24,7 +24,11 @@ class DiaryDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        handleNoPhotoData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        handlePhotoData()
     }
     
     @objc func tapEditButton() {
@@ -77,17 +81,26 @@ class DiaryDetailController: UIViewController {
         contentLabel.text = diary.content
     }
     
-    func handleNoPhotoData() {
-        guard photoData == nil else { return }
-        photoImageView.removeFromSuperview()
-        locationTypeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.left.equalToSuperview().inset(16)
-            make.width.equalTo(76)
-            make.height.equalTo(32)
+    func handlePhotoData() {
+        if let photoData {
+            photoImageView.isHidden = false
+            photoImageView.image = UIImage(data: photoData)
+            photoImageView.snp.makeConstraints { make in
+                make.top.equalTo(scrollView.contentLayoutGuide)
+                make.width.equalToSuperview()
+                make.centerX.equalToSuperview()
+                make.height.equalTo(photoImageView.snp.width).multipliedBy(0.9)
+            }
+        } else {
+            photoImageView.isHidden = true
+            photoImageView.snp.remakeConstraints { make in
+                make.top.equalTo(scrollView.contentLayoutGuide)
+                make.size.equalTo(0)
+                make.centerX.equalToSuperview()
+            }
         }
     }
-    
+        
     // Core Data
     
     func deleteDiary(diary: Diary) {
