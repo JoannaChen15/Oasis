@@ -20,7 +20,7 @@ class UserInfoCell: UICollectionViewCell {
     private let userView = UIView()
     private let userNameLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let userImageView = UIButton()
+    private let userImageButton = UIButton()
     
     weak var delegate: UserInfoCellDelegate?
     
@@ -63,17 +63,17 @@ class UserInfoCell: UICollectionViewCell {
         // 頭像文字
         if let firstChar = userName?.first {
             let firstCharString = String(firstChar)
-            userImageView.setTitle("\(firstCharString)", for: .normal)
+            userImageButton.setTitle("\(firstCharString)", for: .normal)
         } else {
-            userImageView.setTitle("", for: .normal)
+            userImageButton.setTitle("", for: .normal)
         }
         
         // 頭像圖片
         if let userImageData = UserDefaults.standard.data(forKey: "userImageData") {
             let userImage = UIImage(data: userImageData)
-            userImageView.setImage(userImage, for: .normal)
+            userImageButton.setImage(userImage, for: .normal)
         } else {
-            userImageView.setImage(UIImage(), for: .normal)
+            userImageButton.setImage(UIImage(), for: .normal)
         }
     }
         
@@ -94,7 +94,7 @@ class UserInfoCell: UICollectionViewCell {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
-        userNameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        userNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         userNameLabel.textColor = .primary
         
         userView.addSubview(descriptionLabel)
@@ -107,15 +107,16 @@ class UserInfoCell: UICollectionViewCell {
         descriptionLabel.font = UIFont.systemFont(ofSize: 16)
         descriptionLabel.textColor = .primary
         
-        stackView.addArrangedSubview(userImageView)
-        userImageView.snp.makeConstraints { make in
+        stackView.addArrangedSubview(userImageButton)
+        userImageButton.snp.makeConstraints { make in
             make.size.equalTo(60)
         }
-        userImageView.backgroundColor = .tintColor
-        userImageView.layer.cornerRadius = 30
-        userImageView.clipsToBounds = true
-        userImageView.titleLabel?.font = UIFont.systemFont(ofSize: 28)
-        userImageView.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
+        userImageButton.backgroundColor = .tintColor
+        userImageButton.imageView?.contentMode = .scaleAspectFill
+        userImageButton.layer.cornerRadius = 30
+        userImageButton.clipsToBounds = true
+        userImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 28)
+        userImageButton.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
     }
     
 }

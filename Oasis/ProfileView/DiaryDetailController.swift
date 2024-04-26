@@ -188,10 +188,12 @@ extension DiaryDetailController {
     private func configureLocationNameLabel() {
         scrollView.addSubview(locationNameLabel)
         locationNameLabel.textColor = .primary
-        locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        locationNameLabel.numberOfLines = 0
         locationNameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(dateLabel)
+            make.top.equalTo(dateLabel)
             make.left.equalTo(dateLabel.snp.right)
+            make.right.equalTo(scrollView.frameLayoutGuide).inset(16)
         }
     }
     

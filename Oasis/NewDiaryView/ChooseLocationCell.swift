@@ -45,9 +45,12 @@ extension ChooseLocationCell {
         locationNameLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalTo(iconLabel.snp.right).offset(16)
+            make.right.lessThanOrEqualToSuperview().inset(16)
         }
         locationNameLabel.textColor = .primary
         locationNameLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        locationNameLabel.adjustsFontSizeToFitWidth = true // 開啟自動縮小字體大小
+        locationNameLabel.minimumScaleFactor = 0.9 // 設置最小比例為0.9
         locationNameLabel.textColor = .primary
     }
 }

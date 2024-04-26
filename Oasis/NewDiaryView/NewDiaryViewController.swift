@@ -179,7 +179,7 @@ class NewDiaryViewController: UIViewController {
               let selectedType,
               let selectedLocation,
               let selectedDate else { return }
-        self.updateDiary(diary: diary, newLocationName: selectedLocation, newLocationType: selectedType.rawValue, newDate: selectedDate, newPhoto: selectedPhoto?.pngData(), newContent: contentTextView.text ?? "")
+        updateDiary(diary: diary, newLocationName: selectedLocation, newLocationType: selectedType.rawValue, newDate: selectedDate, newPhoto: selectedPhoto?.pngData(), newContent: contentTextView.text ?? "")
         diaryDetailDelegate?.updateDiaryDetail(with: diary)
         diaryListDelegate?.updateDiaryList()
         dismiss(animated: true)
@@ -239,7 +239,7 @@ class NewDiaryViewController: UIViewController {
         let controller = ChooseLocationController()
         //未選擇地點類型時
         guard let selectedType else {
-            let controller = UIAlertController(title: "請先選擇地點類型 😉", message: "", preferredStyle: .alert)
+            let controller = UIAlertController(title: "請先選擇地點類型 😉", message: nil, preferredStyle: .alert)
             let continueAction = UIAlertAction(title: "好", style: .default) { _ in
                 //跳轉至選擇地點類型頁面
                 let controller = ChooseLocationTypeController()

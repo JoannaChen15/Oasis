@@ -255,6 +255,7 @@ extension ProfileSetupViewController {
         
         scrollView.addSubview(imageButton)
         imageButton.backgroundColor = .tintColor
+        imageButton.imageView?.contentMode = .scaleAspectFill
         imageButton.layer.cornerRadius = 80
         imageButton.clipsToBounds = true
         imageButton.titleLabel?.font = UIFont.systemFont(ofSize: 80)

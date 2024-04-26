@@ -62,6 +62,7 @@ extension DiaryListCollectionViewCell {
             make.left.equalToSuperview().inset(16)
             make.size.equalTo(68)
         }
+        coverImageView.contentMode = .scaleAspectFill
         coverImageView.layer.cornerRadius = 20
         coverImageView.clipsToBounds = true
         coverImageView.backgroundColor = .systemGray5
