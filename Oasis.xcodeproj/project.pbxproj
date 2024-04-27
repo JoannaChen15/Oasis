@@ -21,7 +21,7 @@
 		9E5FB2532BCADC750052703B /* ChooseLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2522BCADC750052703B /* ChooseLocationCell.swift */; };
 		9E5FB2552BCC15D50052703B /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2542BCC15D50052703B /* MapViewModel.swift */; };
 		9E5FB2572BCCFF0F0052703B /* ChooseDateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */; };
-		9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */; };
+		9E5FB25B2BCE828E0052703B /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25A2BCE828E0052703B /* DiaryDetailViewController.swift */; };
 		9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */; };
 		9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */; };
 		9E63AAB52BD765770037BC3E /* LocationTypeCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */; };
@@ -73,7 +73,7 @@
 		7871F8CB0758D090BC0AA6B8 /* Pods_OasisTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OasisTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F619E57482188E4AE47673D /* Pods_Oasis_OasisUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Oasis_OasisUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94A6FAB871DD8F149A8CC8DC /* Pods-OasisTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OasisTests.debug.xcconfig"; path = "Target Support Files/Pods-OasisTests/Pods-OasisTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToastView.swift; path = Oasis/ToastView.swift; sourceTree = SOURCE_ROOT; };
+		9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToastView.swift; path = Oasis/ProfileView/FavoriteList/ToastView.swift; sourceTree = SOURCE_ROOT; };
 		9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E2D96652BBA6D53005EEC7D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		9E2D96672BBA6EEC005EEC7D /* NewDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewDiaryViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		9E5FB2522BCADC750052703B /* ChooseLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationCell.swift; sourceTree = "<group>"; };
 		9E5FB2542BCC15D50052703B /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = SOURCE_ROOT; };
 		9E5FB2562BCCFF0F0052703B /* ChooseDateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseDateController.swift; sourceTree = "<group>"; };
-		9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailController.swift; sourceTree = "<group>"; };
+		9E5FB25A2BCE828E0052703B /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
 		9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLocationCell.swift; sourceTree = "<group>"; };
 		9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTypeCellModel.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ext.swift"; sourceTree = "<group>"; };
 		9E84DE202BC3EC4E0096F98E /* LocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationType.swift; sourceTree = SOURCE_ROOT; };
 		9E84DE222BC42F560096F98E /* LocationTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTypeCell.swift; sourceTree = "<group>"; };
-		9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = SOURCE_ROOT; };
+		9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserInfoCell.swift; path = Oasis/ProfileView/UserInfo/UserInfoCell.swift; sourceTree = SOURCE_ROOT; };
 		9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListHeaderView.swift; sourceTree = "<group>"; };
 		9EAEB5452BC68B0600EA648C /* SelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionButton.swift; sourceTree = "<group>"; };
 		9EAEB5472BC944F600EA648C /* ChooseLocationTypeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationTypeController.swift; sourceTree = "<group>"; };
@@ -231,6 +231,50 @@
 			path = OasisUITests;
 			sourceTree = "<group>";
 		};
+		9EFF05832BDD0E910070B5F2 /* ListHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
+			);
+			path = ListHeaderView;
+			sourceTree = "<group>";
+		};
+		9EFF05842BDD0F1B0070B5F2 /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
+				9E5FB25A2BCE828E0052703B /* DiaryDetailViewController.swift */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		9EFF05852BDD0F3D0070B5F2 /* FavoriteList */ = {
+			isa = PBXGroup;
+			children = (
+				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
+				9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */,
+			);
+			path = FavoriteList;
+			sourceTree = "<group>";
+		};
+		9EFF05862BDD0F7B0070B5F2 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */,
+				9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		9EFF05872BDD0F8E0070B5F2 /* DiaryStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
+				9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */,
+			);
+			path = DiaryStatistics;
+			sourceTree = "<group>";
+		};
 		9EFF49292BBD43010071FFCF /* MapView */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,8 +282,8 @@
 				9E2D96652BBA6D53005EEC7D /* MapViewController.swift */,
 				9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */,
 				9E378B672BBAD19F00FCD2AF /* LocationCell.swift */,
-				9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */,
 				9E38C30B2BBA9FAD00B1D875 /* LocationModel.swift */,
+				9E378B692BBB1FA700FCD2AF /* FavoriteButton.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -249,15 +293,11 @@
 			children = (
 				9E84DE1C2BC2B41E0096F98E /* AppLayouts.swift */,
 				9E2D96632BBA6B8C005EEC7D /* ProfileViewController.swift */,
-				9E84DE242BC44D7B0096F98E /* UserInfoCell.swift */,
-				9E5FB25C2BCFBF3E0052703B /* ProfileSetupViewController.swift */,
-				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
-				9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */,
-				9E84DE262BC50D760096F98E /* DiaryListHeaderView.swift */,
-				9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */,
-				9E5FB25A2BCE828E0052703B /* DiaryDetailController.swift */,
-				9E63AAA92BD03F110037BC3E /* FavoriteLocationCell.swift */,
-				9E05FCD72BDB7F5600AC9DA0 /* ToastView.swift */,
+				9EFF05862BDD0F7B0070B5F2 /* UserInfo */,
+				9EFF05872BDD0F8E0070B5F2 /* DiaryStatistics */,
+				9EFF05832BDD0E910070B5F2 /* ListHeaderView */,
+				9EFF05842BDD0F1B0070B5F2 /* DiaryList */,
+				9EFF05852BDD0F3D0070B5F2 /* FavoriteList */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -539,7 +579,7 @@
 				9E84DE1D2BC2B41E0096F98E /* AppLayouts.swift in Sources */,
 				9E63AAB52BD765770037BC3E /* LocationTypeCellModel.swift in Sources */,
 				9E5FB25D2BCFBF3E0052703B /* ProfileSetupViewController.swift in Sources */,
-				9E5FB25B2BCE828E0052703B /* DiaryDetailController.swift in Sources */,
+				9E5FB25B2BCE828E0052703B /* DiaryDetailViewController.swift in Sources */,
 				9EAEB5462BC68B0600EA648C /* SelectionButton.swift in Sources */,
 				9E63AAAA2BD03F110037BC3E /* FavoriteLocationCell.swift in Sources */,
 				9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */,

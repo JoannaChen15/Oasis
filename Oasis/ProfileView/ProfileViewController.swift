@@ -161,10 +161,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         switch indexPath.section {
         case 2:
             if self.diaryListHeaderView.diaryButton.isSelected {
-                let diaryDetailController = DiaryDetailController()
+                let diaryDetailViewController = DiaryDetailViewController()
                 let diaryModel = diaryModels[indexPath.row]
-                diaryDetailController.setupWith(diaryModel: diaryModel)
-                navigationController?.pushViewController(diaryDetailController, animated: true)
+                diaryDetailViewController.setupWith(diaryModel: diaryModel)
+                navigationController?.pushViewController(diaryDetailViewController, animated: true)
             } else {
                 return
             }

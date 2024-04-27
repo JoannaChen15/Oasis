@@ -1,5 +1,5 @@
 //
-//  DiaryDetailController.swift
+//  DiaryDetailViewController.swift
 //  Oasis
 //
 //  Created by joanna on 2024/4/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DiaryDetailController: UIViewController {
+class DiaryDetailViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let photoImageView = UIImageView()
@@ -118,13 +118,13 @@ class DiaryDetailController: UIViewController {
     
 }
 
-extension DiaryDetailController: DiaryDetailDelegate {
+extension DiaryDetailViewController: DiaryDetailDelegate {
     func updateDiaryDetail(with diary: Diary) {
         updateUI(with: diary)
     }
 }
 
-extension DiaryDetailController {
+extension DiaryDetailViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         configureNavigation()
