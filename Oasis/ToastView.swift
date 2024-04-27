@@ -34,35 +34,31 @@ class ToastView: UIView {
         }
     }
 
-    func showMessage() {
+    func showMessage(_ message: String) {
+        label.text = message
+
         // 將視圖添加到窗口上
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             if let window = windowScene.windows.first {
-                // 計算初始和最終 frame
-                let toastWidth: CGFloat = window.bounds.width - 64 // 寬度減去兩側的邊距
-                let initialFrame = CGRect(x: window.bounds.midX - toastWidth/2,
-                                          y: window.bounds.maxY, // 初始位置在屏幕底部
-                                          width: toastWidth,
-                                          height: 50)
-                
-                let finalFrame = CGRect(x: window.bounds.midX - toastWidth/2,
-                                        y: window.bounds.maxY - 140, // 目標位置往上偏移 140 點
-                                        width: toastWidth,
-                                        height: 50)
-                
-                // 將視圖添加到窗口上，並設置初始位置
-                frame = initialFrame
+                // 設定視圖大小
+                frame = CGRect(x: 0, y: 0, width: window.bounds.width - 64, height: 50)
+                // 計算初始和最終位置
+                let initialPoint = CGPoint(x: window.bounds.midX, y: window.bounds.maxY)
+                let finalPoint = CGPoint(x: window.bounds.midX, y: window.bounds.maxY - 120)
+                // 設定初始位置
+                center = initialPoint
+                // 將視圖添加到窗口上
                 window.addSubview(self)
                 window.bringSubviewToFront(self)
                 
                 // 設置顯示動畫
-                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
-                    self.frame = finalFrame
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                    self.center = finalPoint
                 }) { _ in
                     // 延遲一段時間後再執行隱藏動畫
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
-                            self.frame = initialFrame
+                            self.center = initialPoint
                         }) { _ in
                             // 隱藏後移除視圖
                             self.removeFromSuperview()
