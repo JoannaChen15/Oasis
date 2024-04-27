@@ -159,6 +159,10 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
+        case 1:
+            let chartViewController = ChartViewController()
+            chartViewController.setupWith(datas: locationTypeCellModels)
+            navigationController?.pushViewController(chartViewController, animated: true)
         case 2:
             if self.diaryListHeaderView.diaryButton.isSelected {
                 let diaryDetailViewController = DiaryDetailViewController()

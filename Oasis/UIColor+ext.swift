@@ -33,11 +33,23 @@ extension UIColor {
     class var primary: UIColor {
         return UIColor { (traitCollection) -> UIColor in
             if traitCollection.userInterfaceStyle == .dark {
-                return UIColor.tintColor
+                return UIColor.lightGray
             } else {
                 return UIColor(hex: "#4B5674")!
             }
         }
+    }
+    
+    class var lightBlue: UIColor {
+        return UIColor(hex: "#90C6FA")!
+    }
+    
+    class var lightPink: UIColor {
+        return UIColor(hex: "#F2A987")!
+    }
+    
+    class var lightYellow: UIColor {
+        return UIColor(hex: "#F8D68C")!
     }
     
 }

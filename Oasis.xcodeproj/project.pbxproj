@@ -43,6 +43,7 @@
 		9EF341862BB987590073FF0E /* OasisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF341852BB987590073FF0E /* OasisTests.swift */; };
 		9EF341902BB9875A0073FF0E /* OasisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3418F2BB9875A0073FF0E /* OasisUITests.swift */; };
 		9EF341922BB9875A0073FF0E /* OasisUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF341912BB9875A0073FF0E /* OasisUITestsLaunchTests.swift */; };
+		9EFF05822BDD046C0070B5F2 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF05812BDD046C0070B5F2 /* ChartViewController.swift */; };
 		9EFF49262BBC1AA80071FFCF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */; };
 		9EFF49282BBC435D0071FFCF /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */; };
 		9EFF492D2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */; };
@@ -111,6 +112,7 @@
 		9EF3418B2BB9875A0073FF0E /* OasisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OasisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF3418F2BB9875A0073FF0E /* OasisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OasisUITests.swift; sourceTree = "<group>"; };
 		9EF341912BB9875A0073FF0E /* OasisUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OasisUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9EFF05812BDD046C0070B5F2 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChartViewController.swift; path = Oasis/ProfileView/DiaryStatistics/ChartViewController.swift; sourceTree = SOURCE_ROOT; };
 		9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9EFF49272BBC435D0071FFCF /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		9EFF492C2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			children = (
 				9E84DE222BC42F560096F98E /* LocationTypeCell.swift */,
 				9E63AAB42BD765770037BC3E /* LocationTypeCellModel.swift */,
+				9EFF05812BDD046C0070B5F2 /* ChartViewController.swift */,
 			);
 			path = DiaryStatistics;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				9E2D96662BBA6D53005EEC7D /* MapViewController.swift in Sources */,
 				9EFF492D2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift in Sources */,
 				9E2D96682BBA6EEC005EEC7D /* NewDiaryViewController.swift in Sources */,
+				9EFF05822BDD046C0070B5F2 /* ChartViewController.swift in Sources */,
 				9E84DE272BC50D760096F98E /* DiaryListHeaderView.swift in Sources */,
 				9EFF49282BBC435D0071FFCF /* WeatherResponse.swift in Sources */,
 				9E38C30C2BBA9FAD00B1D875 /* LocationModel.swift in Sources */,
