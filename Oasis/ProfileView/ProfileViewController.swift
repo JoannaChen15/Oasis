@@ -30,12 +30,13 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        getAllDiaries()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         mapViewModel.getAllFavoriteLocations()
         favoriteLocationModels = mapViewModel.favoriteLocationModels
-        getAllDiaries()
+        collectionView.reloadData()
     }
     
     @objc func settings() {
@@ -168,6 +169,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
                 let diaryDetailViewController = DiaryDetailViewController()
                 let diaryModel = diaryModels[indexPath.row]
                 diaryDetailViewController.setupWith(diaryModel: diaryModel)
+                diaryDetailViewController.delegate = self
                 navigationController?.pushViewController(diaryDetailViewController, animated: true)
             } else {
                 return

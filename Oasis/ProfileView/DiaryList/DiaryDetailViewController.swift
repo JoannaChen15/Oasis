@@ -19,6 +19,8 @@ class DiaryDetailViewController: UIViewController {
     var diary: Diary!
     var photoData: Data?
     
+    weak var delegate: DiaryListDelegate?
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -38,6 +40,7 @@ class DiaryDetailViewController: UIViewController {
             let newDiaryViewController = NewDiaryViewController()
             newDiaryViewController.diary = self.diary
             newDiaryViewController.diaryDetailDelegate = self
+            newDiaryViewController.diaryListDelegate = self.delegate
             
             let newDiaryViewNavigation = UINavigationController(rootViewController: newDiaryViewController)
             newDiaryViewNavigation.modalPresentationStyle = .fullScreen
