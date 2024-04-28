@@ -155,7 +155,7 @@ extension DiaryDetailViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
 
-        navigationItem.title = "日記"
+        navigationItem.title = "日記內容"
         // 添加右側按鈕
         let editButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(tapEditButton))
         navigationItem.rightBarButtonItem = editButton

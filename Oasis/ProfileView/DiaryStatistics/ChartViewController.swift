@@ -90,7 +90,7 @@ class ChartViewController: UIViewController {
     
     private func configureChartLabel() {
         view.addSubview(chartTitleLabel)
-        chartTitleLabel.text = "已建立的日記"
+        chartTitleLabel.text = "我去過的地方"
         chartTitleLabel.textColor = .primary
         chartTitleLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         chartTitleLabel.snp.makeConstraints { make in
@@ -129,6 +129,13 @@ class ChartViewController: UIViewController {
             percentageLayer.lineWidth = lineWidth
             percentageLayer.fillColor = UIColor.clear.cgColor
             chartContainerView.layer.addSublayer(percentageLayer)
+            
+            // 設置動畫
+            let animation = CABasicAnimation(keyPath: "strokeEnd")
+            animation.fromValue = 0
+            animation.toValue = 1
+            animation.duration = 0.3 // 動畫持續時間（以秒為單位）
+            percentageLayer.add(animation, forKey: "strokeEndAnimation")
             
             // 設置種類圖示
             guard let emoji = datas?[index + 1].type?.emoji else { return }

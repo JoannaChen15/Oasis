@@ -224,7 +224,7 @@ extension ProfileSetupViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
 
-        navigationItem.title = "編輯"
+        navigationItem.title = "設定"
         // 添加右側按鈕
         let saveButton = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(saveAction))
         navigationItem.rightBarButtonItem = saveButton
