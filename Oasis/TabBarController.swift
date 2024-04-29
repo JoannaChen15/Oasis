@@ -19,6 +19,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         configureViewControllers()
         self.delegate = self
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let welcomePageViewController = WelcomePageViewController()
+        let welcomePageNavigation = UINavigationController(rootViewController: welcomePageViewController)
+        welcomePageNavigation.modalPresentationStyle = .fullScreen
+        present(welcomePageNavigation, animated: true)
+    }
         
     func configureTabBarAppearance() {
         let tabBarAppearance = UITabBarAppearance()
