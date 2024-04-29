@@ -311,6 +311,6 @@ extension ProfileViewController: DiaryListDelegate {
 
 extension ProfileViewController: DiaryCompletionDelegate {
     func goToDiaryList() {
-        diaryListHeaderView.viewModel.buttonTapped(type: .diary)
+        diaryListHeaderView.viewModel?.buttonTapped(type: .diary)
     }
 }

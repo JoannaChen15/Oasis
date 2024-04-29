@@ -20,7 +20,7 @@ class DiaryListHeaderView: UICollectionReusableView {
     
     static let headerIdentifier = "DiaryListHeaderView"
     weak var delegate: ChangeListContentDelegate?
-    var viewModel: DiaryListHeaderViewModel!
+    var viewModel: DiaryListHeaderViewModel?
     
     //MARK: Properities
     private let stackView = UIStackView()
@@ -100,7 +100,7 @@ class DiaryListHeaderView: UICollectionReusableView {
     }
     
     @objc private func buttonTapped(_ sender: UIButton){
-        viewModel.buttonTapped(type: sender == diaryButton ? .diary : .favorite)
+        viewModel?.buttonTapped(type: sender == diaryButton ? .diary : .favorite)
         delegate?.changeListContent()
     }
     

@@ -77,6 +77,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 extension TabBarController: DiaryCompletionDelegate {
     func goToDiaryList() {
         selectedIndex = 2
-        profileViewController.diaryListHeaderView.viewModel.buttonTapped(type: .diary)
+        profileViewController.diaryListHeaderView.viewModel?.buttonTapped(type: .diary)
     }
 }
