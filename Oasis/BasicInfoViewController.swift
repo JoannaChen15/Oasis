@@ -29,11 +29,16 @@ class BasicInfoViewController: UIViewController {
     }
     
     @objc func finishAction() {
+        // 儲存UserDefaults
         if let userImageData = imageButton.imageView?.image?.pngData() {
             UserDefaults.standard.set(userImageData, forKey: "userImageData")
         }
         UserDefaults.standard.set(nameTextField.text, forKey: "userName")
-        navigationController?.dismiss(animated: true)
+        
+        // present tabBarController
+        let tabBarController = TabBarController()
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false)
     }
     
     @objc func setProfileImage() {

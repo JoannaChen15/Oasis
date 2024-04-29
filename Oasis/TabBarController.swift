@@ -13,26 +13,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let newDiaryViewController = NewDiaryViewController()
     let profileViewController = ProfileViewController()
     
-    private var isFirstTimeAppLaunch: Bool = true
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTabBarAppearance()
         configureViewControllers()
         self.delegate = self
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if isFirstTimeAppLaunch {
-            let welcomePageViewController = WelcomePageViewController()
-            let welcomePageNavigation = UINavigationController(rootViewController: welcomePageViewController)
-            welcomePageNavigation.modalPresentationStyle = .fullScreen
-            present(welcomePageNavigation, animated: true)
-            isFirstTimeAppLaunch = false
-        }
-    }
-        
+
     func configureTabBarAppearance() {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.backgroundColor = .systemBackground
