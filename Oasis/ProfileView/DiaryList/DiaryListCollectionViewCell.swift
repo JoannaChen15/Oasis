@@ -112,6 +112,7 @@ extension DiaryListCollectionViewCell {
         locationNameLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(6)
             make.left.equalTo(dateLabel.snp.left)
+            make.right.equalToSuperview().inset(16)
         }
         locationNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         locationNameLabel.textColor = .primary
