@@ -12,6 +12,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let mapViewController = MapViewController()
     let newDiaryViewController = NewDiaryViewController()
     let profileViewController = ProfileViewController()
+    
+    private var isFirstTimeAppLaunch: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,10 +24,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let welcomePageViewController = WelcomePageViewController()
-        let welcomePageNavigation = UINavigationController(rootViewController: welcomePageViewController)
-        welcomePageNavigation.modalPresentationStyle = .fullScreen
-        present(welcomePageNavigation, animated: true)
+        if isFirstTimeAppLaunch {
+            let welcomePageViewController = WelcomePageViewController()
+            let welcomePageNavigation = UINavigationController(rootViewController: welcomePageViewController)
+            welcomePageNavigation.modalPresentationStyle = .fullScreen
+            present(welcomePageNavigation, animated: true)
+            isFirstTimeAppLaunch = false
+        }
     }
         
     func configureTabBarAppearance() {
