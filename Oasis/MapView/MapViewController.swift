@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController {
 
@@ -75,7 +76,7 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        guard let firstAnnotation = mapView.annotations.first else { return }
+        guard let firstAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) else { return }
         if hasSelectFirstAnnotation { return }
         // 選取第一個地標
         mapView.selectAnnotation(firstAnnotation, animated: true)
@@ -85,6 +86,11 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_: MKMapView, didSelect view: MKAnnotationView) {
+        // 取消選取使用者位置
+        if view.annotation is MKUserLocation {
+            mapView.deselectAnnotation(view.annotation, animated: false)
+        }
+        
         // 選取地標點切換顯示的LocationCell
         guard let annotation = view.annotation else { return }
         guard let index = locations.firstIndex(where: { $0.name == annotation.title }) else { return }
@@ -187,7 +193,11 @@ extension MapViewController {
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         mapView.delegate = self
-//        mapView.showsUserLocation = true
+        
+        // 取得定位權限
+        let locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
+        mapView.showsUserLocation = true
     }
     
     private func configureLocationContainerView() {
