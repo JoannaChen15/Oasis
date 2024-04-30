@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Photos
+import AVFoundation
 
 class BasicInfoViewController: UIViewController {
     
@@ -43,27 +45,103 @@ class BasicInfoViewController: UIViewController {
     
     @objc func setProfileImage() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // 照片圖庫
+        let photoLibraryAction = UIAlertAction(title: "照片圖庫", style: .default) { [weak self] _ in
+            guard let self else { return }
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .authorized, .limited:
+                self.presentPhotoLibrary()
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization { status in
+                    if status == .authorized {
+                        self.presentPhotoLibrary()
+                    }
+                }
+            case .denied, .restricted:
+                self.presentPhotoLibraryAlert()
+            @unknown default:
+                break
+            }
+        }
+        
         // 相機
         let cameraAction = UIAlertAction(title: "相機", style: .default) { [weak self] _ in
+            guard let self else { return }
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized:
+                self.presentCamera()
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { [weak self] success in
+                    guard let self else { return }
+                    guard success == true else { return }
+                    self.presentCamera()
+                }
+            case .denied, .restricted:
+                self.presentCameraAlert()
+            @unknown default:
+                break
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(photoLibraryAction)
+        alert.addAction(cameraAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    func presentCamera() {
+        DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             let controller = UIImagePickerController()
             controller.sourceType = .camera
             controller.delegate = self
             self.present(controller, animated: true)
         }
-        // 相簿
-        let libraryAction = UIAlertAction(title: "相簿", style: .default) { [weak self] _ in
+    }
+
+    func presentCameraAlert() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let alertController = UIAlertController (title: "未開啟相機權限", message: "請前往設定以允許訪問相機", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "設定", style: .default) { _ in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(settingsUrl) {                         UIApplication.shared.open(settingsUrl)
+                }
+            }
+            alertController.addAction(settingsAction)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func presentPhotoLibrary() {
+        DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             let controller = UIImagePickerController()
             controller.sourceType = .photoLibrary
             controller.delegate = self
             self.present(controller, animated: true)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(cameraAction)
-        alert.addAction(libraryAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
+    }
+
+    func presentPhotoLibraryAlert() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let alertController = UIAlertController (title: "照片圖庫無取用權限", message: "請前往設定以允許訪問照片圖庫", preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "設定", style: .default) { _ in
+                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else { return }
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl)
+                }
+            }
+            alertController.addAction(settingsAction)
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
 }

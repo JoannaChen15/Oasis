@@ -777,6 +777,8 @@
 				DEVELOPMENT_TEAM = H684NQZS4N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Oasis/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "拍攝照片用於個人檔案";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "從相簿選擇照片添加到日記及個人檔案";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -806,6 +808,8 @@
 				DEVELOPMENT_TEAM = H684NQZS4N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Oasis/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "拍攝照片用於個人檔案";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "從相簿選擇照片添加到日記及個人檔案";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
