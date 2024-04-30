@@ -37,7 +37,6 @@
 		9EE9CC012BDF87F1005D2C0D /* BasicInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE9CC002BDF87F1005D2C0D /* BasicInfoViewController.swift */; };
 		9EF3416C2BB987550073FF0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416B2BB987550073FF0E /* AppDelegate.swift */; };
 		9EF3416E2BB987550073FF0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416D2BB987550073FF0E /* SceneDelegate.swift */; };
-		9EF341702BB987550073FF0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF3416F2BB987550073FF0E /* ViewController.swift */; };
 		9EF341732BB987550073FF0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF341712BB987550073FF0E /* Main.storyboard */; };
 		9EF341762BB987550073FF0E /* Oasis.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EF341742BB987550073FF0E /* Oasis.xcdatamodeld */; };
 		9EF341782BB987590073FF0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EF341772BB987590073FF0E /* Assets.xcassets */; };
@@ -105,7 +104,6 @@
 		9EF341682BB987550073FF0E /* Oasis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oasis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF3416B2BB987550073FF0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EF3416D2BB987550073FF0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9EF3416F2BB987550073FF0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9EF341722BB987550073FF0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EF341752BB987550073FF0E /* Oasis.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Oasis.xcdatamodel; sourceTree = "<group>"; };
 		9EF341772BB987590073FF0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -163,6 +161,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9E42B2B72BE0DCD3001BA3DE /* welcomePage */ = {
+			isa = PBXGroup;
+			children = (
+				9E44D0322BDE4594009543A3 /* WelcomePageViewController.swift */,
+				9EE9CC002BDF87F1005D2C0D /* BasicInfoViewController.swift */,
+			);
+			path = welcomePage;
+			sourceTree = "<group>";
+		};
 		9EAEB5442BC67B2200EA648C /* NewDiaryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,13 +210,11 @@
 			children = (
 				9EF3416B2BB987550073FF0E /* AppDelegate.swift */,
 				9EF3416D2BB987550073FF0E /* SceneDelegate.swift */,
-				9EF3416F2BB987550073FF0E /* ViewController.swift */,
 				9E2D96692BBA71D6005EEC7D /* TabBarController.swift */,
-				9E44D0322BDE4594009543A3 /* WelcomePageViewController.swift */,
-				9EE9CC002BDF87F1005D2C0D /* BasicInfoViewController.swift */,
 				9EFF49252BBC1AA80071FFCF /* NetworkManager.swift */,
 				9E84DE202BC3EC4E0096F98E /* LocationType.swift */,
 				9E84DE1E2BC3E93E0096F98E /* UIColor+ext.swift */,
+				9E42B2B72BE0DCD3001BA3DE /* welcomePage */,
 				9EFF49292BBD43010071FFCF /* MapView */,
 				9EAEB5442BC67B2200EA648C /* NewDiaryView */,
 				9EFF492E2BBEF4300071FFCF /* ProfileView */,
@@ -566,7 +571,6 @@
 				9EFF49262BBC1AA80071FFCF /* NetworkManager.swift in Sources */,
 				9E2D966A2BBA71D6005EEC7D /* TabBarController.swift in Sources */,
 				9E05FCD82BDB7F5600AC9DA0 /* ToastView.swift in Sources */,
-				9EF341702BB987550073FF0E /* ViewController.swift in Sources */,
 				9E2D96662BBA6D53005EEC7D /* MapViewController.swift in Sources */,
 				9EFF492D2BBEF4260071FFCF /* DiaryListCollectionViewCell.swift in Sources */,
 				9E2D96682BBA6EEC005EEC7D /* NewDiaryViewController.swift in Sources */,
