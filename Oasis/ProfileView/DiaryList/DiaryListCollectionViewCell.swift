@@ -104,7 +104,7 @@ extension DiaryListCollectionViewCell {
             make.left.equalTo(coverImageView.snp.right).offset(10)
         }
         dateLabel.textColor = .systemGray
-        dateLabel.font = UIFont.systemFont(ofSize: 15)
+        dateLabel.font = UIFont.systemFont(ofSize: 14)
     }
 
     private func configureLocationNameLabel() {
@@ -116,34 +116,6 @@ extension DiaryListCollectionViewCell {
         }
         locationNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         locationNameLabel.textColor = .primary
-        
-        contentView.addSubview(contentLabel)
-        contentLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(24)
-            make.left.equalTo(dateLabel.snp.left)
-            make.right.equalToSuperview().inset(16)
-        }
-        contentLabel.textColor = .primary
-        contentLabel.font = UIFont.systemFont(ofSize: 15)
-        contentLabel.lineBreakMode = .byTruncatingTail // 末尾截斷，並顯示省略號
-        // 創建屬性字串
-        let attributedString = NSMutableAttributedString(string: contentLabel.text ?? "")
-        // 設置段落樣式，包括上下間距
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 6 // 上下間距
-        let range = NSRange(location: 0, length: attributedString.length)
-        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: range)
-        // 將屬性字串設置給UILabel
-        contentLabel.attributedText = attributedString
-        
-        contentView.addSubview(underLine)
-        underLine.backgroundColor = .systemGray6
-        underLine.snp.makeConstraints { make in
-            make.left.equalTo(dateLabel)
-            make.bottom.equalToSuperview().inset(4)
-            make.right.equalToSuperview().inset(16)
-            make.height.equalTo(1)
-        }
     }
 
     private func configureContentLabel() {

@@ -231,6 +231,18 @@ extension ProfileViewController: ChangeListContentDelegate {
     }
 }
 
+extension ProfileViewController: DiaryListDelegate {
+    func updateDiaryList() {
+        getAllDiaries()
+    }
+}
+
+extension ProfileViewController: DiaryCompletionDelegate {
+    func goToDiaryList() {
+        diaryListHeaderView.viewModel?.buttonTapped(type: .diary)
+    }
+}
+
 extension ProfileViewController {
     private func configureUI() {
         configureNavigation()
@@ -308,14 +320,3 @@ extension ProfileViewController {
     }
 }
 
-extension ProfileViewController: DiaryListDelegate {
-    func updateDiaryList() {
-        getAllDiaries()
-    }
-}
-
-extension ProfileViewController: DiaryCompletionDelegate {
-    func goToDiaryList() {
-        diaryListHeaderView.viewModel?.buttonTapped(type: .diary)
-    }
-}
