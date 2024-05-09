@@ -1,4 +1,5 @@
 # Oasis
+<img src="Oasis/Assets.xcassets/AppIcon.appiconset/oasis.png" alt="oasis 台北探秘日記" width="200" height="200">
 
 Oasis 找到你的心靈綠洲<br>
 在繁忙的生活中為自己安排探秘小旅行，透過探索戶外自然景點，放鬆身心，感受大自然的美好<br>
