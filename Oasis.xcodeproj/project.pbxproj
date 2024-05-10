@@ -781,6 +781,7 @@
 				DEVELOPMENT_TEAM = H684NQZS4N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Oasis/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Oasis;
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍攝照片用於個人檔案";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "顯示你在地圖上的位置";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "從相簿選擇照片添加到日記及個人檔案";
@@ -813,6 +814,7 @@
 				DEVELOPMENT_TEAM = H684NQZS4N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Oasis/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Oasis;
 				INFOPLIST_KEY_NSCameraUsageDescription = "拍攝照片用於個人檔案";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "顯示你在地圖上的位置";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "從相簿選擇照片添加到日記及個人檔案";
