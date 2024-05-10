@@ -12,7 +12,7 @@ enum LocationType: String, CaseIterable {
     case beach
     case hiking
     case park
-    //    case mountains
+
     var emoji: String {
         switch self {
         case .campground:
