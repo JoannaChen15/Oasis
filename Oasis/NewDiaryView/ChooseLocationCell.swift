@@ -40,6 +40,7 @@ extension ChooseLocationCell {
             make.centerY.equalToSuperview()
         }
         iconLabel.font = UIFont.systemFont(ofSize: 28)
+        iconLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         
         contentView.addSubview(locationNameLabel)
         locationNameLabel.snp.makeConstraints { make in
