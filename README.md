@@ -6,6 +6,10 @@ Oasis 找到你的心靈綠洲<br>
 在這裡你可以寫日記抒發心情，隨意的文字，純粹的紀錄生活，拋開社群互動壓力，留下旅行中的回憶點滴
 <br><br>
 
+## App Store Download Link
+[在 App Store 下载 Oasis](https://apps.apple.com/tw/app/oasis-%E5%8F%B0%E5%8C%97%E6%8E%A2%E7%A7%98%E6%97%A5%E8%A8%98/id6502046106)
+<br><br>
+
 ## Features
 
 ### 探索地圖
