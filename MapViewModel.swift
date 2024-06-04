@@ -29,18 +29,29 @@ class MapViewModel {
     private(set) var favoriteLocationModels = [LocationModel]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    private(set) var favoriteLocationDatas = [FavoriteLocation]()
+    private(set) lazy var favoriteLocationDatas: [FavoriteLocation]! = {
+        try? context.fetch(FavoriteLocation.fetchRequest())
+    }()
     
     
     func fetchLandmarksForTypes() {
         locations = []
         let taipeiRegion = MKCoordinateRegion(center: taipeiCenter, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        let dispatchGroup = DispatchGroup()
+        var allLocations = [LocationModel]()
+        
         for type in LocationType.allCases {
+            dispatchGroup.enter()
             fetchLandmarks(for: type, in: taipeiRegion) { locations in
-                self.delegate?.createAnnotation(locations: locations)
-                self.locations += locations
-                self.getAllFavoriteLocations()
+                allLocations += locations
+                dispatchGroup.leave()
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            guard let self else { return }
+            self.locations = allLocations.map(self.markFavoriteLocation(location:))
+            self.delegate?.createAnnotation(locations: self.locations)
         }
     }
     
@@ -92,12 +103,19 @@ class MapViewModel {
         return locations
     }
     
+    private func markFavoriteLocation(location: LocationModel) -> LocationModel {
+        if favoriteLocationDatas.map({ $0.name }).contains(location.name) {
+            location.favoriteStatus = .selected
+        }
+        return location
+    }
+    
     // Core Data
         
     func getAllFavoriteLocations() {
         do {
             favoriteLocationDatas = try context.fetch(FavoriteLocation.fetchRequest())
-            // 產生models
+            // 更新models
             favoriteLocationModels = generateFavoriteLocationsModels(with: favoriteLocationDatas)
             // 更新地點收藏狀態
             locations = updateFavoriteStatusForLocations(with: favoriteLocationModels)
